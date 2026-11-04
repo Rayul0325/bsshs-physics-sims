@@ -2,11 +2,14 @@
 
 ## 목록 사이트 (`site/`)
 
-- `node site/build-site.mjs [--out dist] [--thumbs] [--exclude id,id] [--allow-missing]`
+- `node site/build-site.mjs [--out dist] [--thumbs] [--exclude id,id] [--no-drawer id,id] [--allow-missing]`
+  - **시작할 때 시험 범위 id마다 어댑터(`adapter.mjs`·`drawer.json`), 사례(`cases.json`), 수업 내용(`data/lessons/<id>.json`)이 다 있는지 확인합니다(사양 2.3).** 하나라도 없으면 아무것도 쓰기 전에 멈추고, 빠진 것을 **한꺼번에 전부** 출력합니다(`drawer/inject.mjs`의 `assertExamComplete`).
+  - 「새 시뮬레이션」은 `sims/` 아래 폴더(`listNewSimIds`)로 정합니다. verify와 같은 정의입니다.
   - `build/bsshs-theme/<id>/<id>_ko.html`(학교판 빌드)을 모아 `<out>/sims/<id>.html`로 복사합니다. 시험 범위 14개는 이때 수업 서랍을 넣습니다(`tools/inject-drawer.mjs`).
   - `--thumbs`: 시뮬레이션마다 첫 화면을 찍어 `<out>/thumbs/<id>.png`로 씁니다(크기는 `theme/tokens.json`의 `site.thumbWidth/thumbHeight`).
   - 글꼴은 `<out>/fonts/`에 같은 사이트 파일로 넣습니다(외부 CDN 없음). OFL 라이선스 파일도 함께 복사합니다.
   - 빌드가 없는 시뮬레이션이 있으면 멈춥니다. 물리 검사에 실패한 새 시뮬레이션처럼 일부러 뺄 때는 `--exclude`를 씁니다.
+  - `--no-drawer id,id`: 시험 범위 시뮬레이션을 수업 서랍 없이(테마 빌드 그대로) 공개합니다. 물리 검사에 실패한 PhET 시뮬레이션에 verify가 씁니다(사양 3.5).
 - 순서: 맨 위 「기말 시험 범위」(14개, 확인 배지) → `data/units.json` 단원 순서 → 「기타」.
 - 제목: PhET 63개는 `data/titles.json`(용어 교정 반영), 새 시뮬레이션 5개는 빌드된 HTML의 `<title>`.
 - 디자인 값: `site/site.css`는 `--bsshs-*`(토큰 전체)와 `--site-*`(`tokens.site`)만 씁니다. 화면 폭 기준(600px, 1600px)도 `tokens.breakpoint`에서 채웁니다.

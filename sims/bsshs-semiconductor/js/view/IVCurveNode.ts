@@ -80,7 +80,7 @@ export default class IVCurveNode extends Node {
       ( is, vt, n, vs, vd, id, leftPattern, rightPattern, voltPattern ) => {
         const pts: Vector2[] = [];
         for ( let v = X_RANGE.min; v <= X_RANGE.max + 1e-9; v += 0.0025 ) {
-          const iMa = is * Math.expm1( v / ( n * vt ) ) * 1e3;
+          const iMa = JunctionModel.shockleyCurrent( v, is, n, vt ) * 1e3;
           if ( iMa > Y_RANGE.max * 2 ) { pts.push( new Vector2( v, Y_RANGE.max * 2 ) ); break; }
           pts.push( new Vector2( v, iMa ) );
         }

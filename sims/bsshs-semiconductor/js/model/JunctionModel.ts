@@ -176,6 +176,14 @@ export default class JunctionModel implements TModel {
   }
 
   /**
+   * Shockley diode current I = I_s (e^{V/(n V_T)} − 1) for a voltage V across the junction (A).
+   * The single place this equation lives: `solve` and the I–V curve in the view both call it.
+   */
+  public static shockleyCurrent( v: number, saturationCurrent: number, idealityFactor: number, thermalVoltage: number ): number {
+    return saturationCurrent * Math.expm1( v / ( idealityFactor * thermalVoltage ) );
+  }
+
+  /**
    * Diode voltage V_D of the series circuit V_s = V_D + R·I_s(e^{V_D/a} − 1), a = n V_T, by bisection.
    * The left side grows monotonically with V_D, and the root lies between 0 and V_s.
    */
@@ -206,7 +214,7 @@ export default class JunctionModel implements TModel {
                ( p.electronDiffusionRate / naM + p.holeDiffusionRate / ndM );
     const vbi = Math.max( 0, vt * Math.log( na * nd / ( ni * ni ) ) );
     const vd = JunctionModel.operatingVoltage( vs, is, idealityFactor * vt, SemiconductorConstants.SERIES_RESISTANCE );
-    const id = is * Math.expm1( vd / ( idealityFactor * vt ) );
+    const id = JunctionModel.shockleyCurrent( vd, is, idealityFactor, vt );
     const eps = p.relativePermittivity * VACUUM_PERMITTIVITY;
     const barrier = Math.max( 0, vbi - vd );
     const w = Math.sqrt( 2 * eps * barrier / ELEMENTARY_CHARGE * ( 1 / naM + 1 / ndM ) );

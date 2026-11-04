@@ -79,26 +79,87 @@ function describeFailure( f ) {
 }
 
 /**
- * Spec 3.6: a NEW (original) sim that fails V3 is excluded from the public site, whole.
- * PhET adaptations that fail V3 are not excluded here: they fail V3 and are reported.
+ * Spec 3.5/3.6 (invariant 6): a sim that fails V3 does not ship the added feature. Two kinds:
+ *  - `sim`: a NEW (original) sim is removed from the public site, whole;
+ *  - `drawer`: a PhET adaptation (exam scope) is published as the plain themed build, WITHOUT the class
+ *    drawer. V3 still reports the failure, and V1 still counts the sim (it is published, just without it).
  * @param {{ id: string, ok: boolean }[]} v3 - per-sim V3 outcome
  * @param {string[]} newIds - the original sims (sims/<id>)
- * @returns {{ id: string, reason: string }[]}
+ * @returns {{ id: string, kind: 'sim'|'drawer', reason: string }[]}
  */
 export function exclusionsFromV3( v3, newIds ) {
   const isNew = new Set( newIds );
-  return v3.filter( r => isNew.has( r.id ) && !r.ok ).map( r => ( { id: r.id, reason: 'V3 물리 검사 실패 (사양 3.6: 새 시뮬레이션 통째로 공개 제외)' } ) );
+  return v3.filter( r => !r.ok ).map( r => ( isNew.has( r.id ) ?
+    { id: r.id, kind: 'sim', reason: 'V3 물리 검사 실패 (사양 3.6: 새 시뮬레이션 통째로 공개 제외)' } :
+    { id: r.id, kind: 'drawer', reason: 'V3 물리 검사 실패 (사양 3.5: 수업 서랍을 뺀 일반 학교판으로 공개)' } ) );
+}
+
+/**
+ * The `site/build-site.mjs` arguments that apply the exclusions.
+ * @param {{ id: string, kind?: string }[]} exclusions - a missing kind means `sim` (older exclusions.json files)
+ * @returns {{ exclude: string[], noDrawer: string[] }}
+ */
+export function exclusionSiteArgs( exclusions ) {
+  return {
+    exclude: exclusions.filter( e => ( e.kind || 'sim' ) === 'sim' ).map( e => e.id ),
+    noDrawer: exclusions.filter( e => e.kind === 'drawer' ).map( e => e.id )
+  };
+}
+
+/**
+ * Whether the published site still has to be rebuilt to honor the exclusions.
+ * @param {{ id: string, kind?: string }[]} exclusions
+ * @param {(id: string) => { exists: boolean, hasDrawer: boolean }} published - state of dist/sims/<id>.html
+ * @returns {boolean}
+ */
+export function siteNeedsRebuild( exclusions, published ) {
+  return exclusions.some( e => {
+    const p = published( e.id );
+    return ( e.kind || 'sim' ) === 'sim' ? p.exists : p.exists && p.hasDrawer;
+  } );
+}
+
+/**
+ * Spec V3 (second check): a measurement whose expected value is compared with a tolerance looser than
+ * the default must be explained to students by a 「참고」 note. Linkage (docs/drawer.md): some lessons
+ * formula lists the measurement key among its `variables` and carries a `note` starting with 참고.
+ * Cases express tolerance only as `relTol` (drawer/inject.mjs validateCases), so "looser" = relTol > default.
+ * @param {{ name?: string, expect?: Record<string, { relTol?: number }> }[]} cases - adapters/<id>/cases.json
+ * @param {{ formulas?: { key?: string, note?: string, variables?: { key?: string }[] }[] }|null} lessons - data/lessons/<id>.json
+ * @param {number} [defaultRelTol] - run-cases default (drawer/core.js DEFAULT_REL_TOL)
+ * @returns {string[]} problems, one per loosened measurement key (empty = every loosened tolerance has its note)
+ */
+export function toleranceNoteProblems( cases, lessons, defaultRelTol = 0.01 ) {
+  const loose = new Map(); // measurement key -> { max relTol, first case name }
+  for ( const c of cases || [] ) {
+    for ( const [ key, x ] of Object.entries( c.expect || {} ) ) {
+      if ( x && typeof x.relTol === 'number' && x.relTol > defaultRelTol ) {
+        const prev = loose.get( key );
+        if ( !prev || x.relTol > prev.relTol ) { loose.set( key, { relTol: x.relTol, name: prev ? prev.name : c.name } ); }
+      }
+    }
+  }
+  const problems = [];
+  for ( const [ key, { relTol, name } ] of loose ) {
+    const noted = ( ( lessons && lessons.formulas ) || [] ).some( f =>
+      /^「?참고/.test( String( f.note || '' ).trim() ) && ( f.variables || [] ).some( v => v.key === key ) );
+    if ( !noted ) {
+      problems.push( `근사 차이 ${key} (허용 오차 ${relTol} > 기본 ${defaultRelTol}, 사례 「${name}」): 이 측정값을 변수로 가진 공식에 「참고」로 시작하는 note가 없음` );
+    }
+  }
+  return problems;
 }
 
 /**
  * V1 count rule: the build count is the number of sims that are built AND published. An excluded sim
  * lowers it below the expected total, so V1 fails instead of passing silently.
- * @param {{ expected: string[], built: Set<string>|string[], published: Set<string>|string[], excluded: { id: string, reason: string }[] }} input
+ * @param {{ expected: string[], built: Set<string>|string[], published: Set<string>|string[], excluded: { id: string, kind?: string, reason: string }[] }} input
  */
 export function buildCount( { expected, built, published, excluded } ) {
   const b = new Set( built );
   const p = new Set( published );
-  const ex = new Map( excluded.map( e => [ e.id, e.reason ] ) );
+  // Only whole-sim exclusions lower the count; a `drawer` exclusion keeps the sim published.
+  const ex = new Map( excluded.filter( e => ( e.kind || 'sim' ) === 'sim' ).map( e => [ e.id, e.reason ] ) );
   const failures = [];
   let passed = 0;
   for ( const id of expected ) {
@@ -310,7 +371,8 @@ export function scanForNames( files, names ) {
  */
 export const TEST_GROUPS = Object.freeze( {
   V4: { files: [ 'tests/drawer/core.test.mjs' ], names: [ /^V4\b/, /^real build: / ] },
-  V5: { files: [ 'tests/drawer/hash.test.mjs', 'tests/drawer/status.test.mjs', 'tests/status/status-tools.test.mjs' ], names: [ /^V5\b/ ] },
+  // exclusions.test.mjs pins V5 bullet 3 (a feature that fails V3 leaves the build).
+  V5: { files: [ 'tests/drawer/hash.test.mjs', 'tests/drawer/status.test.mjs', 'tests/status/status-tools.test.mjs', 'tests/verify/exclusions.test.mjs' ], names: [ /^V5\b/ ] },
   V6: { files: [ 'tests/site/site.test.mjs', 'tests/site/site-browser.test.mjs' ], names: [] },
   V10a: { files: [ 'tests/theme/no-literals.test.mjs', 'tests/drawer/literals.test.mjs', 'tests/theme/tokens.test.mjs' ], names: [] }
 } );

@@ -65,7 +65,7 @@ test( 'layout: no sideways scroll at 390px, touch targets >= 44px, text >= 18px 
     assert.ok( narrow.overflow <= 0, `horizontal overflow ${narrow.overflow}px at 390` );
     assert.ok( narrow.smallest >= 44, `smallest touch target ${narrow.smallest}px` );
     await cdp.send( 'Emulation.setDeviceMetricsOverride', { width: 1600, height: 1000, deviceScaleFactor: 1, mobile: false } );
-    const sizes = await page.evaluate( () => [ ...document.querySelectorAll( '.card .title, .badge, .tag, footer.site p' ) ]
+    const sizes = await page.evaluate( () => [ ...document.querySelectorAll( '.hero .wordmark, .card .title, .badge, .tag, footer.site p' ) ]
       .map( e => parseFloat( getComputedStyle( e ).fontSize ) ) );
     assert.ok( Math.min( ...sizes ) >= 18, `smallest text ${Math.min( ...sizes )}px at 1600` );
     assert.deepEqual( external, [] );

@@ -497,8 +497,8 @@
       "repo": "bsshs-semiconductor",
       "version": "1.0.0",
       "sourceDir": "sims/bsshs-semiconductor",
-      "sourceHash": "65344f16a38656306c47542ed7508c127dc85ec95eebe56fbee9c5a28c59d737",
-      "stagedSha": "2c8336a421db39b2c5605c0df81fa7e96f6d07c7",
+      "sourceHash": "1a6353ad64bcbf735f4fbb0c6d9e63a5c609d5614855ddad87334e5bd253ad74",
+      "stagedSha": "b214028669870503662bcf584716c97e6c81e145",
       "base": {
         "id": "energy-skate-park-basics",
         "version": "1.5.0",
@@ -536,11 +536,11 @@
       "brandId": "bsshs",
       "theme": true,
       "themeHash": "d0b012a70230a77ad024e91d64a945853b55f6ffcfa432f538ab332d3d4f552b+c50c9868977a2038",
-      "slot": 5,
+      "slot": 9,
       "slotShasMatchBase": true,
       "success": true,
       "outputPath": "bsshs-semiconductor/bsshs-semiconductor_ko.html",
-      "outputBytes": 2584639,
+      "outputBytes": 2584711,
       "error": null,
       "typeCheck": {
         "ran": true,
@@ -584,10 +584,10 @@
       ],
       "trackedChangesAfterBuild": [],
       "slotCleanAfterCleanup": true,
-      "physicsHash": "d060dce909f8014d93d2dd1302e45dc862da2e2830f8f8788246061c203ec15a",
+      "physicsHash": "c8e58972877816c6a3bd1c94ab4a485187b450dd3c9f23acc884f2ecba83ceea",
       "logPath": "logs/new-sims/bsshs-semiconductor.log",
-      "buildSeconds": 74.1,
-      "builtAt": "2026-11-03T22:08:05.109Z"
+      "buildSeconds": 39.8,
+      "builtAt": "2026-11-04T07:18:45.919Z"
     }
   ]
 }

@@ -144,5 +144,6 @@ footer.site a { display: inline-flex; align-items: center; min-height: var(--bss
 @media (min-width: __BREAKPOINT_LARGE__) {
   body { font-size: var(--bsshs-font-size-large-screen-body); }
   .card .title { font-size: var(--bsshs-font-size-large-screen-body); }
+  .hero .wordmark { font-size: var(--bsshs-font-size-large-screen-body); }
   .tag, .badge, section .count, section.exam .exam-name, footer.site { font-size: var(--bsshs-font-size-large-screen-body); }
 }

@@ -16,6 +16,8 @@ npm run verify -- --only V2,V9   # 일부만 다시
 
 끝 코드: 빌드나 사이트 중 하나라도 실패하면 1.
 
+**배포 규칙: `build-everything`이 만든 `dist/`는 아직 V3(물리 검사)를 거치지 않았습니다.** 물리 검사에 실패한 기능을 빼는 일(아래 「제외 규칙」)은 `npm run verify` 안에서만 일어납니다. 그래서 **끝 코드 0으로 끝난 `npm run verify`가 만들거나 확인한 `dist/`만 배포합니다.** `build-everything`을 마친 직후 바로 배포하면 불변 규칙 6(자동 물리 검사에 실패한 기능은 공개 빌드에 들어가지 않는다)을 건너뜁니다. 이 안내는 `build-everything`의 마지막 줄에도 출력됩니다. (사이트 빌드가 `exclusions.json`을 직접 읽게 하지 않은 이유: 오래된 `exclusions.json`이 고친 뒤에도 시뮬레이션을 계속 빼는 것을 막기 위해서입니다.)
+
 ## `npm run verify` (`tools/verify.mjs`)
 
 ```
@@ -34,7 +36,7 @@ node tools/verify.mjs [--only V2,V9] [--jobs N] [--sims-dir build/bsshs-theme] [
 |---|---|---|
 | **V1 빌드** | 68개(PhET 63 + 새 5)가 모두 한국어 단일 파일 HTML로 빌드되고 사이트에 올라갔는지. 개수가 68이 아니면 실패 | 빌드 기록이 성공이고, **지금의** 디자인 토큰·패치 규칙·용어 교정으로 만든 것(`themeHash` 일치, 새 시뮬레이션은 `sims/` 소스 해시도 일치), 파일 크기가 기록과 같음(빌드 뒤 손대지 않음), 첫 `<html lang="ko">`, 다른 파일을 부르는 `<script src>`/`<link href>` 없음, 서랍이 들어 있지 않음(V9 비교 기준이므로), `dist/sims/<id>.html` 있음 |
 | **V2 check-sim** | 68개 × (데스크톱 1280, 휴대폰 390) = 136번 | `tools/check-sim.mjs`를 **사이트 파일**(`dist/sims/<id>.html`, 시험 범위는 서랍 포함)에 실행: 잡히지 않은 오류 없음, 「부산과학고」 워드마크, PhET 로고 없음, About 출처 6개, 다른 곳 요청 0건, 출처 밖 "PhET" 없음, 글꼴. 사이트 파일을 열기 때문에 V6의 「링크가 열린다」도 여기서 확인됩니다 |
-| **V3 물리 검사** | 시험 범위 14개의 자동 물리 사례 | 빌드에 서랍을 새로 넣은 사본(`build/verify/injected/<id>.html`, 사이트와 같은 도구·같은 데이터)에 `tools/run-cases.mjs`. 허용 오차는 사례에 적힌 값, 없으면 **상대 1%**(기본값 그대로) |
+| **V3 물리 검사** | 시험 범위 14개의 자동 물리 사례, 그리고 **근사 차이를 정한 항목에 「참고」 note가 있는지** | (1) 빌드에 서랍을 새로 넣은 사본(`build/verify/injected/<id>.html`, 사이트와 같은 도구·같은 데이터)에 `tools/run-cases.mjs`. 허용 오차는 사례에 적힌 값, 없으면 **상대 1%**(기본값 그대로). (2) 정적 검사 `toleranceNoteProblems`: 사례 파일에서 `relTol`이 기본값(0.01)보다 큰 측정 항목마다, 그 키를 `variables`에 가진 `data/lessons/<id>.json`의 공식에 「참고」로 시작하는 `note`가 있어야 합니다(연결 규칙은 drawer.md). 없으면 그 시뮬레이션의 V3 실패 |
 | **V4 서랍 기록** | 기록이 새로 고침 뒤에도 남는지, 「모두 초기화」가 기록을 안 지우는지, 「새 실험 시작」, 화면 바꿈, CSV BOM, 그래프, 정의 버전 올림 | `npm test` 중 이름이 `V4`로 시작하는 테스트, `real build:` 테스트, `tests/drawer/core.test.mjs` |
 | **V5 확인 상태·해시** | 세 상태 표시, 해시가 다르면 「확인 중」, 해시 범위 | `npm test` 중 `V5…` 테스트, `tests/drawer/hash·status.test.mjs`, `tests/status/` |
 | **V6 목록 사이트** | 68개 링크, 시험 범위 14개 강조·배지, 바닥글 출처와 「학생 제작·공식 아님」, 실명 0건, 390px 가로 넘침 없음 등 | `tests/site/*.test.mjs`를 `BSSHS_SITE_DIR=dist`로 실행 + `index.html`에 카드 68개·시험 칸 14개인지 직접 셈(+1) |
@@ -62,9 +64,14 @@ node tools/verify.mjs [--only V2,V9] [--jobs N] [--sims-dir build/bsshs-theme] [
 - 대상: 빌드 68개, `dist/` 아래 모든 파일(썸네일 포함), `git ls-files`의 모든 파일. 내용이 같은 파일(예: 사이트에 그대로 복사된 빌드)은 한 번만 읽고, 걸리면 먼저 읽은 파일 이름으로 보고합니다.
 - 보고서와 화면에는 **파일 이름과 건수만** 나옵니다. 이름도, 몇 번째 줄인지도 쓰지 않습니다. `목록 지문`(이름 목록의 해시 앞 12자리)으로 같은 목록으로 돌렸는지만 비교할 수 있습니다.
 
-### 제외 규칙 (사양 3.6)
+### 제외 규칙 (사양 3.5·3.6, 불변 규칙 6)
 
-V3에서 **새 시뮬레이션**(`sims/<id>`)이 하나라도 실패하면, 그 시뮬레이션을 통째로 공개 사이트에서 뺍니다: verify가 `site/build-site.mjs --exclude <id> --thumbs`로 `dist/`를 다시 만들고, `build/verify/exclusions.json`에 이유를 적습니다. 그러면 V1의 개수가 68보다 작아져 **V1도 실패**합니다(조용히 통과하지 않음). PhET 시뮬레이션이 V3에 실패하면 빼지 않고 V3 실패로만 보고합니다(어댑터나 사례 문제일 수 있으므로 사람이 봐야 함).
+V3에 실패한 기능은 공개 빌드에서 빠집니다. 종류가 둘입니다(`exclusions.json`의 `kind`):
+
+- `sim`: **새 시뮬레이션**(`sims/<id>`)이 실패하면 그 시뮬레이션을 통째로 뺍니다. verify가 `site/build-site.mjs --exclude <id> --thumbs`로 `dist/`를 다시 만들고, 그러면 V1의 개수가 68보다 작아져 **V1도 실패**합니다(조용히 통과하지 않음).
+- `drawer`: **시험 범위 PhET 시뮬레이션**이 실패하면 수업 서랍만 뺍니다. verify가 `site/build-site.mjs --no-drawer <id> --thumbs`로 `dist/`를 다시 만들어, 그 시뮬레이션은 서랍 없는 일반 학교판(테마 빌드 그대로)으로 공개됩니다. 시뮬레이션은 계속 공개되므로 V1 개수는 줄지 않지만, **V3는 그대로 실패로 보고**됩니다.
+
+두 경우 모두 `build/verify/exclusions.json`에 이유를 적습니다. 이미 서랍이 빠진 사이트는 다시 만들지 않습니다.
 `--only`에 V3가 없으면 마지막 V3 실행의 `exclusions.json`을 V1이 그대로 씁니다. 고친 뒤에는 `npm run build-everything`으로 사이트를 다시 만들고 V3를 포함해 다시 검증하세요.
 
 ### 실행 순서와 시간
@@ -82,7 +89,7 @@ V3에서 **새 시뮬레이션**(`sims/<id>`)이 하나라도 실패하면, 그 
 
 ```json
 { "tool": "verify", "schemaVersion": 1, "startedAt": "…", "ms": 0, "selected": ["V1", "…"], "ok": true, "failed": [],
-  "exclusions": [ { "id": "bsshs-…", "reason": "…" } ],
+  "exclusions": [ { "id": "bsshs-…", "kind": "sim", "reason": "…" }, { "id": "generator", "kind": "drawer", "reason": "…" } ],
   "checks": [ { "id": "V2", "name": "check-sim", "ok": true, "exitCode": 0, "passed": 136, "total": 136,
                 "failures": [ { "id": "<sim>", "width": 390, "error": "…" } ], "notes": [], "ms": 0, "details": [ … ] } ] }
 ```

@@ -1,4 +1,4 @@
-# local working docs (dryforge, session handoff)
+# local working docs and session notes
 .dryforge
 .claude/handoff
 # fetched PhET sources, build output, deploy output (regenerable)
@@ -8,3 +8,4 @@ dist
 # dependencies (slash-less so symlinks are matched too)
 node_modules
 .DS_Store
+.wrangler

@@ -5,13 +5,19 @@
 //   <out>/thumbs/<id>.png     card thumbnails (optional, --thumbs)
 //   <out>/fonts/*             same-origin fonts + OFL licenses (no CDN, invariant 8)
 // Usage: node site/build-site.mjs [--sims-dir build/bsshs-theme] [--out dist] [--thumbs]
-//        [--exclude id,id] [--allow-missing]
+//        [--exclude id,id] [--no-drawer id,id] [--allow-missing]
+// --exclude drops a whole sim from the site; --no-drawer publishes an exam-scope sim as the plain themed
+// build, without the class drawer (spec 3.5/3.6: a sim that fails V3 does not ship its added feature).
+// Every id of data/exam-scope.json must have its adapter, cases and lessons files, else the build fails
+// before writing anything and prints all missing items (spec 2.3).
 import { readFileSync, writeFileSync, mkdirSync, copyFileSync, existsSync, rmSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadTokens, toCssVariables, fontFaces } from '../theme/index.mjs';
 import { physicsHash } from '../drawer/hash.mjs';
+import { assertExamComplete } from '../drawer/inject.mjs';
+import { listNewSimIds } from '../tools/lib/new-sims.mjs';
 import { loadStatusFile, resolveStatus } from '../drawer/status.mjs';
 import { ATTRIBUTION, REPO_URL, WORDMARK } from '../brand/bsshs/attribution.mjs';
 
@@ -185,13 +191,14 @@ async function captureThumbs( items, outDir, tokens ) {
 
 /** @param {string[]} argv */
 export function parseArgs( argv ) {
-  const o = { simsDir: path.join( REPO_ROOT, 'build', 'bsshs-theme' ), out: path.join( REPO_ROOT, 'dist' ), thumbs: false, exclude: [], allowMissing: false };
+  const o = { simsDir: path.join( REPO_ROOT, 'build', 'bsshs-theme' ), out: path.join( REPO_ROOT, 'dist' ), thumbs: false, exclude: [], noDrawer: [], allowMissing: false };
   for ( let i = 0; i < argv.length; i++ ) {
     const a = argv[ i ];
     if ( a === '--sims-dir' ) { o.simsDir = path.resolve( argv[ ++i ] ); }
     else if ( a === '--out' ) { o.out = path.resolve( argv[ ++i ] ); }
     else if ( a === '--thumbs' ) { o.thumbs = true; }
     else if ( a === '--exclude' ) { o.exclude = argv[ ++i ].split( ',' ).filter( Boolean ); }
+    else if ( a === '--no-drawer' ) { o.noDrawer = argv[ ++i ].split( ',' ).filter( Boolean ); }
     else if ( a === '--allow-missing' ) { o.allowMissing = true; }
     else { throw new Error( `unknown argument ${a}` ); }
   }
@@ -204,7 +211,8 @@ export async function main( argv ) {
   const tokens = loadTokens();
   const sims = readJson( 'data/sims.json' ).map( s => s.id );
   const exam = readJson( 'data/exam-scope.json' );
-  const originals = exam.ids.filter( id => id.startsWith( 'bsshs-' ) );
+  assertExamComplete( exam.ids );
+  const originals = listNewSimIds(); // the same definition of "new sim" as tools/verify.mjs
   const allIds = [ ...sims, ...originals ].filter( id => !o.exclude.includes( id ) );
   const titles = readJson( 'data/titles.json' );
   const units = readJson( 'data/units.json' );
@@ -219,7 +227,7 @@ export async function main( argv ) {
     const src = path.join( o.simsDir, id, `${id}_ko.html` );
     if ( !existsSync( src ) ) { missing.push( id ); continue; }
     const dest = path.join( o.out, 'sims', `${id}.html` );
-    if ( exam.ids.includes( id ) ) {
+    if ( exam.ids.includes( id ) && !o.noDrawer.includes( id ) ) {
       const r = spawnSync( process.execPath, [ path.join( REPO_ROOT, 'tools', 'inject-drawer.mjs' ), src, id, '--out', dest ], { encoding: 'utf8' } );
       if ( r.status !== 0 ) { throw new Error( `inject-drawer ${id} failed:\n${r.stderr || r.stdout}` ); }
     }
@@ -239,7 +247,7 @@ export async function main( argv ) {
   for ( const id of exam.ids ) { status[ id ] = resolveStatus( statusFile[ id ], physicsHash( id ) ); }
   const sections = catalogueModel( { ids: present.map( p => p.id ), titles, units, exam, status, originals: new Set( originals ), thumbs } );
   writeFileSync( path.join( o.out, 'index.html' ), indexHtml( sections, tokens, present.length ) );
-  console.log( JSON.stringify( { out: o.out, sims: present.length, missing, excluded: o.exclude, thumbs: thumbs.size } ) );
+  console.log( JSON.stringify( { out: o.out, sims: present.length, missing, excluded: o.exclude, noDrawer: o.noDrawer.filter( id => exam.ids.includes( id ) ), thumbs: thumbs.size } ) );
   return { present: present.length, missing, thumbs: thumbs.size };
 }
 

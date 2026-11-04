@@ -31,7 +31,7 @@ node tools/check-sim.mjs <서랍 넣은.html>                                 # 
   - 화면에 숫자가 없는 시뮬레이션은 모델 값을 측정 항목으로 꺼냅니다. 이 값은 **서랍 안에만** 나옵니다(실험 화면에 글자를 더하지 않음). 상대값이면 이름에 「(모델 값)」처럼 밝힙니다.
 - `graphs[]`: **2개 이상**, 물리적으로 의미 있는 그래프. `id`(kebab-case, `free` 금지), `title`(한국어), `x`(키), `y`(키 또는 키 배열), `fit`(`"linear"` = 추세선과 기울기·절편 표시, `null`). 그래프 축은 시뮬레이션 단위입니다. 자유 그래프(학생이 x·y를 고름)는 서랍이 자동으로 더하며 수업 단위 열도 고를 수 있습니다.
 
-### `adapter.mjs` (해시에 안 들어감, 실행 코드)
+### `adapter.mjs` (해시에 들어감, 실행 코드)
 
 ```js
 const drawer = globalThis.bsshsDrawer;
@@ -60,6 +60,7 @@ drawer.register( {
 - `value`가 0이 아니면 상대 오차: `|실제 − value| ≤ relTol × |value|`. `relTol`을 안 적으면 **1%(0.01)**, 실행기의 `--rel-tol`로 바꿀 수 있습니다.
 - `value`가 0이면 상대 오차가 뜻이 없으므로 절대 오차: `|실제| ≤ absTol`, 기본 1e-9(`--abs-tol`로 바꿈). 0이 아닌 작은 값을 기대하면 0 대신 그 값을 적으세요.
 - 값이 `null`(읽지 못함)이면 실패입니다.
+- **허용 오차를 기본(1%)보다 느슨하게 정한 항목은 「참고」로 설명해야 합니다(사양 V3).** 사례는 허용 오차를 `relTol`로만 적으므로, `relTol > 0.01`인 측정 항목 키마다 `data/lessons/<id>.json`의 **공식 하나 이상**이 (1) `variables`에 그 키를 가지고 (2) `note`가 「참고」로 시작해야 합니다. 예: 반도체 `rippleVoltage`(6%)는 `ripple_voltage` 공식, 파동 간섭 `fringeSpacing`(4%)는 `fringe_spacing` 공식의 「참고: …」 줄. `tools/verify.mjs`의 V3가 검사하고(`toleranceNoteProblems`), 없으면 그 시뮬레이션의 V3가 실패합니다.
 
 ## 서랍이 하는 일
 
@@ -71,7 +72,7 @@ drawer.register( {
 
 ## 확인 상태와 물리 내용 해시 (`drawer/hash.mjs`, `drawer/status.mjs`)
 
-- `physicsHash(id, { repoRoot })` = sha256(hex). 들어가는 것: `data/lessons/<id>.json`, `adapters/<id>/drawer.json`, `adapters/<id>/cases.json`, 새 시뮬레이션이면 `sims/<id>/js/model/**`. 빠지는 것: 디자인 토큰·테마·브랜드·용어 고치기·`adapter.mjs`·서랍 코드(배치·모양). JSON은 키 정렬·공백 제거한 형태로 해시하므로 줄 바꿈만 바꾸면 해시가 그대로입니다. 없는 파일도 「없음」으로 들어갑니다.
+- `physicsHash(id, { repoRoot })` = sha256(hex). 들어가는 것: `data/lessons/<id>.json`, `adapters/<id>/drawer.json`, `adapters/<id>/cases.json`, `adapters/<id>/adapter.mjs`, 새 시뮬레이션이면 `sims/<id>/js/model/**`. 빠지는 것: 디자인 토큰·테마·브랜드·용어 고치기·서랍 코드(배치·모양). JSON은 키 정렬·공백 제거한 형태로 해시하므로 줄 바꿈만 바꾸면 해시가 그대로입니다. 없는 파일도 「없음」으로 들어갑니다.
 - `physicsHashInputs(id)`로 어떤 파일이 들어갔는지 볼 수 있습니다. 범위를 바꾸면 `HASH_SCOPE_VERSION`을 올립니다(모든 확인이 다시 「확인 중」이 됨).
 - `data/verification-status.json`: `{ "<id>": { "status": "확인 중|확인 완료|수정 중", "date": "YYYY-MM-DD", "memo": "", "approvedHash": "<확인 완료일 때만>" } }`. `validateStatusFile()`로 검사합니다.
 - `resolveStatus(entry, hash)`: 확인 완료인데 해시가 다르면 「선생님 확인 중」으로 보입니다. 항목이 없으면 확인 중.
@@ -115,6 +116,10 @@ node tools/compare-layout.mjs <a.html> <b.html> [--width 1280] [--height N] [--e
 
 - 세로 휴대폰에서 PhET은 실험 화면을 가운데 띠로 두고 위아래를 비웁니다. 시트는 **선택된 화면의 놀이 영역(ScreenView `layoutBounds`) 아래 공간만** 덮도록 높이를 정하고, `drawer.sheetMinHeight`(40vh)~`drawer.sheetHeight`(72vh) 안으로 자릅니다. 시뮬레이션은 덮일 뿐 옮기거나 다시 배치하지 않습니다(`tests/drawer/sheet-visible.test.mjs`가 시트 위 픽셀이 한 색이 아닌지, 열기 전후 배치가 같은지 확인).
 - 그래프 캔버스의 모든 글자는 그리기 전에 잽니다. 제목·x축 이름·추세선 글은 캔버스 폭에 맞춰 줄을 바꾸고, 세로축 이름은 그래프 높이에 맞춰 `drawer.graph.labelMaxLines`(3)줄까지 바꾼 뒤 넘치면 「…」로 줄입니다. 여백은 글자에 맞춰 늘고, 서로 겹치거나 캔버스를 벗어날 눈금 숫자는 건너뜁니다. 화면의 캔버스는 그래프가 원래 높이의 절반보다 작아지면 그만큼 키가 커집니다(`tests/drawer/graph-text.test.mjs`가 14개 서랍의 모든 그래프를 390·1280·1600에서 글자 상자로 검사).
+
+## 시험 범위 id의 필수 파일 (사양 2.3)
+
+`data/exam-scope.json`의 모든 id에는 `adapters/<id>/adapter.mjs`, `adapters/<id>/drawer.json`, `adapters/<id>/cases.json`, `data/lessons/<id>.json`이 모두 있어야 합니다. 하나라도 없으면 `npm run build-site`/`build-everything`(그리고 `tools/inject-drawer.mjs`)이 실패하고 **빠진 파일을 한꺼번에 전부** 출력합니다. 수업 내용이 없는 서랍은 더 이상 만들어지지 않습니다.
 
 ## `tools/run-cases.mjs` (V3 물리 검사 실행기)
 

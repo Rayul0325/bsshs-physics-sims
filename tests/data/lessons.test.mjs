@@ -9,6 +9,7 @@ import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { homedir } from 'node:os';
+import { assertExamComplete } from '../../drawer/inject.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const DATA = join(ROOT, 'data');
@@ -17,13 +18,9 @@ const DOCS_LESSONS = join(ROOT, 'docs', 'lessons.md');
 const ARCHIVE = join(homedir(), 'services', 'class-archive', 'data', 'recordings');
 const NAMES_FILE = join(homedir(), '.config', 'bsshs-physics-sims', 'private-names.txt');
 
-const EXAM_IDS = [
-  'blackbody-spectrum', 'models-of-the-hydrogen-atom', 'quantum-measurement',
-  'faradays-law', 'faradays-electromagnetic-lab', 'generator',
-  'wave-interference', 'bending-light', 'geometric-optics',
-  'bsshs-photoelectric', 'bsshs-compton', 'bsshs-laser',
-  'bsshs-semiconductor', 'bsshs-polarization',
-];
+// Driven by data/exam-scope.json, so a legitimate scope edit needs no edit here. Completeness of every
+// listed id (adapter, cases, lessons) is enforced by drawer/inject.mjs assertExamComplete (spec 2.3).
+const EXAM_IDS = JSON.parse(readFileSync(join(DATA, 'exam-scope.json'), 'utf8')).ids;
 // The 54 catalogue sims outside exam scope (spec section 1 table).
 const OTHER_IDS = [
   'atomic-interactions', 'balancing-act', 'balloons-and-static-electricity',
@@ -108,10 +105,11 @@ const DEG = Math.PI / 180;
 
 // ---------------------------------------------------------------- scope
 
-test('exam-scope.json lists exactly the 14 exam-scope ids', () => {
+test('exam-scope.json ids are unique and each is complete (adapter.mjs, drawer.json, cases.json, lessons file)', () => {
   const scope = readJson(join(DATA, 'exam-scope.json'));
-  assert.deepEqual([...scope.ids].sort(), [...EXAM_IDS].sort());
+  assert.ok(scope.ids.length > 0);
   assert.equal(new Set(scope.ids).size, scope.ids.length);
+  assertExamComplete(scope.ids);
 });
 
 // ---------------------------------------------------------------- schema

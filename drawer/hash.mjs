@@ -5,9 +5,10 @@
 //   lessons      data/lessons/<id>.json                (formulas, terms, notes, class units)
 //   drawer.json  adapters/<id>/drawer.json             (measurement items: names, units, conversions; graphs)
 //   cases.json   adapters/<id>/cases.json              (V3 physics check cases)
+//   adapter.mjs  adapters/<id>/adapter.mjs             (reads and derives the values students see and log)
 //   model/**     sims/<id>/js/model/**                 (new sims only, when present)
-// Excluded on purpose: theme/tokens.json, theme/**, brand/**, data/term-fixes.json, adapter.mjs
-// (runtime glue), drawer/** (layout and style), view code.
+// Excluded on purpose: theme/tokens.json, theme/**, brand/**, data/term-fixes.json,
+// drawer/** (layout and style), view code.
 //
 // JSON files are hashed in canonical form (keys sorted, no whitespace), so reformatting a file does not
 // invalidate an approval; any change of content does. A missing file is part of the input too.
@@ -19,7 +20,7 @@ import { fileURLToPath } from 'node:url';
 
 export const REPO_ROOT = path.resolve( path.dirname( fileURLToPath( import.meta.url ) ), '..' );
 /** Bump only when the scope or the encoding below changes (every approval then goes stale). */
-export const HASH_SCOPE_VERSION = 1;
+export const HASH_SCOPE_VERSION = 2;
 
 /**
  * JSON with object keys sorted at every level.
@@ -77,7 +78,8 @@ export function physicsHashInputs( id, opts = {} ) {
   const out = [
     input( 'lessons', opts.lessonsFile || path.join( root, 'data', 'lessons', `${id}.json` ), 'json' ),
     input( 'drawer.json', path.join( adapterDir, 'drawer.json' ), 'json' ),
-    input( 'cases.json', path.join( adapterDir, 'cases.json' ), 'json' )
+    input( 'cases.json', path.join( adapterDir, 'cases.json' ), 'json' ),
+    input( 'adapter.mjs', path.join( adapterDir, 'adapter.mjs' ), 'text' )
   ];
   const modelDir = path.join( root, 'sims', id, 'js', 'model' );
   if ( existsSync( modelDir ) && statSync( modelDir ).isDirectory() ) {

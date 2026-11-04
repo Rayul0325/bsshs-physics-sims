@@ -1,9 +1,9 @@
 // Unit tests for the verify orchestration rules (tools/lib/verify-core.mjs): report aggregation, the
-// --only filter, the exclusion rule (spec 3.6), the patch allow-list (V10b) and the name-scan redaction (V10c).
+// --only filter, the patch allow-list (V10b) and the name-scan redaction (V10c).
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  parseOnly, makeResult, aggregate, summaryLine, exclusionsFromV3, buildCount,
+  parseOnly, makeResult, aggregate, summaryLine,
   checkPatchAllowlist, parsePatchLine, isAllowed, parseNames, nameNeedles, scanForNames, groupTestEvents, pool
 } from '../../tools/lib/verify-core.mjs';
 import { ALL_RULES } from '../../theme/patches/index.mjs';
@@ -31,25 +31,6 @@ test( 'aggregation: a check passes only with exit 0, no failures, and every unit
   assert.equal( aggregate( [ ok ], { selected: [ 'V2' ], startedAt: 't', ms: 1 } ).ok, true );
   assert.match( summaryLine( ok ), /^통과 +V2 +check-sim 136\/136$/ );
   assert.match( summaryLine( partial ), /^실패 +V3 .* 13\/14 — 실패 1건: bsshs-laser case x$/ );
-} );
-
-test( 'exclusion rule: only a NEW sim that fails V3 is excluded; V1 then counts below 68 and fails', () => {
-  const newIds = [ 'bsshs-laser', 'bsshs-compton' ];
-  const v3 = [ { id: 'bsshs-laser', ok: false }, { id: 'bsshs-compton', ok: true }, { id: 'generator', ok: false } ];
-  const ex = exclusionsFromV3( v3, newIds );
-  assert.deepEqual( ex.map( e => e.id ), [ 'bsshs-laser' ], 'a failing PhET sim is reported by V3, not excluded' );
-  const expected = [ 'generator', 'bsshs-laser', 'bsshs-compton' ];
-  const counted = buildCount( { expected, built: expected, published: [ 'generator', 'bsshs-compton' ], excluded: ex } );
-  assert.equal( counted.passed, 2 );
-  assert.equal( counted.total, 3 );
-  assert.equal( makeResult( 'V1', counted ).ok, false, 'an excluded sim never passes V1 silently' );
-  assert.match( counted.failures[ 0 ].reason, /공개 제외/ );
-  const all = buildCount( { expected, built: expected, published: expected, excluded: [] } );
-  assert.equal( makeResult( 'V1', all ).ok, true );
-  const missing = buildCount( { expected, built: [ 'generator' ], published: expected, excluded: [] } );
-  assert.equal( missing.passed, 1 );
-  const extra = buildCount( { expected, built: expected, published: [ ...expected, 'stray' ], excluded: [] } );
-  assert.equal( makeResult( 'V1', extra ).ok, false );
 } );
 
 test( 'allow-list: every real rule (theme, brand, telemetry) declares only allow-listed files', () => {

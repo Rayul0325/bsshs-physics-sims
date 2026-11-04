@@ -5,7 +5,8 @@
 //   3. the catalogue site in dist/ with thumbnails (site/build-site.mjs --thumbs).
 // Resumable like build-all: up-to-date sims are skipped; --force rebuilds every sim.
 // Usage: node tools/build-everything.mjs [--force] [--jobs 10] [--out dist] [--exclude id,id]
-// --exclude passes through to the site build (spec 3.6 exclusions are applied by tools/verify.mjs after V3).
+// --exclude passes through to the site build (spec 3.5/3.6 exclusions are applied by tools/verify.mjs after V3).
+// The dist/ made here has NOT passed V3: deploy only a dist/ from a passing `npm run verify` (docs/verify.md).
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
@@ -92,6 +93,7 @@ export async function main( argv ) {
                                               ...( o.exclude ? [ '--exclude', o.exclude ] : [] ) ], { stdio: 'inherit', cwd: REPO_ROOT } );
   const code = buildCode || site.status || 0;
   console.log( `\n전체 빌드 ${code === 0 ? '성공' : `실패 (빌드 ${buildCode}, 사이트 ${site.status})`} · ${Math.round( ( Date.now() - t0 ) / 1000 )}초 · 다음: npm run verify` );
+  console.log( '주의: 이 dist/는 아직 물리 검사(V3)를 거치지 않았습니다. 끝 코드 0으로 끝난 `npm run verify`가 만들거나 확인한 dist/만 배포하세요 (docs/verify.md).' );
   return code;
 }
 

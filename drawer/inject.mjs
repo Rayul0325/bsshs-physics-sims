@@ -143,6 +143,40 @@ export function drawerCss( tokens = loadTokens() ) {
 }
 
 /**
+ * Spec 2.3: an exam-scope sim needs its adapter (adapter.mjs + drawer.json), its V3 cases
+ * (cases.json) and its lessons file. Returns EVERY missing item for one sim (empty = complete).
+ * @param {string} id
+ * @param {{ repoRoot?: string, adapterDir?: string, lessonsFile?: string }} [opts]
+ * @returns {string[]} one line per missing file, `<what> (<path>)`
+ */
+export function missingExamItems( id, opts = {} ) {
+  const root = opts.repoRoot || REPO_ROOT;
+  const adapterDir = opts.adapterDir || path.join( root, 'adapters', id );
+  const lessonsFile = opts.lessonsFile || path.join( root, 'data', 'lessons', `${id}.json` );
+  const shown = f => ( f.startsWith( root + path.sep ) ? path.relative( root, f ) : f );
+  return [
+    [ 'adapter.mjs', path.join( adapterDir, 'adapter.mjs' ) ],
+    [ 'drawer.json', path.join( adapterDir, 'drawer.json' ) ],
+    [ 'cases.json (V3 cases)', path.join( adapterDir, 'cases.json' ) ],
+    [ 'lessons file', lessonsFile ]
+  ].filter( ( [ , f ] ) => !existsSync( f ) ).map( ( [ what, f ] ) => `${what} (${shown( f )})` );
+}
+
+/**
+ * Throws ONCE, listing every missing item of every given exam-scope id, so the build fails fast and
+ * the author sees the whole to-do list (spec 2.3). Does nothing when all are complete.
+ * @param {string[]} ids - the ids of data/exam-scope.json
+ * @param {{ repoRoot?: string }} [opts]
+ */
+export function assertExamComplete( ids, opts = {} ) {
+  const lines = [];
+  for ( const id of ids ) { for ( const m of missingExamItems( id, opts ) ) { lines.push( `${id}: missing ${m}` ); } }
+  if ( lines.length ) {
+    throw new Error( `exam scope is incomplete (spec 2.3) — ${lines.length} missing item(s):\n  ${lines.join( '\n  ' )}` );
+  }
+}
+
+/**
  * Everything the runtime needs for one sim (validated).
  * @param {string} id
  * @param {{ repoRoot?: string, adapterDir?: string, lessonsFile?: string, status?: object, statusFile?: string }} [opts]
@@ -155,19 +189,17 @@ export function buildDrawerData( id, opts = {} ) {
   const djFile = path.join( adapterDir, 'drawer.json' );
   const adFile = path.join( adapterDir, 'adapter.mjs' );
   const casesFile = path.join( adapterDir, 'cases.json' );
-  for ( const f of [ djFile, adFile ] ) { if ( !existsSync( f ) ) { throw new Error( `inject-drawer: missing ${f}` ); } }
+  const missing = missingExamItems( id, { repoRoot: root, adapterDir, lessonsFile } );
+  if ( missing.length ) { throw new Error( `inject-drawer: ${id} is incomplete (spec 2.3), missing:\n  ${missing.join( '\n  ' )}` ); }
   const drawer = readJson( djFile );
   const problems = validateDrawerJson( drawer, id );
-  if ( existsSync( casesFile ) ) { problems.push( ...validateCases( readJson( casesFile ), drawer ).map( p => `cases.json: ${p}` ) ); }
+  problems.push( ...validateCases( readJson( casesFile ), drawer ).map( p => `cases.json: ${p}` ) );
   const adapterSource = readFileSync( adFile, 'utf8' );
   problems.push( ...validateAdapterSource( adapterSource ).map( p => `adapter.mjs: ${p}` ) );
   if ( problems.length ) { throw new Error( `inject-drawer: ${adapterDir} is invalid:\n  ${problems.join( '\n  ' )}` ); }
 
-  let lessons = null;
-  if ( existsSync( lessonsFile ) ) {
-    const full = readJson( lessonsFile );
-    lessons = Object.fromEntries( PUBLIC_LESSON_FIELDS.filter( k => k in full ).map( k => [ k, full[ k ] ] ) );
-  }
+  const fullLessons = readJson( lessonsFile );
+  const lessons = Object.fromEntries( PUBLIC_LESSON_FIELDS.filter( k => k in fullLessons ).map( k => [ k, fullLessons[ k ] ] ) );
   const hash = physicsHash( id, { repoRoot: root, adapterDir, lessonsFile } );
   const tokens = opts.tokens || loadTokens();
   const statusAll = opts.status || loadStatusFile( opts.statusFile || ( opts.repoRoot ? path.join( root, 'data', 'verification-status.json' ) : STATUS_FILE ) );

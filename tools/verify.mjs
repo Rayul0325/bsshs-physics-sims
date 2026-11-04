@@ -21,8 +21,10 @@ import { listNewSimIds } from './lib/new-sims.mjs';
 import { readManifest } from './lib/manifest.mjs';
 import {
   parseOnly, makeResult, aggregate, summaryLine, exclusionsFromV3, buildCount, checkPatchAllowlist,
-  parseNames, scanForNames, groupTestEvents, pool
+  parseNames, scanForNames, groupTestEvents, pool, toleranceNoteProblems, exclusionSiteArgs, siteNeedsRebuild
 } from './lib/verify-core.mjs';
+import { DRAWER_MARKER_START } from '../drawer/inject.mjs';
+import '../drawer/core.js';
 
 const NODE = process.execPath;
 const TOOLS = path.join( REPO_ROOT, 'tools' );
@@ -213,7 +215,25 @@ async function prepareInjected( ctx ) {
   return new Map( res.map( r => [ r.id, r ] ) );
 }
 
-async function runV3Job( o, ctx, prep, id ) {
+/**
+ * Spec V3, second check: every case tolerance looser than the default is explained by a 「참고」 note in
+ * the lessons file (static; no browser). A missing file is reported by inject-drawer / run-cases already.
+ */
+export function toleranceNotes( o, id ) {
+  const casesFile = o.cases[ id ] || path.join( REPO_ROOT, 'adapters', id, 'cases.json' );
+  const lessonsFile = path.join( REPO_ROOT, 'data', 'lessons', `${id}.json` );
+  if ( !existsSync( casesFile ) || !existsSync( lessonsFile ) ) { return []; }
+  return toleranceNoteProblems( readJson( casesFile ), readJson( lessonsFile ), globalThis.BsshsDrawerCore.DEFAULT_REL_TOL );
+}
+
+export async function runV3Job( o, ctx, prep, id ) {
+  const res = await runV3Cases( o, ctx, prep, id );
+  const notes = toleranceNotes( o, id );
+  if ( !notes.length ) { return res; }
+  return { ...res, ok: false, toleranceNotes: notes, error: [ res.error, ...notes ].filter( Boolean ).join( ' | ' ) };
+}
+
+async function runV3Cases( o, ctx, prep, id ) {
   if ( !prep.get( id ).ok ) { return { id, ok: false, error: prep.get( id ).error }; }
   const args = [ path.join( TOOLS, 'run-cases.mjs' ), ctx.injected( id ), id, ...( o.cases[ id ] ? [ '--cases', o.cases[ id ] ] : [] ) ];
   const r = await runNode( args, { timeoutMs: 5 * 60 * 1000 } );
@@ -244,13 +264,21 @@ async function runV9Job( o, ctx, prep, job ) {
 
 // ---------------------------------------------------------------------------------------------------- exclusion (spec 3.6)
 
-/** Rebuilds the site without the excluded sims when any of them is still published. */
+/**
+ * Rebuilds the site so that the V3 exclusions hold: `sim` exclusions leave the site, `drawer` exclusions
+ * (PhET exam sims) are published as the plain themed build.
+ */
 async function applyExclusions( o, ctx, exclusions ) {
   if ( !exclusions.length ) { return null; }
-  const stillPublished = exclusions.filter( e => existsSync( ctx.published( e.id ) ) );
-  if ( !stillPublished.length ) { return { rebuilt: false }; }
+  const published = id => {
+    const f = ctx.published( id );
+    return { exists: existsSync( f ), hasDrawer: existsSync( f ) && readFileSync( f, 'utf8' ).includes( DRAWER_MARKER_START ) };
+  };
+  if ( !siteNeedsRebuild( exclusions, published ) ) { return { rebuilt: false }; }
+  const { exclude, noDrawer } = exclusionSiteArgs( exclusions );
   const r = await runNode( [ path.join( REPO_ROOT, 'site', 'build-site.mjs' ), '--sims-dir', o.simsDir, '--out', o.siteDir, '--thumbs',
-                             '--exclude', exclusions.map( e => e.id ).join( ',' ) ], { timeoutMs: 15 * 60 * 1000 } );
+                             ...( exclude.length ? [ '--exclude', exclude.join( ',' ) ] : [] ),
+                             ...( noDrawer.length ? [ '--no-drawer', noDrawer.join( ',' ) ] : [] ) ], { timeoutMs: 15 * 60 * 1000 } );
   return { rebuilt: r.code === 0, exitCode: r.code, output: firstLine( r.stdout ) || firstLine( r.stderr ) };
 }
 
@@ -385,14 +413,14 @@ export async function main( argv ) {
     const casesTotal = v3.reduce( ( a, r ) => a + ( r.casesTotal || 0 ), 0 );
     results.push( makeResult( 'V3', { passed: v3.filter( r => r.ok ).length, total: ctx.examIds.length, ms: Date.now() - phase1Start,
       failures: v3.filter( r => !r.ok ).map( r => ( { id: r.id, error: r.error } ) ), details: v3,
-      notes: [ `사례 ${casesPassed}/${casesTotal}`, `허용 오차: 사례에 적힌 값, 없으면 상대 1% (run-cases 기본값)`,
+      notes: [ `사례 ${casesPassed}/${casesTotal}`, `허용 오차: 사례에 적힌 값, 없으면 상대 1% (run-cases 기본값); 기본보다 느슨한 값은 「참고」 note 확인`,
                ...Object.entries( o.cases ).map( ( [ id, f ] ) => `${id}: 사례 파일 바꿔 씀 ${f.startsWith( REPO_ROOT + path.sep ) ? path.relative( REPO_ROOT, f ) : f}` ) ] } ) );
     exclusions = exclusionsFromV3( v3, ctx.newIds );
     const prev = path.join( ctx.work, 'exclusions.json' );
     writeFileSync( prev, JSON.stringify( exclusions, null, 2 ) + '\n' );
     if ( exclusions.length ) {
       const applied = await applyExclusions( o, ctx, exclusions );
-      log( `공개 제외 (사양 3.6): ${exclusions.map( e => e.id ).join( ', ' )} — 사이트 다시 만듦: ${applied && applied.rebuilt ? '예' : '아니오'}` );
+      log( `공개 제외 (사양 3.5·3.6): ${exclusions.map( e => `${e.id}${e.kind === 'drawer' ? '(서랍만)' : ''}` ).join( ', ' )} — 사이트 다시 만듦: ${applied && applied.rebuilt ? '예' : '아니오'}` );
     }
   }
   else if ( existsSync( path.join( ctx.work, 'exclusions.json' ) ) ) {
