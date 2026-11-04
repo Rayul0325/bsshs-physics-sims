@@ -1,0 +1,28 @@
+{
+  "simId": "bsshs-compton",
+  "schemaVersion": 1,
+  "measurements": [
+    { "key": "incidentWavelength", "name": "입사 광자의 파장", "unit": "pm", "classUnit": { "unit": "m", "factor": 1e-12 } },
+    { "key": "photonEnergy", "name": "입사 광자의 에너지", "unit": "keV", "classUnit": { "unit": "J", "factor": 1.602176634e-16 } },
+    { "key": "scatteringAngle", "name": "광자의 산란각", "unit": "°" },
+    { "key": "oneMinusCosTheta", "name": "1 − cos θ 값", "unit": "" },
+    { "key": "scatteredWavelength", "name": "산란된 광자의 파장", "unit": "pm", "classUnit": { "unit": "m", "factor": 1e-12 } },
+    { "key": "wavelengthShift", "name": "파장 변화", "unit": "pm", "classUnit": { "unit": "m", "factor": 1e-12 } },
+    { "key": "comptonWavelength", "name": "콤프턴 파장", "unit": "pm", "classUnit": { "unit": "m", "factor": 1e-12 } },
+    { "key": "scatteredPhotonEnergy", "name": "산란된 광자의 에너지", "unit": "keV", "classUnit": { "unit": "J", "factor": 1.602176634e-16 } },
+    { "key": "inverseScatteredEnergy", "name": "산란된 광자 에너지의 역수", "unit": "1/keV" },
+    { "key": "electronKineticEnergy", "name": "전자의 운동 에너지", "unit": "keV", "classUnit": { "unit": "J", "factor": 1.602176634e-16 } },
+    { "key": "energyAfter", "name": "충돌 뒤 에너지 합 (E′ + Kₑ)", "unit": "keV", "classUnit": { "unit": "J", "factor": 1.602176634e-16 } },
+    { "key": "recoilAngle", "name": "전자의 반동각", "unit": "°" },
+    { "key": "photonMomentum", "name": "입사 광자의 운동량", "unit": "keV/c", "classUnit": { "unit": "kg·m/s", "factor": 5.344285992678308e-25 } },
+    { "key": "electronMomentum", "name": "전자의 운동량", "unit": "keV/c", "classUnit": { "unit": "kg·m/s", "factor": 5.344285992678308e-25 } },
+    { "key": "electronTotalEnergy", "name": "전자의 전체 에너지", "unit": "keV", "classUnit": { "unit": "J", "factor": 1.602176634e-16 } },
+    { "key": "electronSpeed", "name": "전자의 속력", "unit": "c", "classUnit": { "unit": "m/s", "factor": 299792458 } }
+  ],
+  "graphs": [
+    { "id": "shift-vs-one-minus-cos", "title": "1 − cos θ와 파장 변화 (기울기 = 콤프턴 파장 2.426 pm)", "x": "oneMinusCosTheta", "y": "wavelengthShift", "fit": "linear" },
+    { "id": "scattered-wavelength-vs-angle", "title": "산란각과 산란된 광자의 파장", "x": "scatteringAngle", "y": "scatteredWavelength", "fit": null },
+    { "id": "electron-energy-vs-angle", "title": "산란각과 반동 전자의 운동 에너지", "x": "scatteringAngle", "y": "electronKineticEnergy", "fit": null },
+    { "id": "inverse-energy-vs-one-minus-cos", "title": "1 − cos θ와 1/E′ (기울기 = 1/mₑc²)", "x": "oneMinusCosTheta", "y": "inverseScatteredEnergy", "fit": "linear" }
+  ]
+}

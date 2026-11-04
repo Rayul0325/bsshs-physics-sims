@@ -1,0 +1,317 @@
+{
+  "id": "bending-light",
+  "title": "빛의 굴절과 전반사",
+  "unit": "geometric-optics",
+  "formulas": [
+    {
+      "key": "law_of_reflection",
+      "name": "반사 법칙",
+      "expr": "θ_r = θ₁",
+      "tex": "\\theta_r = \\theta_1",
+      "variables": [
+        {
+          "key": "reflectionAngle",
+          "symbol": "θ_r",
+          "name": "반사각",
+          "unit": "°"
+        },
+        {
+          "key": "incidentAngle",
+          "symbol": "θ₁",
+          "name": "입사각",
+          "unit": "°"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "key": "snell_law",
+      "name": "스넬 법칙",
+      "expr": "n₁ sin θ₁ = n₂ sin θ₂",
+      "tex": "n_1\\sin\\theta_1 = n_2\\sin\\theta_2",
+      "variables": [
+        {
+          "key": "refractiveIndex1",
+          "symbol": "n₁",
+          "name": "입사 쪽 매질의 굴절률",
+          "unit": ""
+        },
+        {
+          "key": "incidentAngle",
+          "symbol": "θ₁",
+          "name": "입사각",
+          "unit": "°"
+        },
+        {
+          "key": "refractiveIndex2",
+          "symbol": "n₂",
+          "name": "굴절 쪽 매질의 굴절률",
+          "unit": ""
+        },
+        {
+          "key": "refractionAngle",
+          "symbol": "θ₂",
+          "name": "굴절각",
+          "unit": "°"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: PhET의 공기 굴절률은 1.000293이라 공기를 1로 놓고 푼 각과 조금 다르다(보통 0.1° 미만, 임계각 근처에서는 더 크다)."
+    },
+    {
+      "key": "speed_in_medium",
+      "name": "매질 속 빛의 속력",
+      "expr": "v = c/n",
+      "tex": "v = \\frac{c}{n}",
+      "variables": [
+        {
+          "key": "lightSpeedInMedium",
+          "symbol": "v",
+          "name": "매질 속 빛의 속력",
+          "unit": "m/s"
+        },
+        {
+          "key": "refractiveIndex",
+          "symbol": "n",
+          "name": "굴절률",
+          "unit": ""
+        },
+        {
+          "key": "speedOfLight",
+          "symbol": "c",
+          "name": "진공에서 빛의 속력",
+          "unit": "m/s",
+          "constant": 299792458
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 굴절률은 항상 1 이상이므로 매질 속 빛은 진공보다 느리다."
+    },
+    {
+      "key": "critical_angle",
+      "name": "임계각",
+      "expr": "sin θ_c = n₂/n₁ (n₁ > n₂)",
+      "tex": "\\sin\\theta_c = \\frac{n_2}{n_1}\\quad(n_1 > n_2)",
+      "variables": [
+        {
+          "key": "criticalAngle",
+          "symbol": "θ_c",
+          "name": "임계각",
+          "unit": "°"
+        },
+        {
+          "key": "refractiveIndex1",
+          "symbol": "n₁",
+          "name": "입사 쪽 매질의 굴절률",
+          "unit": ""
+        },
+        {
+          "key": "refractiveIndex2",
+          "symbol": "n₂",
+          "name": "굴절 쪽 매질의 굴절률",
+          "unit": ""
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 굴절률이 큰 매질에서 작은 매질로 갈 때만 생긴다. 입사각이 임계각보다 크면 전반사가 일어난다."
+    },
+    {
+      "key": "wavelength_in_medium",
+      "name": "매질 속 파장",
+      "expr": "λ_n = λ/n",
+      "tex": "\\lambda_n = \\frac{\\lambda}{n}",
+      "variables": [
+        {
+          "key": "wavelengthInMedium",
+          "symbol": "λ_n",
+          "name": "매질 속 파장",
+          "unit": "m"
+        },
+        {
+          "key": "wavelength",
+          "symbol": "λ",
+          "name": "파장",
+          "unit": "m"
+        },
+        {
+          "key": "refractiveIndex",
+          "symbol": "n",
+          "name": "굴절률",
+          "unit": ""
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 매질이 바뀌어도 진동수는 그대로이고, 속력과 파장만 같은 비율로 줄어든다."
+    },
+    {
+      "key": "optical_path_length",
+      "name": "광경로",
+      "expr": "L_opt = n·d",
+      "tex": "L_{\\text{opt}} = n\\,d",
+      "variables": [
+        {
+          "key": "opticalPathLength",
+          "symbol": "L_opt",
+          "name": "광경로",
+          "unit": "m"
+        },
+        {
+          "key": "refractiveIndex",
+          "symbol": "n",
+          "name": "굴절률",
+          "unit": ""
+        },
+        {
+          "key": "geometricLength",
+          "symbol": "d",
+          "name": "매질 속 실제 거리",
+          "unit": "m"
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 굴절률이 다른 공간의 거리는 그대로 더하거나 빼지 말고 진공 기준 광경로로 바꿔 비교한다."
+    }
+  ],
+  "terms": [
+    {
+      "term": "굴절률",
+      "definition": "진공에서의 빛의 속력을 매질 속 빛의 속력으로 나눈 값이다. 항상 1 이상이다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "굴절",
+      "definition": "빛이 다른 매질로 들어가면서 속력이 바뀌어 진행 방향이 꺾이는 현상이다. 꺾이는 방향은 두 매질에서의 속력 차이로 정해진다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "전반사",
+      "definition": "굴절률이 큰 매질에서 작은 매질로 갈 때 입사각이 임계각보다 크면 빛이 모두 반사되는 현상이다. 광섬유에 쓰인다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "임계각",
+      "definition": "굴절각이 90°가 되는 입사각이다. 이보다 큰 입사각에서 전반사가 일어난다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "분산",
+      "definition": "굴절률이 빛의 파장(색)에 따라 조금씩 달라서 색마다 꺾이는 정도가 다른 현상이다. 프리즘이 빛을 무지개색으로 나누는 원리이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "페르마의 원리",
+      "definition": "빛은 두 점 사이를 가장 짧은 시간이 걸리는 경로로 진행한다는 원리이다. 이 원리로 스넬 법칙을 다시 얻을 수 있다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "광경로",
+      "definition": "매질 속 거리에 굴절률을 곱해 진공 기준으로 바꾼 거리이다. 굴절률이 다른 공간을 지나는 빛의 위상을 비교할 때 쓴다.",
+      "emphasis": true,
+      "outOfScope": false
+    }
+  ],
+  "classUnits": [
+    {
+      "quantity": "wavelength",
+      "phetUnit": "nm",
+      "classUnit": "m",
+      "factor": 1e-9
+    },
+    {
+      "quantity": "lightSpeedInMedium",
+      "phetUnit": "c",
+      "classUnit": "m/s",
+      "factor": 299792458
+    }
+  ],
+  "sources": [
+    {
+      "item": "law_of_reflection",
+      "from": "2026-09-01_6교시_e9d4e0c4"
+    },
+    {
+      "item": "snell_law",
+      "from": "2026-08-18_6교시_74bccfaf"
+    },
+    {
+      "item": "snell_law",
+      "from": "2026-09-01_6교시_e9d4e0c4"
+    },
+    {
+      "item": "speed_in_medium",
+      "from": "2026-08-18_6교시_74bccfaf"
+    },
+    {
+      "item": "critical_angle",
+      "from": "2026-08-18_6교시_74bccfaf"
+    },
+    {
+      "item": "critical_angle",
+      "from": "2026-08-18_7교시_3441225b"
+    },
+    {
+      "item": "critical_angle",
+      "from": "2026-09-22_8교시_4ea27009"
+    },
+    {
+      "item": "wavelength_in_medium",
+      "from": "표준"
+    },
+    {
+      "item": "optical_path_length",
+      "from": "2026-08-18_6교시_74bccfaf"
+    },
+    {
+      "item": "굴절률",
+      "from": "2026-08-18_6교시_74bccfaf"
+    },
+    {
+      "item": "굴절",
+      "from": "2026-08-18_6교시_74bccfaf"
+    },
+    {
+      "item": "전반사",
+      "from": "2026-08-18_6교시_74bccfaf"
+    },
+    {
+      "item": "전반사",
+      "from": "2026-08-18_7교시_3441225b"
+    },
+    {
+      "item": "전반사",
+      "from": "2026-09-01_6교시_e9d4e0c4"
+    },
+    {
+      "item": "전반사",
+      "from": "2026-09-22_8교시_4ea27009"
+    },
+    {
+      "item": "임계각",
+      "from": "2026-08-18_7교시_3441225b"
+    },
+    {
+      "item": "분산",
+      "from": "2026-08-18_6교시_74bccfaf"
+    },
+    {
+      "item": "페르마의 원리",
+      "from": "2026-08-18_6교시_74bccfaf"
+    },
+    {
+      "item": "광경로",
+      "from": "2026-08-18_6교시_74bccfaf"
+    }
+  ]
+}

@@ -1,0 +1,360 @@
+{
+  "id": "models-of-the-hydrogen-atom",
+  "title": "수소 원자 모형과 에너지 준위",
+  "unit": "atom-laser",
+  "formulas": [
+    {
+      "key": "bohr_energy_level",
+      "name": "보어 모형의 에너지 준위",
+      "expr": "E_n = −E₀/n²",
+      "tex": "E_n = -\\frac{E_0}{n^{2}}",
+      "variables": [
+        {
+          "key": "levelEnergy",
+          "symbol": "E_n",
+          "name": "n번째 준위의 에너지",
+          "unit": "J"
+        },
+        {
+          "key": "principalQuantumNumber",
+          "symbol": "n",
+          "name": "주양자수",
+          "unit": ""
+        },
+        {
+          "key": "rydbergEnergy",
+          "symbol": "E₀",
+          "name": "수소 바닥상태의 결합 에너지(뤼드베리 에너지)",
+          "unit": "J",
+          "constant": 2.179872361103e-18
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: E₀ ≈ 13.6 eV이다. 실제 수소는 원자핵도 함께 움직여서(환산 질량) 준위 에너지가 약 0.05% 작다."
+    },
+    {
+      "key": "transition_photon_energy",
+      "name": "준위 사이를 옮길 때의 광자 에너지",
+      "expr": "hf = E₂ − E₁",
+      "tex": "h f = E_2 - E_1",
+      "variables": [
+        {
+          "key": "frequency",
+          "symbol": "f",
+          "name": "진동수",
+          "unit": "Hz"
+        },
+        {
+          "key": "upperLevelEnergy",
+          "symbol": "E₂",
+          "name": "위 준위 에너지",
+          "unit": "J"
+        },
+        {
+          "key": "lowerLevelEnergy",
+          "symbol": "E₁",
+          "name": "아래 준위 에너지",
+          "unit": "J"
+        },
+        {
+          "key": "planckConstant",
+          "symbol": "h",
+          "name": "플랑크 상수",
+          "unit": "J·s",
+          "constant": 6.62607015e-34
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 위 준위로 올라갈 때는 이 에너지의 광자를 흡수하고, 내려올 때는 방출한다."
+    },
+    {
+      "key": "transition_wavelength",
+      "name": "전이 광자의 파장",
+      "expr": "λ = hc/(E₂ − E₁)",
+      "tex": "\\lambda = \\frac{h c}{E_2 - E_1}",
+      "variables": [
+        {
+          "key": "wavelength",
+          "symbol": "λ",
+          "name": "파장",
+          "unit": "m"
+        },
+        {
+          "key": "upperLevelEnergy",
+          "symbol": "E₂",
+          "name": "위 준위 에너지",
+          "unit": "J"
+        },
+        {
+          "key": "lowerLevelEnergy",
+          "symbol": "E₁",
+          "name": "아래 준위 에너지",
+          "unit": "J"
+        },
+        {
+          "key": "planckConstant",
+          "symbol": "h",
+          "name": "플랑크 상수",
+          "unit": "J·s",
+          "constant": 6.62607015e-34
+        },
+        {
+          "key": "speedOfLight",
+          "symbol": "c",
+          "name": "진공에서 빛의 속력",
+          "unit": "m/s",
+          "constant": 299792458
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 시뮬레이션은 hc = 1240 eV·nm, E₀ = 13.6 eV로 파장을 계산하고 1 nm 단위로 반올림하므로, 수업 식으로 구한 값과 0.5 % 안쪽으로 다를 수 있다."
+    },
+    {
+      "key": "rydberg_formula",
+      "name": "수소 스펙트럼 식(뤼드베리 식)",
+      "expr": "1/λ = (E₀/hc)(1/n_l² − 1/n_u²)",
+      "tex": "\\frac{1}{\\lambda} = \\frac{E_0}{h c}\\left(\\frac{1}{n_l^{2}} - \\frac{1}{n_u^{2}}\\right)",
+      "variables": [
+        {
+          "key": "wavelength",
+          "symbol": "λ",
+          "name": "파장",
+          "unit": "m"
+        },
+        {
+          "key": "lowerQuantumNumber",
+          "symbol": "n_l",
+          "name": "아래 준위의 주양자수",
+          "unit": ""
+        },
+        {
+          "key": "upperQuantumNumber",
+          "symbol": "n_u",
+          "name": "위 준위의 주양자수",
+          "unit": ""
+        },
+        {
+          "key": "rydbergEnergy",
+          "symbol": "E₀",
+          "name": "수소 바닥상태의 결합 에너지(뤼드베리 에너지)",
+          "unit": "J",
+          "constant": 2.179872361103e-18
+        },
+        {
+          "key": "planckConstant",
+          "symbol": "h",
+          "name": "플랑크 상수",
+          "unit": "J·s",
+          "constant": 6.62607015e-34
+        },
+        {
+          "key": "speedOfLight",
+          "symbol": "c",
+          "name": "진공에서 빛의 속력",
+          "unit": "m/s",
+          "constant": 299792458
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 아래 준위가 n = 1이면 라이먼 계열(자외선), n = 2이면 발머 계열(가시광선)이다."
+    },
+    {
+      "key": "bohr_radius",
+      "name": "보어 궤도 반지름",
+      "expr": "r_n = n²a₀",
+      "tex": "r_n = n^{2} a_0",
+      "variables": [
+        {
+          "key": "orbitRadius",
+          "symbol": "r_n",
+          "name": "궤도 반지름",
+          "unit": "m"
+        },
+        {
+          "key": "principalQuantumNumber",
+          "symbol": "n",
+          "name": "주양자수",
+          "unit": ""
+        },
+        {
+          "key": "bohrRadius",
+          "symbol": "a₀",
+          "name": "보어 반지름",
+          "unit": "m",
+          "constant": 5.29177210544e-11
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "key": "de_broglie_orbit",
+      "name": "드브로이 정상파 조건",
+      "expr": "2πr_n = nλ",
+      "tex": "2\\pi r_n = n\\lambda",
+      "variables": [
+        {
+          "key": "orbitRadius",
+          "symbol": "r_n",
+          "name": "궤도 반지름",
+          "unit": "m"
+        },
+        {
+          "key": "principalQuantumNumber",
+          "symbol": "n",
+          "name": "주양자수",
+          "unit": ""
+        },
+        {
+          "key": "matterWavelength",
+          "symbol": "λ",
+          "name": "물질파 파장",
+          "unit": "m"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 궤도 둘레에 전자의 물질파가 정수 개 들어가야 정상파가 된다는 조건이다."
+    }
+  ],
+  "terms": [
+    {
+      "term": "원자 모형",
+      "definition": "원자의 구조를 설명하려고 차례로 나온 모형들이다. 당구공 모형, 건포도 푸딩 모형, 태양계 모형, 보어 모형, 드브로이 모형, 슈뢰딩거 모형 순으로 발전했다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "에너지 준위",
+      "definition": "원자핵에 묶인 전자가 가질 수 있는 띄엄띄엄한 에너지 값이다. 수소는 n²에 반비례하는 음의 값을 가진다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "바닥상태와 들뜬상태",
+      "definition": "가장 낮은 에너지 준위(n = 1)를 바닥상태, 그보다 높은 준위를 들뜬상태라고 한다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "흡수와 방출",
+      "definition": "두 준위의 에너지 차이와 같은 에너지의 광자를 받으면 전자가 위 준위로 올라가고, 내려올 때는 같은 에너지의 광자를 낸다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "선 스펙트럼",
+      "definition": "원자가 내거나 흡수하는 빛이 특정 파장에서만 밝거나 어두운 선으로 나타나는 스펙트럼이다. 에너지 준위가 띄엄띄엄하다는 증거이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "라이먼 계열과 발머 계열",
+      "definition": "수소에서 n = 1로 내려오는 전이는 라이먼 계열(자외선), n = 2로 내려오는 전이는 발머 계열(가시광선 포함)이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "오비탈",
+      "definition": "슈뢰딩거 모형에서 전자를 발견할 확률 분포를 n, l, m 상태로 나타낸 것이다. 화학에서 주로 다루며 이 수업의 범위가 아니다.",
+      "emphasis": false,
+      "outOfScope": true
+    }
+  ],
+  "classUnits": [
+    {
+      "quantity": "levelEnergy",
+      "phetUnit": "eV",
+      "classUnit": "J",
+      "factor": 1.602176634e-19
+    },
+    {
+      "quantity": "upperLevelEnergy",
+      "phetUnit": "eV",
+      "classUnit": "J",
+      "factor": 1.602176634e-19
+    },
+    {
+      "quantity": "lowerLevelEnergy",
+      "phetUnit": "eV",
+      "classUnit": "J",
+      "factor": 1.602176634e-19
+    },
+    {
+      "quantity": "wavelength",
+      "phetUnit": "nm",
+      "classUnit": "m",
+      "factor": 1e-9
+    }
+  ],
+  "sources": [
+    {
+      "item": "bohr_energy_level",
+      "from": "2026-10-27_1교시_a661f6b0"
+    },
+    {
+      "item": "bohr_energy_level",
+      "from": "표준"
+    },
+    {
+      "item": "transition_photon_energy",
+      "from": "2026-09-29_6교시_3001518b"
+    },
+    {
+      "item": "transition_photon_energy",
+      "from": "표준"
+    },
+    {
+      "item": "transition_wavelength",
+      "from": "표준"
+    },
+    {
+      "item": "rydberg_formula",
+      "from": "표준"
+    },
+    {
+      "item": "bohr_radius",
+      "from": "표준"
+    },
+    {
+      "item": "de_broglie_orbit",
+      "from": "표준"
+    },
+    {
+      "item": "원자 모형",
+      "from": "2026-08-30_1608_4ea3f914"
+    },
+    {
+      "item": "원자 모형",
+      "from": "표준"
+    },
+    {
+      "item": "에너지 준위",
+      "from": "2026-10-27_1교시_a661f6b0"
+    },
+    {
+      "item": "바닥상태와 들뜬상태",
+      "from": "표준"
+    },
+    {
+      "item": "흡수와 방출",
+      "from": "2026-09-29_6교시_3001518b"
+    },
+    {
+      "item": "선 스펙트럼",
+      "from": "표준"
+    },
+    {
+      "item": "라이먼 계열과 발머 계열",
+      "from": "표준"
+    },
+    {
+      "item": "오비탈",
+      "from": "2026-08-30_1608_4ea3f914"
+    }
+  ]
+}

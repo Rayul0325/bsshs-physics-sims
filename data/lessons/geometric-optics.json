@@ -1,0 +1,295 @@
+{
+  "id": "geometric-optics",
+  "title": "렌즈와 거울이 만드는 상",
+  "unit": "geometric-optics",
+  "formulas": [
+    {
+      "key": "thin_lens_equation",
+      "name": "렌즈 방정식",
+      "expr": "1/a + 1/b = 1/f",
+      "tex": "\\frac{1}{a} + \\frac{1}{b} = \\frac{1}{f}",
+      "variables": [
+        {
+          "key": "objectDistance",
+          "symbol": "a",
+          "name": "물체 거리",
+          "unit": "cm"
+        },
+        {
+          "key": "imageDistance",
+          "symbol": "b",
+          "name": "상 거리",
+          "unit": "cm"
+        },
+        {
+          "key": "focalLength",
+          "symbol": "f",
+          "name": "초점거리",
+          "unit": "cm"
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 광축 가까이 지나는 광선(근축광선)만 다루는 근사식이다. 허상이면 b가, 오목렌즈면 f가 음수이다."
+    },
+    {
+      "key": "magnification",
+      "name": "배율",
+      "expr": "m = −b/a",
+      "tex": "m = -\\frac{b}{a}",
+      "variables": [
+        {
+          "key": "magnification",
+          "symbol": "m",
+          "name": "배율",
+          "unit": ""
+        },
+        {
+          "key": "imageDistance",
+          "symbol": "b",
+          "name": "상 거리",
+          "unit": "cm"
+        },
+        {
+          "key": "objectDistance",
+          "symbol": "a",
+          "name": "물체 거리",
+          "unit": "cm"
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 배율의 크기는 |b/a|이다. 부호가 음이면 도립상, 양이면 정립상이다."
+    },
+    {
+      "key": "lensmaker_equation",
+      "name": "렌즈 제작자 공식",
+      "expr": "1/f = (n − 1)(1/R₁ − 1/R₂)",
+      "tex": "\\frac{1}{f} = (n - 1)\\left(\\frac{1}{R_1} - \\frac{1}{R_2}\\right)",
+      "variables": [
+        {
+          "key": "focalLength",
+          "symbol": "f",
+          "name": "초점거리",
+          "unit": "cm"
+        },
+        {
+          "key": "refractiveIndex",
+          "symbol": "n",
+          "name": "굴절률",
+          "unit": ""
+        },
+        {
+          "key": "radiusOfCurvature1",
+          "symbol": "R₁",
+          "name": "첫째 면의 곡률반지름",
+          "unit": "cm"
+        },
+        {
+          "key": "radiusOfCurvature2",
+          "symbol": "R₂",
+          "name": "둘째 면의 곡률반지름",
+          "unit": "cm"
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 공기 중의 얇은 렌즈에 대한 식이다. 두 면의 곡률반지름 크기가 R로 같은 볼록렌즈는 f = R/(2(n − 1))이다."
+    },
+    {
+      "key": "mirror_focal_length",
+      "name": "구면 거울의 초점거리",
+      "expr": "f = R/2",
+      "tex": "f = \\frac{R}{2}",
+      "variables": [
+        {
+          "key": "focalLength",
+          "symbol": "f",
+          "name": "초점거리",
+          "unit": "cm"
+        },
+        {
+          "key": "radiusOfCurvature",
+          "symbol": "R",
+          "name": "곡률반지름",
+          "unit": "cm"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 거울에도 렌즈 방정식을 그대로 쓴다. 오목거울의 초점거리를 양수로 둔다."
+    },
+    {
+      "key": "newton_lens_equation",
+      "name": "뉴턴의 렌즈 공식",
+      "expr": "x_o · x_i = f²",
+      "tex": "x_o\\,x_i = f^{2}",
+      "variables": [
+        {
+          "key": "objectFocalDistance",
+          "symbol": "x_o",
+          "name": "초점에서 물체까지 거리",
+          "unit": "cm"
+        },
+        {
+          "key": "imageFocalDistance",
+          "symbol": "x_i",
+          "name": "초점에서 상까지 거리",
+          "unit": "cm"
+        },
+        {
+          "key": "focalLength",
+          "symbol": "f",
+          "name": "초점거리",
+          "unit": "cm"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "key": "combined_lens",
+      "name": "붙여 놓은 렌즈의 합성 초점거리",
+      "expr": "1/f = 1/f₁ + 1/f₂",
+      "tex": "\\frac{1}{f} = \\frac{1}{f_1} + \\frac{1}{f_2}",
+      "variables": [
+        {
+          "key": "focalLength",
+          "symbol": "f",
+          "name": "초점거리",
+          "unit": "cm"
+        },
+        {
+          "key": "focalLength1",
+          "symbol": "f₁",
+          "name": "첫째 렌즈의 초점거리",
+          "unit": "cm"
+        },
+        {
+          "key": "focalLength2",
+          "symbol": "f₂",
+          "name": "둘째 렌즈의 초점거리",
+          "unit": "cm"
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 저항의 병렬 연결 식과 같은 꼴이다."
+    }
+  ],
+  "terms": [
+    {
+      "term": "근축광선",
+      "definition": "광축 가까이에서 작은 각으로 진행하는 광선이다. sin θ ≈ tan θ ≈ θ로 근사하며, 렌즈와 거울 공식은 모두 이 근사를 전제로 한다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "광축",
+      "definition": "렌즈나 거울의 중심을 지나며 면에 수직인 기준선이다. 문제를 풀 때 광축을 먼저 정확히 찾아야 한다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "초점",
+      "definition": "광축에 나란히 들어온 빛이 굴절하거나 반사한 뒤 모이는 점(또는 모이는 것처럼 보이는 점)이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "실상과 허상",
+      "definition": "빛이 실제로 모여 스크린에 맺히는 상이 실상, 빛의 연장선이 모이는 것처럼 보이기만 하는 상이 허상이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "정립상과 도립상",
+      "definition": "물체와 같은 방향으로 선 상이 정립상, 뒤집힌 상이 도립상이다. 답을 쓸 때는 배율의 크기와 정립·도립을 따로 쓴다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "부호 규약",
+      "definition": "물체, 상, 초점이 빛이 실제로 오가는 쪽에 있으면 양수, 반대쪽에 있으면 음수로 둔다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "역수 그래프",
+      "definition": "1/a와 1/b를 축으로 그리면 직선이 되어, 절편에서 초점거리를 구할 수 있다.",
+      "emphasis": false,
+      "outOfScope": false
+    }
+  ],
+  "classUnits": [],
+  "sources": [
+    {
+      "item": "thin_lens_equation",
+      "from": "2026-09-01_6교시_8ba46862"
+    },
+    {
+      "item": "thin_lens_equation",
+      "from": "2026-09-08_6교시_7d546f49"
+    },
+    {
+      "item": "magnification",
+      "from": "2026-09-01_6교시_8ba46862"
+    },
+    {
+      "item": "magnification",
+      "from": "2026-09-08_6교시_7d546f49"
+    },
+    {
+      "item": "lensmaker_equation",
+      "from": "2026-09-01_6교시_e9d4e0c4"
+    },
+    {
+      "item": "mirror_focal_length",
+      "from": "2026-09-08_6교시_3f803012"
+    },
+    {
+      "item": "newton_lens_equation",
+      "from": "2026-09-01_6교시_8ba46862"
+    },
+    {
+      "item": "combined_lens",
+      "from": "2026-09-01_6교시_8ba46862"
+    },
+    {
+      "item": "근축광선",
+      "from": "2026-09-01_6교시_e9d4e0c4"
+    },
+    {
+      "item": "근축광선",
+      "from": "2026-09-08_6교시_3f803012"
+    },
+    {
+      "item": "광축",
+      "from": "2026-09-01_6교시_e9d4e0c4"
+    },
+    {
+      "item": "초점",
+      "from": "2026-09-01_6교시_e9d4e0c4"
+    },
+    {
+      "item": "실상과 허상",
+      "from": "2026-09-01_6교시_e9d4e0c4"
+    },
+    {
+      "item": "정립상과 도립상",
+      "from": "2026-09-01_6교시_8ba46862"
+    },
+    {
+      "item": "정립상과 도립상",
+      "from": "2026-09-08_6교시_7d546f49"
+    },
+    {
+      "item": "부호 규약",
+      "from": "2026-09-01_6교시_e9d4e0c4"
+    },
+    {
+      "item": "역수 그래프",
+      "from": "2026-09-01_6교시_8ba46862"
+    }
+  ]
+}

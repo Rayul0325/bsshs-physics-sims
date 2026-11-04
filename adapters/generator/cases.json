@@ -1,0 +1,27 @@
+[
+  {
+    "name": "경계: 물을 잠그면 자석이 서 있고 기전력은 0",
+    "params": { "waterFlow": 0, "ticks": 5 },
+    "expect": { "angularSpeed": { "value": 0 }, "emf": { "value": 0 } }
+  },
+  {
+    "name": "물 흐름 50 %: 1단계(1/25 s)마다 2π/50 rad → ω = π rad/s = 30 rpm, f = ω/2π = 0.5 Hz",
+    "params": { "waterFlow": 50, "ticks": 5 },
+    "expect": { "angularSpeed": { "value": 30 }, "rotationFrequency": { "value": 0.5 } }
+  },
+  {
+    "name": "감은 수 N = 2로 돌릴 때 ε ÷ (ΔΦ/Δt) = −N = −2",
+    "params": { "waterFlow": 50, "coilTurns": 2, "ticks": 3 },
+    "expect": { "coilTurns": { "value": 2 }, "emfPerFluxRate": { "value": -2 } }
+  },
+  {
+    "name": "감은 수 N = 4로 같은 회전: ε ÷ (ΔΦ/Δt) = −4 (감은 수가 2배면 기전력도 2배)",
+    "params": { "waterFlow": 50, "coilTurns": 4, "ticks": 3 },
+    "expect": { "coilTurns": { "value": 4 }, "emfPerFluxRate": { "value": -4 } }
+  },
+  {
+    "name": "경계: 자석 세기 0 %면 물 흐름 100 %(60 rpm)로 돌아도 선속 0, 기전력 0",
+    "params": { "waterFlow": 100, "magnetStrengthPercent": 0, "ticks": 5 },
+    "expect": { "angularSpeed": { "value": 60 }, "magneticFlux": { "value": 0 }, "emf": { "value": 0 } }
+  }
+]

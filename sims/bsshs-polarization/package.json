@@ -1,0 +1,18 @@
+{
+  "name": "bsshs-polarization",
+  "version": "1.0.0",
+  "license": "GPL-3.0-only",
+  "private": true,
+  "description": "Original bsshs-physics-sims simulation: Malus's law through polarizers, Fresnel reflection and Brewster's angle.",
+  "devDependencies": {
+    "grunt": "~1.5.3"
+  },
+  "phet": {
+    "requirejsNamespace": "BSSHS_POLARIZATION",
+    "runnable": true,
+    "simulation": true,
+    "supportedBrands": [
+      "adapted-from-phet"
+    ]
+  }
+}

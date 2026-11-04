@@ -1,0 +1,225 @@
+{
+  "id": "faradays-law",
+  "title": "패러데이 법칙과 렌츠 법칙",
+  "unit": "electromagnetic-induction",
+  "formulas": [
+    {
+      "key": "magnetic_flux",
+      "name": "자기 선속",
+      "expr": "Φ = BA cos θ",
+      "tex": "\\Phi = B A\\cos\\theta",
+      "variables": [
+        {
+          "key": "magneticFlux",
+          "symbol": "Φ",
+          "name": "자기 선속",
+          "unit": "Wb"
+        },
+        {
+          "key": "magneticField",
+          "symbol": "B",
+          "name": "자기장의 세기",
+          "unit": "T"
+        },
+        {
+          "key": "loopArea",
+          "symbol": "A",
+          "name": "코일 한 바퀴의 면적",
+          "unit": "m²"
+        },
+        {
+          "key": "fieldAngle",
+          "symbol": "θ",
+          "name": "자기장과 면의 법선 사이의 각",
+          "unit": "°"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 자기장의 세기 B, 면적 A, 각 θ 가운데 하나라도 변하면 자기 선속이 변한다."
+    },
+    {
+      "key": "faraday_law",
+      "name": "패러데이 법칙",
+      "expr": "ε = −N ΔΦ/Δt",
+      "tex": "\\mathcal{E} = -N\\frac{d\\Phi}{dt}",
+      "variables": [
+        {
+          "key": "emf",
+          "symbol": "ε",
+          "name": "유도 기전력",
+          "unit": "V"
+        },
+        {
+          "key": "coilTurns",
+          "symbol": "N",
+          "name": "코일의 감은 수",
+          "unit": ""
+        },
+        {
+          "key": "magneticFlux",
+          "symbol": "Φ",
+          "name": "자기 선속",
+          "unit": "Wb"
+        },
+        {
+          "key": "time",
+          "symbol": "t",
+          "name": "시간",
+          "unit": "s"
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 전압계에 눈금이 없어 서랍의 선속·기전력은 모델 값이다. 모델은 코일 그림 고리 수의 절반을 감은 수 N으로 쓰고(아래 코일 2, 위 코일 1), 기전력의 + 방향을 반대로 잡아 ε = +N ΔΦ/Δt로 계산한다(크기는 같다)."
+    },
+    {
+      "key": "motional_emf",
+      "name": "운동 기전력",
+      "expr": "ε = BLv",
+      "tex": "\\mathcal{E} = B L v",
+      "variables": [
+        {
+          "key": "emf",
+          "symbol": "ε",
+          "name": "유도 기전력",
+          "unit": "V"
+        },
+        {
+          "key": "magneticField",
+          "symbol": "B",
+          "name": "자기장의 세기",
+          "unit": "T"
+        },
+        {
+          "key": "rodLength",
+          "symbol": "L",
+          "name": "도선의 길이",
+          "unit": "m"
+        },
+        {
+          "key": "rodSpeed",
+          "symbol": "v",
+          "name": "도선의 속력",
+          "unit": "m/s"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "key": "induced_current",
+      "name": "유도 전류",
+      "expr": "I = ε/R",
+      "tex": "I = \\frac{\\mathcal{E}}{R}",
+      "variables": [
+        {
+          "key": "inducedCurrent",
+          "symbol": "I",
+          "name": "유도 전류",
+          "unit": "A"
+        },
+        {
+          "key": "emf",
+          "symbol": "ε",
+          "name": "유도 기전력",
+          "unit": "V"
+        },
+        {
+          "key": "circuitResistance",
+          "symbol": "R",
+          "name": "회로의 저항",
+          "unit": "Ω"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 회로가 닫혀 있을 때만 전류가 흐른다. 기전력은 회로가 열려 있어도 생긴다."
+    }
+  ],
+  "terms": [
+    {
+      "term": "전자기 유도",
+      "definition": "코일을 지나는 자기 선속이 변할 때 코일에 기전력이 생기는 현상이다. 자석이나 코일이 움직이거나 전류가 변할 때 일어난다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "자기 선속",
+      "definition": "어떤 면을 지나는 자기력선 다발의 양이다. 단위는 웨버(Wb)이고, 1 Wb/m²가 1 T이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "렌츠 법칙",
+      "definition": "유도 전류는 자기 선속의 변화를 방해하는 방향으로 흐른다. 패러데이 법칙의 음(−) 부호가 이 방향을 뜻한다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "유도 기전력과 유도 전류",
+      "definition": "자기 선속이 변하면 먼저 유도 기전력이 생기고, 회로가 닫혀 있으면 그 기전력 때문에 유도 전류가 흐른다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "유도 전기장",
+      "definition": "변하는 자기장 주위에 생기는 고리 모양의 전기장이다. 유도 기전력의 더 근본적인 원인이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "자기장 영역을 지나는 고리",
+      "definition": "고리가 자기장 영역으로 들어가거나 나올 때만 선속이 변해 기전력이 생긴다. 영역 안에 완전히 들어가 있으면 기전력은 0이다.",
+      "emphasis": false,
+      "outOfScope": false
+    }
+  ],
+  "classUnits": [],
+  "sources": [
+    {
+      "item": "magnetic_flux",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "faraday_law",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "motional_emf",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "induced_current",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "전자기 유도",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "자기 선속",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "자기 선속",
+      "from": "2026-09-01_1교시_f98ec349"
+    },
+    {
+      "item": "렌츠 법칙",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "유도 기전력과 유도 전류",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "유도 전기장",
+      "from": "2026-09-29_1교시_309947a2"
+    },
+    {
+      "item": "자기장 영역을 지나는 고리",
+      "from": "2026-09-15_1교시_66e02a40"
+    }
+  ]
+}

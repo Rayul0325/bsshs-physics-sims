@@ -1,0 +1,17 @@
+{
+  "simId": "generator",
+  "schemaVersion": 1,
+  "measurements": [
+    { "key": "time", "name": "시간", "unit": "s" },
+    { "key": "waterFlow", "name": "물 흐름", "unit": "%" },
+    { "key": "angularSpeed", "name": "회전 속력", "unit": "rpm", "classUnit": { "unit": "rad/s", "factor": 0.10471975511965977 } },
+    { "key": "magneticField", "name": "자석의 세기", "unit": "G", "classUnit": { "unit": "T", "factor": 0.0001 } },
+    { "key": "coilTurns", "name": "코일의 감은 수", "unit": "" },
+    { "key": "magneticFlux", "name": "자기 선속 (모델 값)", "unit": "" },
+    { "key": "emf", "name": "유도 기전력 (모델 값)", "unit": "" }
+  ],
+  "graphs": [
+    { "id": "speed-vs-flow", "title": "물 흐름과 회전 속력", "x": "waterFlow", "y": "angularSpeed", "fit": "linear" },
+    { "id": "emf-and-flux-vs-time", "title": "시간에 따른 기전력과 자기 선속", "x": "time", "y": [ "emf", "magneticFlux" ], "fit": null }
+  ]
+}

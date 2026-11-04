@@ -1,0 +1,18 @@
+{
+  "name": "bsshs-compton",
+  "version": "1.0.0",
+  "license": "GPL-3.0-only",
+  "private": true,
+  "description": "Compton scattering: X-ray photon and free electron, exact relativistic kinematics (original bsshs-physics-sims simulation).",
+  "devDependencies": {
+    "grunt": "~1.5.3"
+  },
+  "phet": {
+    "requirejsNamespace": "BSSHS_COMPTON",
+    "runnable": true,
+    "simulation": true,
+    "supportedBrands": [
+      "adapted-from-phet"
+    ]
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "units": [
+    {
+      "id": "electric-field",
+      "name": "전기력과 전기장",
+      "order": 1,
+      "sims": [
+        "balloons-and-static-electricity",
+        "john-travoltage",
+        "coulombs-law",
+        "charges-and-fields"
+      ]
+    },
+    {
+      "id": "magnetic-field",
+      "name": "전류와 자기장",
+      "order": 2,
+      "sims": [
+        "magnet-and-compass",
+        "magnets-and-electromagnets"
+      ]
+    },
+    {
+      "id": "electromagnetic-induction",
+      "name": "전자기 유도",
+      "order": 3,
+      "sims": [
+        "faradays-law",
+        "faradays-electromagnetic-lab",
+        "generator"
+      ]
+    },
+    {
+      "id": "wave-optics",
+      "name": "빛의 파동성",
+      "order": 4,
+      "sims": [
+        "wave-interference",
+        "bsshs-polarization"
+      ]
+    },
+    {
+      "id": "geometric-optics",
+      "name": "기하 광학",
+      "order": 5,
+      "sims": [
+        "bending-light",
+        "geometric-optics",
+        "geometric-optics-basics"
+      ]
+    },
+    {
+      "id": "wave-particle-duality",
+      "name": "빛과 물질의 이중성",
+      "order": 6,
+      "sims": [
+        "blackbody-spectrum",
+        "bsshs-photoelectric",
+        "bsshs-compton",
+        "quantum-measurement",
+        "collision-lab"
+      ]
+    },
+    {
+      "id": "atom-laser",
+      "name": "원자와 레이저",
+      "order": 7,
+      "sims": [
+        "models-of-the-hydrogen-atom",
+        "bsshs-laser"
+      ]
+    },
+    {
+      "id": "semiconductor",
+      "name": "반도체",
+      "order": 8,
+      "sims": [
+        "bsshs-semiconductor"
+      ]
+    },
+    {
+      "id": "etc",
+      "name": "기타",
+      "order": 9,
+      "sims": [
+        "atomic-interactions",
+        "balancing-act",
+        "build-a-nucleus",
+        "build-an-atom",
+        "buoyancy",
+        "buoyancy-basics",
+        "calculus-grapher",
+        "capacitor-lab-basics",
+        "circuit-construction-kit-ac",
+        "circuit-construction-kit-ac-virtual-lab",
+        "circuit-construction-kit-dc",
+        "circuit-construction-kit-dc-virtual-lab",
+        "color-vision",
+        "curve-fitting",
+        "density",
+        "diffusion",
+        "energy-forms-and-changes",
+        "energy-skate-park",
+        "energy-skate-park-basics",
+        "forces-and-motion-basics",
+        "fourier-making-waves",
+        "friction",
+        "gas-properties",
+        "gases-intro",
+        "gravity-and-orbits",
+        "gravity-force-lab",
+        "gravity-force-lab-basics",
+        "hookes-law",
+        "keplers-laws",
+        "masses-and-springs",
+        "masses-and-springs-basics",
+        "molecules-and-light",
+        "my-solar-system",
+        "ohms-law",
+        "pendulum-lab",
+        "plinko-probability",
+        "projectile-data-lab",
+        "projectile-motion",
+        "resistance-in-a-wire",
+        "rutherford-scattering",
+        "states-of-matter",
+        "states-of-matter-basics",
+        "under-pressure",
+        "vector-addition",
+        "wave-on-a-string",
+        "waves-intro"
+      ]
+    }
+  ]
+}

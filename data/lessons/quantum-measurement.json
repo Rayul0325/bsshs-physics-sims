@@ -1,0 +1,261 @@
+{
+  "id": "quantum-measurement",
+  "title": "양자 중첩과 측정",
+  "unit": "wave-particle-duality",
+  "formulas": [
+    {
+      "key": "qubit_state",
+      "name": "큐비트 상태(중첩)",
+      "expr": "|ψ⟩ = α|0⟩ + β|1⟩",
+      "tex": "|\\psi\\rangle = \\alpha|0\\rangle + \\beta|1\\rangle",
+      "variables": [
+        {
+          "key": "amplitudeZero",
+          "symbol": "α",
+          "name": "상태 0의 진폭",
+          "unit": ""
+        },
+        {
+          "key": "amplitudeOne",
+          "symbol": "β",
+          "name": "상태 1의 진폭",
+          "unit": ""
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "key": "born_rule",
+      "name": "측정 확률(진폭의 제곱)",
+      "expr": "P₀ = |α|², P₁ = |β|²",
+      "tex": "P_0 = |\\alpha|^{2},\\quad P_1 = |\\beta|^{2}",
+      "variables": [
+        {
+          "key": "probabilityZero",
+          "symbol": "P₀",
+          "name": "0이 측정될 확률",
+          "unit": ""
+        },
+        {
+          "key": "probabilityOne",
+          "symbol": "P₁",
+          "name": "1이 측정될 확률",
+          "unit": ""
+        },
+        {
+          "key": "amplitudeZero",
+          "symbol": "α",
+          "name": "상태 0의 진폭",
+          "unit": ""
+        },
+        {
+          "key": "amplitudeOne",
+          "symbol": "β",
+          "name": "상태 1의 진폭",
+          "unit": ""
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "key": "normalization",
+      "name": "확률의 합",
+      "expr": "|α|² + |β|² = 1",
+      "tex": "|\\alpha|^{2} + |\\beta|^{2} = 1",
+      "variables": [
+        {
+          "key": "amplitudeZero",
+          "symbol": "α",
+          "name": "상태 0의 진폭",
+          "unit": ""
+        },
+        {
+          "key": "amplitudeOne",
+          "symbol": "β",
+          "name": "상태 1의 진폭",
+          "unit": ""
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 두 진폭이 모두 √(1/2)이면 0과 1이 나올 확률은 각각 절반이다."
+    },
+    {
+      "key": "photon_polarization_probability",
+      "name": "광자가 편광 측정을 통과할 확률",
+      "expr": "P = cos²θ",
+      "tex": "P = \\cos^{2}\\theta",
+      "variables": [
+        {
+          "key": "passProbability",
+          "symbol": "P",
+          "name": "통과 확률",
+          "unit": ""
+        },
+        {
+          "key": "polarizationAngle",
+          "symbol": "θ",
+          "name": "광자 편광 방향과 측정 축 사이의 각",
+          "unit": "°"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 광자 하나는 통과하거나 막힐 뿐이다. 많이 보내면 통과 비율이 말뤼스 법칙의 세기 비와 같아진다. 시뮬레이션에서 θ는 수평에서 잰 편광 각이고, 수평 편광 검출기로 갈 확률이 cos²θ이다."
+    },
+    {
+      "key": "spin_measurement_probability",
+      "name": "스핀 측정 확률",
+      "expr": "P(↑) = cos²(θ/2)",
+      "tex": "P(\\uparrow) = \\cos^{2}\\!\\left(\\frac{\\theta}{2}\\right)",
+      "variables": [
+        {
+          "key": "probabilityUp",
+          "symbol": "P(↑)",
+          "name": "스핀 업이 측정될 확률",
+          "unit": ""
+        },
+        {
+          "key": "measurementAngle",
+          "symbol": "θ",
+          "name": "준비한 스핀 방향과 측정 축 사이의 각",
+          "unit": "°"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 서로 수직인 방향으로 다시 측정하면(θ = 90°) 업과 다운이 반반으로 나온다. 시뮬레이션에서 θ는 준비한 스핀 방향과 측정 장치 축 사이의 각이다."
+    }
+  ],
+  "terms": [
+    {
+      "term": "양자 중첩",
+      "definition": "여러 상태가 가능성으로 함께 있는 상태이다. 측정하기 전에는 하나로 정해져 있지 않다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "측정과 상태 붕괴",
+      "definition": "측정하면 중첩된 상태가 측정 결과에 해당하는 하나의 상태로 바뀐다. 측정 자체가 상태를 바꾼다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "양자 얽힘",
+      "definition": "두 입자의 상태가 서로 연결되어, 한쪽을 측정하면 다른 쪽의 상태도 함께 정해지는 관계이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "스핀 업과 스핀 다운",
+      "definition": "전자가 가진 자기적 성질을 나타내는 두 상태이다. 전자가 실제로 팽이처럼 도는 것은 아니다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "큐비트",
+      "definition": "0과 1의 중첩 상태를 가질 수 있는 양자 정보의 기본 단위이다. 측정하면 0 또는 1 중 하나가 나온다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "슈테른-게를라흐 실험",
+      "definition": "불균일한 자기장에 입자 빔을 통과시키면 빔이 연속적으로 퍼지지 않고 두 갈래로 나뉜 실험이다. 스핀이 두 값만 가진다는 증거이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "코펜하겐 해석",
+      "definition": "파동함수를 확률로 해석하고, 측정할 때 상태가 하나로 붕괴한다고 보는 양자역학의 대표 해석이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "상보성 원리",
+      "definition": "입자성과 파동성은 동시에 드러나지 않지만, 둘을 함께 써야 양자 현상을 온전히 설명할 수 있다는 원리이다.",
+      "emphasis": false,
+      "outOfScope": false
+    }
+  ],
+  "classUnits": [],
+  "sources": [
+    {
+      "item": "qubit_state",
+      "from": "2026-11-03_6교시_eb41e1cd"
+    },
+    {
+      "item": "qubit_state",
+      "from": "2026-11-03_7교시_56460552"
+    },
+    {
+      "item": "born_rule",
+      "from": "2026-11-03_6교시_eb41e1cd"
+    },
+    {
+      "item": "normalization",
+      "from": "2026-11-03_6교시_eb41e1cd"
+    },
+    {
+      "item": "photon_polarization_probability",
+      "from": "2026-11-03_7교시_56460552"
+    },
+    {
+      "item": "photon_polarization_probability",
+      "from": "표준"
+    },
+    {
+      "item": "spin_measurement_probability",
+      "from": "2026-11-03_7교시_56460552"
+    },
+    {
+      "item": "spin_measurement_probability",
+      "from": "표준"
+    },
+    {
+      "item": "양자 중첩",
+      "from": "2026-11-03_6교시_eb41e1cd"
+    },
+    {
+      "item": "양자 중첩",
+      "from": "2026-11-03_7교시_56460552"
+    },
+    {
+      "item": "측정과 상태 붕괴",
+      "from": "2026-11-03_6교시_eb41e1cd"
+    },
+    {
+      "item": "측정과 상태 붕괴",
+      "from": "2026-11-03_7교시_56460552"
+    },
+    {
+      "item": "양자 얽힘",
+      "from": "2026-11-03_6교시_eb41e1cd"
+    },
+    {
+      "item": "스핀 업과 스핀 다운",
+      "from": "2026-11-03_6교시_eb41e1cd"
+    },
+    {
+      "item": "큐비트",
+      "from": "2026-11-03_6교시_eb41e1cd"
+    },
+    {
+      "item": "큐비트",
+      "from": "2026-11-03_7교시_56460552"
+    },
+    {
+      "item": "슈테른-게를라흐 실험",
+      "from": "2026-11-03_6교시_eb41e1cd"
+    },
+    {
+      "item": "코펜하겐 해석",
+      "from": "2026-11-03_6교시_eb41e1cd"
+    },
+    {
+      "item": "상보성 원리",
+      "from": "2026-11-03_6교시_eb41e1cd"
+    }
+  ]
+}

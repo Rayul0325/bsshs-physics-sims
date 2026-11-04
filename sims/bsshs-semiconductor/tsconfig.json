@@ -1,0 +1,18 @@
+{
+  "extends": "../perennial-alias/tsconfig/tsconfig-browser.json",
+  "include": [
+    "js/**/*",
+    "../bamboo/js/**/*"
+  ],
+  "exclude": [
+    "../bamboo/js/demo/**/*",
+    "../bamboo/js/*-main.ts",
+    "../bamboo/js/*-tests.ts",
+    "../bamboo/js/*Tests.ts"
+  ],
+  "references": [
+    {
+      "path": "../perennial-alias/tsconfig/buildjson/tsconfig.json"
+    }
+  ]
+}

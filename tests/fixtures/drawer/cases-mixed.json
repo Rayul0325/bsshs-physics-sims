@@ -1,0 +1,6 @@
+[
+  { "name": "500 nm passes (tight relTol)", "params": { "wavelength": 500 }, "expect": { "photonEnergy": { "value": 2.4797, "relTol": 0.001 }, "wavelength": { "value": 500 } } },
+  { "name": "620 nm passes at the default 1%", "params": { "wavelength": 620 }, "expect": { "photonEnergy": { "value": 2.0 } } },
+  { "name": "700 nm: below threshold, stopping voltage exactly 0 (absolute)", "params": { "wavelength": 700 }, "expect": { "stoppingVoltage": { "value": 0 } } },
+  { "name": "DELIBERATELY WRONG: 400 nm is not 2 eV", "params": { "wavelength": 400 }, "expect": { "photonEnergy": { "value": 2.0 } } }
+]

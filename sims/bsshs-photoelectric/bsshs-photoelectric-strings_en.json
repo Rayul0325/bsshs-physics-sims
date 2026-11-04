@@ -1,0 +1,48 @@
+{
+  "bsshs-photoelectric": {
+    "title": { "value": "광전효과" }
+  },
+  "screen": {
+    "main": { "value": "광전효과 실험" }
+  },
+  "light": { "value": "빛" },
+  "lightSource": { "value": "광원" },
+  "turnLightOn": { "value": "광원 켜기" },
+  "turnLightOff": { "value": "광원 끄기" },
+  "wavelength": { "value": "파장" },
+  "intensity": { "value": "빛의 세기" },
+  "frequency": { "value": "진동수" },
+  "photonEnergy": { "value": "광자 에너지" },
+  "ultraviolet": { "value": "자외선 (눈에 안 보임)" },
+  "visibleLight": { "value": "가시광선" },
+  "infrared": { "value": "적외선 (눈에 안 보임)" },
+  "cathodeMetal": { "value": "음극 금속" },
+  "metals": {
+    "Cs": { "value": "세슘" },
+    "Na": { "value": "나트륨" },
+    "Zn": { "value": "아연" },
+    "Cu": { "value": "구리" },
+    "Pt": { "value": "백금" }
+  },
+  "workFunction": { "value": "일함수 W" },
+  "thresholdFrequency": { "value": "문턱 진동수 f₀" },
+  "circuit": { "value": "회로" },
+  "voltage": { "value": "전압 (양극 − 음극)" },
+  "powerSupply": { "value": "전원 장치" },
+  "ammeter": { "value": "전류계" },
+  "cathodePattern": { "value": "음극: {{metal}}" },
+  "anode": { "value": "양극" },
+  "showEnergy": { "value": "최대 운동 에너지·정지 전압 보기" },
+  "kineticEnergyMax": { "value": "최대 운동 에너지 K_max" },
+  "stoppingVoltage": { "value": "정지 전압 V₀" },
+  "noPhotoelectrons": { "value": "광전자가 나오지 않음 (hf ≤ W)" },
+  "graphTitle": { "value": "광전류-전압 그래프" },
+  "graphVoltageAxis": { "value": "전압 (V)" },
+  "graphCurrentAxis": { "value": "광전류 (μA)" },
+  "nanometersPattern": { "value": "{{value}} nm" },
+  "electronVoltsPattern": { "value": "{{value}} eV" },
+  "voltsPattern": { "value": "{{value}} V" },
+  "microAmperesPattern": { "value": "{{value}} μA" },
+  "percentPattern": { "value": "{{value}} %" },
+  "frequencyPattern": { "value": "{{value}} × 10¹⁴ Hz" }
+}

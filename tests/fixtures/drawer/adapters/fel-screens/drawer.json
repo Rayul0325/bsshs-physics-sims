@@ -1,0 +1,12 @@
+{
+  "simId": "faradays-electromagnetic-lab",
+  "schemaVersion": 1,
+  "measurements": [
+    { "key": "magneticField", "name": "자석의 세기", "unit": "G", "classUnit": { "unit": "T", "factor": 0.0001 } },
+    { "key": "screenIndex", "name": "화면 번호", "unit": "" }
+  ],
+  "graphs": [
+    { "id": "field-vs-screen", "title": "화면과 자석의 세기", "x": "screenIndex", "y": "magneticField", "fit": null },
+    { "id": "field-vs-field", "title": "자석의 세기", "x": "magneticField", "y": "magneticField", "fit": "linear" }
+  ]
+}

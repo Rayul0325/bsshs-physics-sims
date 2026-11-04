@@ -1,0 +1,11 @@
+Font files in this folder (unmodified copies, SIL Open Font License 1.1; see the OFL-*.txt next to them):
+
+Geist-Variable.woff2, GeistMono-Variable.woff2
+  npm package geist@1.9.0 (https://github.com/vercel/geist-font), dist/fonts/geist-sans/ and dist/fonts/geist-mono/
+  license: OFL-Geist.txt (the package's LICENSE.txt)
+
+instrument-serif-latin-400-normal.woff2, instrument-serif-latin-400-italic.woff2
+  npm package @fontsource/instrument-serif@5.3.0 (Google Fonts build of https://github.com/Instrument/instrument-serif), files/
+  license: OFL-InstrumentSerif.txt (the package's LICENSE)
+
+Which faces are embedded into the rebuilt sims is decided by theme/tokens.json (font.faces[].embedInSims).

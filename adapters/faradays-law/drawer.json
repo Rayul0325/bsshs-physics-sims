@@ -1,0 +1,22 @@
+{
+  "simId": "faradays-law",
+  "schemaVersion": 1,
+  "measurements": [
+    { "key": "time", "name": "시간", "unit": "s" },
+    { "key": "coilCount", "name": "연결한 코일 수", "unit": "" },
+    { "key": "coilTurns", "name": "아래 코일의 감은 수 N (모델 값)", "unit": "" },
+    { "key": "magnetSpeed", "name": "자석의 속력 (화면 좌표)", "unit": "px/s" },
+    { "key": "magneticFlux", "name": "아래 코일 한 바퀴의 자기 선속 (모델 값)", "unit": "" },
+    { "key": "fluxChangeRate", "name": "아래 코일 선속 변화율 ΔΦ/Δt (모델 값)", "unit": "1/s" },
+    { "key": "emf", "name": "아래 코일의 유도 기전력 (모델 값)", "unit": "" },
+    { "key": "topEmf", "name": "위 코일의 유도 기전력 (모델 값)", "unit": "" },
+    { "key": "totalEmf", "name": "전압계에 걸린 기전력 합 (모델 값)", "unit": "" },
+    { "key": "peakSpeed", "name": "최근 움직임의 최대 속력 (화면 좌표)", "unit": "px/s" },
+    { "key": "peakEmf", "name": "최근 움직임의 최대 기전력 크기 (모델 값)", "unit": "" }
+  ],
+  "graphs": [
+    { "id": "emf-vs-flux-rate", "title": "자기 선속의 변화율과 유도 기전력", "x": "fluxChangeRate", "y": "emf", "fit": "linear" },
+    { "id": "peak-emf-vs-peak-speed", "title": "자석의 최대 속력과 최대 기전력", "x": "peakSpeed", "y": "peakEmf", "fit": "linear" },
+    { "id": "flux-and-emf-vs-time", "title": "시간에 따른 자기 선속과 기전력", "x": "time", "y": [ "magneticFlux", "emf" ], "fit": null }
+  ]
+}

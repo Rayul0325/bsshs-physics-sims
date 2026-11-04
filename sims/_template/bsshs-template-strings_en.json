@@ -1,0 +1,24 @@
+{
+  "bsshs-template": {
+    "title": {
+      "value": "새 시뮬레이션 틀"
+    }
+  },
+  "screen": {
+    "main": {
+      "value": "실험"
+    }
+  },
+  "sideLength": {
+    "value": "한 변의 길이"
+  },
+  "area": {
+    "value": "넓이"
+  },
+  "valueCentimetersPattern": {
+    "value": "{{value}} cm"
+  },
+  "valueSquareCentimetersPattern": {
+    "value": "{{value}} cm²"
+  }
+}

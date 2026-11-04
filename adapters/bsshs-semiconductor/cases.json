@@ -1,0 +1,799 @@
+[
+ {
+  "name": "PN 접합 실리콘, 전원 0 V (평형): 전류 0, V_bi = (kT/e)ln(N_A N_D/n_i²), 공핍층 폭",
+  "params": {
+   "screen": "junction",
+   "material": "silicon",
+   "sourceVoltage": 0,
+   "acceptorDensity": 1e+16,
+   "donorDensity": 1e+16,
+   "temperature": 300,
+   "idealityFactor": 1
+  },
+  "expect": {
+   "bandGap": {
+    "value": 1.12
+   },
+   "thermalVoltage": {
+    "value": 0.025851999786435535
+   },
+   "intrinsicDensity": {
+    "value": 10000000000.0
+   },
+   "saturationCurrent": {
+    "value": 3.3645709314e-11
+   },
+   "builtInVoltage": {
+    "value": 0.7143171519879805
+   },
+   "diodeVoltage": {
+    "value": 0
+   },
+   "diodeCurrent": {
+    "value": 0
+   },
+   "depletionWidth": {
+    "value": 0.4298210036889878
+   },
+   "depletionWidthSquared": {
+    "value": 0.18474609521220883
+   }
+  }
+ },
+ {
+  "name": "실리콘 역방향 −5 V: 전류 ≈ −I_s (경계), 공핍층이 넓어짐",
+  "params": {
+   "screen": "junction",
+   "material": "silicon",
+   "sourceVoltage": -5,
+   "acceptorDensity": 1e+16,
+   "donorDensity": 1e+16,
+   "temperature": 300,
+   "idealityFactor": 1
+  },
+  "expect": {
+   "bandGap": {
+    "value": 1.12
+   },
+   "thermalVoltage": {
+    "value": 0.025851999786435535
+   },
+   "intrinsicDensity": {
+    "value": 10000000000.0
+   },
+   "saturationCurrent": {
+    "value": 3.3645709314e-11
+   },
+   "builtInVoltage": {
+    "value": 0.7143171519879805
+   },
+   "diodeVoltage": {
+    "value": -4.999999999966354
+   },
+   "diodeCurrent": {
+    "value": -3.3645709314e-11
+   },
+   "depletionWidth": {
+    "value": 1.2156939770621462
+   },
+   "depletionWidthSquared": {
+    "value": 1.4779118458651783
+   }
+  }
+ },
+ {
+  "name": "실리콘 순방향 +5 V (보호 저항 1 kΩ): 쇼클리 식 동작점, 공핍층이 좁아짐",
+  "params": {
+   "screen": "junction",
+   "material": "silicon",
+   "sourceVoltage": 5,
+   "acceptorDensity": 1e+16,
+   "donorDensity": 1e+16,
+   "temperature": 300,
+   "idealityFactor": 1
+  },
+  "expect": {
+   "bandGap": {
+    "value": 1.12
+   },
+   "thermalVoltage": {
+    "value": 0.025851999786435535
+   },
+   "intrinsicDensity": {
+    "value": 10000000000.0
+   },
+   "saturationCurrent": {
+    "value": 3.3645709314e-11
+   },
+   "builtInVoltage": {
+    "value": 0.7143171519879805
+   },
+   "diodeVoltage": {
+    "value": 0.6613638418769376
+   },
+   "diodeCurrent": {
+    "value": 4.338636158123062
+   },
+   "depletionWidth": {
+    "value": 0.11702769502965273
+   },
+   "depletionWidthSquared": {
+    "value": 0.013695481403953406
+   },
+   "lnCurrent": {
+    "value": 1.4675600494452612
+   }
+  }
+ },
+ {
+  "name": "실리콘 순방향 +1 V: 쇼클리 식 동작점",
+  "params": {
+   "screen": "junction",
+   "material": "silicon",
+   "sourceVoltage": 1,
+   "acceptorDensity": 1e+16,
+   "donorDensity": 1e+16,
+   "temperature": 300,
+   "idealityFactor": 1
+  },
+  "expect": {
+   "bandGap": {
+    "value": 1.12
+   },
+   "thermalVoltage": {
+    "value": 0.025851999786435535
+   },
+   "intrinsicDensity": {
+    "value": 10000000000.0
+   },
+   "saturationCurrent": {
+    "value": 3.3645709314e-11
+   },
+   "builtInVoltage": {
+    "value": 0.7143171519879805
+   },
+   "diodeVoltage": {
+    "value": 0.5997525215740472
+   },
+   "diodeCurrent": {
+    "value": 0.40024747842595276
+   },
+   "depletionWidth": {
+    "value": 0.17213428263336214
+   },
+   "depletionWidthSquared": {
+    "value": 0.0296302112577022
+   },
+   "lnCurrent": {
+    "value": -0.9156722271227776
+   }
+  }
+ },
+ {
+  "name": "저마늄 순방향 +5 V: 띠 간격 0.67 eV, 문턱 전압이 낮음",
+  "params": {
+   "screen": "junction",
+   "material": "germanium",
+   "sourceVoltage": 5,
+   "acceptorDensity": 1e+16,
+   "donorDensity": 1e+16,
+   "temperature": 300,
+   "idealityFactor": 1
+  },
+  "expect": {
+   "bandGap": {
+    "value": 0.67
+   },
+   "thermalVoltage": {
+    "value": 0.025851999786435535
+   },
+   "intrinsicDensity": {
+    "value": 20000000000000.0
+   },
+   "saturationCurrent": {
+    "value": 0.00017303507647199991
+   },
+   "builtInVoltage": {
+    "value": 0.3213200944663821
+   },
+   "diodeVoltage": {
+    "value": 0.26413549310654183
+   },
+   "diodeCurrent": {
+    "value": 4.735864506893458
+   },
+   "depletionWidth": {
+    "value": 0.1422160801552018
+   },
+   "depletionWidthSquared": {
+    "value": 0.02022541345471078
+   },
+   "lnCurrent": {
+    "value": 1.5551642879861065
+   }
+  }
+ },
+ {
+  "name": "저마늄 역방향 −2 V: 전류 ≈ −I_s (경계)",
+  "params": {
+   "screen": "junction",
+   "material": "germanium",
+   "sourceVoltage": -2,
+   "acceptorDensity": 1e+16,
+   "donorDensity": 1e+16,
+   "temperature": 300,
+   "idealityFactor": 1
+  },
+  "expect": {
+   "bandGap": {
+    "value": 0.67
+   },
+   "thermalVoltage": {
+    "value": 0.025851999786435535
+   },
+   "intrinsicDensity": {
+    "value": 20000000000000.0
+   },
+   "saturationCurrent": {
+    "value": 0.00017303507647199991
+   },
+   "builtInVoltage": {
+    "value": 0.3213200944663821
+   },
+   "diodeVoltage": {
+    "value": -1.999826964923528
+   },
+   "diodeCurrent": {
+    "value": -0.00017303507647199991
+   },
+   "depletionWidth": {
+    "value": 0.906067355387951
+   },
+   "depletionWidthSquared": {
+    "value": 0.8209580524997155
+   }
+  }
+ },
+ {
+  "name": "비대칭 도핑 N_A = 10¹⁵, N_D = 10¹⁷ cm⁻³, 역방향 −3 V",
+  "params": {
+   "screen": "junction",
+   "material": "silicon",
+   "sourceVoltage": -3,
+   "acceptorDensity": 1000000000000000.0,
+   "donorDensity": 1e+17,
+   "temperature": 300,
+   "idealityFactor": 1
+  },
+  "expect": {
+   "bandGap": {
+    "value": 1.12
+   },
+   "thermalVoltage": {
+    "value": 0.025851999786435535
+   },
+   "intrinsicDensity": {
+    "value": 10000000000.0
+   },
+   "saturationCurrent": {
+    "value": 2.4128780108039996e-10
+   },
+   "builtInVoltage": {
+    "value": 0.7143171519879805
+   },
+   "diodeVoltage": {
+    "value": -2.999999999758712
+   },
+   "diodeCurrent": {
+    "value": -2.4128780108039996e-10
+   },
+   "depletionWidth": {
+    "value": 2.2025576053786593
+   },
+   "depletionWidthSquared": {
+    "value": 4.851260005011373
+   }
+  }
+ },
+ {
+  "name": "온도 350 K, 순방향 +2 V: n_i와 I_s가 커짐",
+  "params": {
+   "screen": "junction",
+   "material": "silicon",
+   "sourceVoltage": 2,
+   "acceptorDensity": 1e+16,
+   "donorDensity": 1e+16,
+   "temperature": 350,
+   "idealityFactor": 1
+  },
+  "expect": {
+   "bandGap": {
+    "value": 1.12
+   },
+   "thermalVoltage": {
+    "value": 0.030160666417508128
+   },
+   "intrinsicDensity": {
+    "value": 278202503530.91705
+   },
+   "saturationCurrent": {
+    "value": 2.604064614820237e-08
+   },
+   "builtInVoltage": {
+    "value": 0.6327554822890712
+   },
+   "diodeVoltage": {
+    "value": 0.5381657942527451
+   },
+   "diodeCurrent": {
+    "value": 1.4618342057472549
+   },
+   "depletionWidth": {
+    "value": 0.15640981103137291
+   },
+   "depletionWidthSquared": {
+    "value": 0.024464028986869783
+   },
+   "lnCurrent": {
+    "value": 0.379691952535394
+   }
+  }
+ },
+ {
+  "name": "이상 계수 n = 2, 순방향 +2 V: 같은 전류에 V_D가 약 n배",
+  "params": {
+   "screen": "junction",
+   "material": "silicon",
+   "sourceVoltage": 2,
+   "acceptorDensity": 1e+16,
+   "donorDensity": 1e+16,
+   "temperature": 300,
+   "idealityFactor": 2
+  },
+  "expect": {
+   "thermalVoltage": {
+    "value": 0.025851999786435535
+   },
+   "saturationCurrent": {
+    "value": 3.3645709314e-11
+   },
+   "diodeVoltage": {
+    "value": 1.2331250855423461
+   },
+   "diodeCurrent": {
+    "value": 0.7668749144576539
+   },
+   "lnCurrent": {
+    "value": -0.265431575063629
+   }
+  }
+ },
+ {
+  "name": "도핑 10¹⁵ cm⁻³, 순방향 +5 V: V_D ≥ V_bi이면 공핍층 근사 폭 0 (경계)",
+  "params": {
+   "screen": "junction",
+   "material": "silicon",
+   "sourceVoltage": 5,
+   "acceptorDensity": 1000000000000000.0,
+   "donorDensity": 1000000000000000.0,
+   "temperature": 300,
+   "idealityFactor": 1
+  },
+  "expect": {
+   "builtInVoltage": {
+    "value": 0.5952642933233172
+   },
+   "diodeVoltage": {
+    "value": 0.6021876341955918
+   },
+   "depletionWidth": {
+    "value": 0
+   },
+   "barrierHeight": {
+    "value": 0
+   }
+  }
+ },
+ {
+  "name": "저온 250 K, 역방향 −1 V: 전류 ≈ −I_s (경계)",
+  "params": {
+   "screen": "junction",
+   "material": "silicon",
+   "sourceVoltage": -1,
+   "acceptorDensity": 1e+16,
+   "donorDensity": 1e+16,
+   "temperature": 250,
+   "idealityFactor": 1
+  },
+  "expect": {
+   "bandGap": {
+    "value": 1.12
+   },
+   "thermalVoltage": {
+    "value": 0.021543333155362946
+   },
+   "intrinsicDensity": {
+    "value": 99933464.02018623
+   },
+   "saturationCurrent": {
+    "value": 3.3600951204363967e-15
+   },
+   "builtInVoltage": {
+    "value": 0.7937144021082335
+   },
+   "diodeVoltage": {
+    "value": -0.9999999999999967
+   },
+   "diodeCurrent": {
+    "value": -3.3600951204363967e-15
+   },
+   "depletionWidth": {
+    "value": 0.6811123301299047
+   },
+   "depletionWidthSquared": {
+    "value": 0.4639140062549882
+   }
+  }
+ },
+ {
+  "name": "반파 정류, 고정 전압 강하 모델, 축전기 없음: 출력 최대 = V_p − 0.7 V",
+  "params": {
+   "screen": "rectifier",
+   "circuit": "halfWave",
+   "diodeModel": "constantDrop",
+   "inputAmplitude": 10,
+   "signalFrequency": 60,
+   "loadResistance": 1000,
+   "capacitance": 0
+  },
+  "expect": {
+   "peakVoltage": {
+    "value": 9.3
+   },
+   "rippleVoltage": {
+    "value": 9.3
+   },
+   "averageOutputVoltage": {
+    "value": 2.8409006431659347
+   }
+  }
+ },
+ {
+  "name": "브리지 정류, 고정 전압 강하 모델, 축전기 없음: 출력 최대 = V_p − 1.4 V",
+  "params": {
+   "screen": "rectifier",
+   "circuit": "bridge",
+   "diodeModel": "constantDrop",
+   "inputAmplitude": 10,
+   "signalFrequency": 60,
+   "loadResistance": 1000,
+   "capacitance": 0
+  },
+  "expect": {
+   "peakVoltage": {
+    "value": 8.6
+   },
+   "rippleVoltage": {
+    "value": 8.6
+   },
+   "averageOutputVoltage": {
+    "value": 5.028688967453637
+   }
+  }
+ },
+ {
+  "name": "반파 정류, 이상적인 다이오드: 평균 = V_p/π",
+  "params": {
+   "screen": "rectifier",
+   "circuit": "halfWave",
+   "diodeModel": "ideal",
+   "inputAmplitude": 10,
+   "signalFrequency": 60,
+   "loadResistance": 1000,
+   "capacitance": 0
+  },
+  "expect": {
+   "peakVoltage": {
+    "value": 10.0
+   },
+   "rippleVoltage": {
+    "value": 10.0
+   },
+   "averageOutputVoltage": {
+    "value": 3.183098861837907
+   }
+  }
+ },
+ {
+  "name": "브리지 정류, 이상적인 다이오드: 평균 = 2V_p/π",
+  "params": {
+   "screen": "rectifier",
+   "circuit": "bridge",
+   "diodeModel": "ideal",
+   "inputAmplitude": 10,
+   "signalFrequency": 60,
+   "loadResistance": 1000,
+   "capacitance": 0
+  },
+  "expect": {
+   "peakVoltage": {
+    "value": 10.0
+   },
+   "rippleVoltage": {
+    "value": 10.0
+   },
+   "averageOutputVoltage": {
+    "value": 6.366197723675814
+   }
+  }
+ },
+ {
+  "name": "반파 정류, 구간 선형 모델, R = 100 Ω: 최대 = (V_p − V_on)R/(R + r_d)",
+  "params": {
+   "screen": "rectifier",
+   "circuit": "halfWave",
+   "diodeModel": "piecewiseLinear",
+   "inputAmplitude": 10,
+   "signalFrequency": 60,
+   "loadResistance": 100,
+   "capacitance": 0
+  },
+  "expect": {
+   "peakVoltage": {
+    "value": 8.454545454545455
+   },
+   "rippleVoltage": {
+    "value": 8.454545454545455
+   },
+   "averageOutputVoltage": {
+    "value": 2.582636948332668
+   }
+  }
+ },
+ {
+  "name": "브리지 정류, 구간 선형 모델, R = 100 Ω: 최대 = (V_p − 2V_on)R/(R + 2r_d)",
+  "params": {
+   "screen": "rectifier",
+   "circuit": "bridge",
+   "diodeModel": "piecewiseLinear",
+   "inputAmplitude": 10,
+   "signalFrequency": 60,
+   "loadResistance": 100,
+   "capacitance": 0
+  },
+  "expect": {
+   "peakVoltage": {
+    "value": 7.166666666666667
+   },
+   "rippleVoltage": {
+    "value": 7.166666666666667
+   },
+   "averageOutputVoltage": {
+    "value": 4.190574139544697
+   }
+  }
+ },
+ {
+  "name": "반파 + 평활 축전기 470 μF, R = 1 kΩ, 60 Hz: 리플 (정확한 해)",
+  "params": {
+   "screen": "rectifier",
+   "circuit": "halfWave",
+   "diodeModel": "constantDrop",
+   "inputAmplitude": 10,
+   "signalFrequency": 60,
+   "loadResistance": 1000,
+   "capacitance": 470
+  },
+  "expect": {
+   "peakVoltage": {
+    "value": 9.3
+   },
+   "rippleVoltage": {
+    "value": 0.31119517217177517
+   },
+   "averageOutputVoltage": {
+    "value": 9.145676412038968
+   },
+   "inverseCapacitance": {
+    "value": 0.002127659574468085
+   }
+  }
+ },
+ {
+  "name": "반파 + 평활 축전기 1000 μF: 근사식 ΔV ≈ V_p/(fRC)와 6% 안",
+  "params": {
+   "screen": "rectifier",
+   "circuit": "halfWave",
+   "diodeModel": "constantDrop",
+   "inputAmplitude": 10,
+   "signalFrequency": 60,
+   "loadResistance": 1000,
+   "capacitance": 1000
+  },
+  "expect": {
+   "rippleVoltage": {
+    "value": 0.155,
+    "relTol": 0.06
+   }
+  }
+ },
+ {
+  "name": "브리지 + 평활 축전기 470 μF: 리플 (정확한 해)",
+  "params": {
+   "screen": "rectifier",
+   "circuit": "bridge",
+   "diodeModel": "constantDrop",
+   "inputAmplitude": 10,
+   "signalFrequency": 60,
+   "loadResistance": 1000,
+   "capacitance": 470
+  },
+  "expect": {
+   "peakVoltage": {
+    "value": 8.6
+   },
+   "rippleVoltage": {
+    "value": 0.142946581293808
+   },
+   "averageOutputVoltage": {
+    "value": 8.52967448739183
+   },
+   "inverseCapacitance": {
+    "value": 0.002127659574468085
+   }
+  }
+ },
+ {
+  "name": "브리지 + 평활 축전기 1000 μF: 근사식 ΔV ≈ V_p/(2fRC)와 6% 안",
+  "params": {
+   "screen": "rectifier",
+   "circuit": "bridge",
+   "diodeModel": "constantDrop",
+   "inputAmplitude": 10,
+   "signalFrequency": 60,
+   "loadResistance": 1000,
+   "capacitance": 1000
+  },
+  "expect": {
+   "rippleVoltage": {
+    "value": 0.07166666666666667,
+    "relTol": 0.06
+   }
+  }
+ },
+ {
+  "name": "반파 + 축전기 100 μF, 진동수 120 Hz, 이상적인 다이오드: 리플 (정확한 해)",
+  "params": {
+   "screen": "rectifier",
+   "circuit": "halfWave",
+   "diodeModel": "ideal",
+   "inputAmplitude": 10,
+   "signalFrequency": 120,
+   "loadResistance": 1000,
+   "capacitance": 100
+  },
+  "expect": {
+   "peakVoltage": {
+    "value": 10.0
+   },
+   "rippleVoltage": {
+    "value": 0.7510257715135396
+   },
+   "averageOutputVoltage": {
+    "value": 9.627996801960215
+   },
+   "inverseCapacitance": {
+    "value": 0.01
+   }
+  }
+ },
+ {
+  "name": "반파 + 축전기 220 μF, 구간 선형 모델, R = 470 Ω: 리플 (미분 방정식 해)",
+  "params": {
+   "screen": "rectifier",
+   "circuit": "halfWave",
+   "diodeModel": "piecewiseLinear",
+   "inputAmplitude": 10,
+   "signalFrequency": 60,
+   "loadResistance": 470,
+   "capacitance": 220
+  },
+  "expect": {
+   "peakVoltage": {
+    "value": 8.304525241963669
+   },
+   "rippleVoltage": {
+    "value": 1.0403391521326162
+   },
+   "averageOutputVoltage": {
+    "value": 7.778740728261459
+   },
+   "inverseCapacitance": {
+    "value": 0.004545454545454545
+   }
+  }
+ },
+ {
+  "name": "진폭 0.5 V < 0.7 V: 고정 전압 강하 반파 출력 0 (경계)",
+  "params": {
+   "screen": "rectifier",
+   "circuit": "halfWave",
+   "diodeModel": "constantDrop",
+   "inputAmplitude": 0.5,
+   "signalFrequency": 60,
+   "loadResistance": 1000,
+   "capacitance": 0
+  },
+  "expect": {
+   "peakVoltage": {
+    "value": 0
+   },
+   "rippleVoltage": {
+    "value": 0
+   },
+   "averageOutputVoltage": {
+    "value": 0
+   }
+  }
+ },
+ {
+  "name": "커서 위상 30°: v_in = V_p/2, v_out = v_in − 0.7 V",
+  "params": {
+   "screen": "rectifier",
+   "circuit": "halfWave",
+   "diodeModel": "constantDrop",
+   "inputAmplitude": 10,
+   "signalFrequency": 60,
+   "loadResistance": 1000,
+   "capacitance": 0,
+   "cursorTime": 1.3888888888888888
+  },
+  "expect": {
+   "inputVoltage": {
+    "value": 4.999999999999998
+   },
+   "outputVoltage": {
+    "value": 4.299999999999998
+   },
+   "diodeCurrent": {
+    "value": 4.299999999999998
+   },
+   "diodeVoltage": {
+    "value": 0.7
+   },
+   "cursorTime": {
+    "value": 1.3888888888888888
+   }
+  }
+ },
+ {
+  "name": "커서 위상 270° (역방향 반주기): 출력 0, 다이오드 양단 −V_p (경계)",
+  "params": {
+   "screen": "rectifier",
+   "circuit": "halfWave",
+   "diodeModel": "constantDrop",
+   "inputAmplitude": 10,
+   "signalFrequency": 60,
+   "loadResistance": 1000,
+   "capacitance": 0,
+   "cursorTime": 12.5
+  },
+  "expect": {
+   "inputVoltage": {
+    "value": -10.0
+   },
+   "outputVoltage": {
+    "value": 0
+   },
+   "diodeCurrent": {
+    "value": 0
+   },
+   "diodeVoltage": {
+    "value": -10.0
+   },
+   "cursorTime": {
+    "value": 12.5
+   }
+  }
+ }
+]

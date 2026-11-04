@@ -1,0 +1,19 @@
+{
+  "simId": "blackbody-spectrum",
+  "schemaVersion": 1,
+  "measurements": [
+    { "key": "temperature", "name": "절대 온도", "unit": "K" },
+    { "key": "peakWavelength", "name": "세기가 가장 큰 파장", "unit": "μm", "classUnit": { "unit": "m", "factor": 1e-6 } },
+    { "key": "totalIntensity", "name": "전체 복사 세기", "unit": "W/m²" },
+    { "key": "inverseTemperature", "name": "온도의 역수 (1/T)", "unit": "1/K" },
+    { "key": "temperatureFourth", "name": "온도의 네제곱 (T⁴)", "unit": "K⁴" },
+    { "key": "wavelength", "name": "그래프 점의 파장", "unit": "μm", "classUnit": { "unit": "m", "factor": 1e-6 } },
+    { "key": "spectralIntensity", "name": "그래프 점의 파장당 복사 세기", "unit": "MW/m²/μm", "classUnit": { "unit": "W/m³", "factor": 1e12 } }
+  ],
+  "graphs": [
+    { "id": "peak-wavelength-vs-inverse-temperature", "title": "온도의 역수와 세기가 가장 큰 파장 (기울기 = 빈 상수)", "x": "inverseTemperature", "y": "peakWavelength", "fit": "linear" },
+    { "id": "total-intensity-vs-temperature-fourth", "title": "온도의 네제곱과 전체 복사 세기 (기울기 = σ)", "x": "temperatureFourth", "y": "totalIntensity", "fit": "linear" },
+    { "id": "peak-wavelength-vs-temperature", "title": "온도와 세기가 가장 큰 파장", "x": "temperature", "y": "peakWavelength", "fit": null },
+    { "id": "spectrum-points", "title": "파장에 따른 복사 세기 (그래프 점 기록)", "x": "wavelength", "y": "spectralIntensity", "fit": null }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "bsshs-semiconductor",
+  "version": "1.0.0",
+  "license": "GPL-3.0-only",
+  "private": true,
+  "description": "Original sim: p-n junction (energy bands, depletion layer, Shockley diode) and rectifier circuits with smoothing (bsshs-physics-sims).",
+  "devDependencies": {
+    "grunt": "~1.5.3"
+  },
+  "phet": {
+    "requirejsNamespace": "BSSHS_SEMICONDUCTOR",
+    "runnable": true,
+    "simulation": true,
+    "supportedBrands": [
+      "adapted-from-phet"
+    ],
+    "phetLibs": [
+      "bamboo"
+    ]
+  }
+}

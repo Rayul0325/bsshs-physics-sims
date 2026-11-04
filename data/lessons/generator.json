@@ -1,0 +1,292 @@
+{
+  "id": "generator",
+  "title": "발전기와 교류",
+  "unit": "electromagnetic-induction",
+  "formulas": [
+    {
+      "key": "rotating_flux",
+      "name": "회전하는 코일의 자기 선속",
+      "expr": "Φ = BA cos ωt",
+      "tex": "\\Phi = B A\\cos\\omega t",
+      "variables": [
+        {
+          "key": "magneticFlux",
+          "symbol": "Φ",
+          "name": "자기 선속",
+          "unit": "Wb"
+        },
+        {
+          "key": "magneticField",
+          "symbol": "B",
+          "name": "자기장의 세기",
+          "unit": "T"
+        },
+        {
+          "key": "loopArea",
+          "symbol": "A",
+          "name": "코일 한 바퀴의 면적",
+          "unit": "m²"
+        },
+        {
+          "key": "angularSpeed",
+          "symbol": "ω",
+          "name": "각속도",
+          "unit": "rad/s"
+        },
+        {
+          "key": "time",
+          "symbol": "t",
+          "name": "시간",
+          "unit": "s"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "key": "generator_emf",
+      "name": "발전기의 유도 기전력",
+      "expr": "ε = NBAω sin ωt",
+      "tex": "\\mathcal{E} = N B A\\,\\omega\\sin\\omega t",
+      "variables": [
+        {
+          "key": "emf",
+          "symbol": "ε",
+          "name": "유도 기전력",
+          "unit": "V"
+        },
+        {
+          "key": "coilTurns",
+          "symbol": "N",
+          "name": "코일의 감은 수",
+          "unit": ""
+        },
+        {
+          "key": "magneticField",
+          "symbol": "B",
+          "name": "자기장의 세기",
+          "unit": "T"
+        },
+        {
+          "key": "loopArea",
+          "symbol": "A",
+          "name": "코일 한 바퀴의 면적",
+          "unit": "m²"
+        },
+        {
+          "key": "angularSpeed",
+          "symbol": "ω",
+          "name": "각속도",
+          "unit": "rad/s"
+        },
+        {
+          "key": "time",
+          "symbol": "t",
+          "name": "시간",
+          "unit": "s"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 균일한 자기장 속에서 코일이 도는 경우의 식이다. 시뮬레이션은 자석이 돌고 코일이 멈춰 있어 자기장이 균일하지 않으므로, 파형은 비슷해도 크기는 이 식과 다를 수 있다."
+    },
+    {
+      "key": "peak_emf",
+      "name": "최대 기전력",
+      "expr": "ε_max = NBAω",
+      "tex": "\\mathcal{E}_{\\max} = N B A\\,\\omega",
+      "variables": [
+        {
+          "key": "peakEmf",
+          "symbol": "ε_max",
+          "name": "최대 기전력",
+          "unit": "V"
+        },
+        {
+          "key": "coilTurns",
+          "symbol": "N",
+          "name": "코일의 감은 수",
+          "unit": ""
+        },
+        {
+          "key": "magneticField",
+          "symbol": "B",
+          "name": "자기장의 세기",
+          "unit": "T"
+        },
+        {
+          "key": "loopArea",
+          "symbol": "A",
+          "name": "코일 한 바퀴의 면적",
+          "unit": "m²"
+        },
+        {
+          "key": "angularSpeed",
+          "symbol": "ω",
+          "name": "각속도",
+          "unit": "rad/s"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 시뮬레이션에서 최대 기전력은 감은 수와 자석의 세기에 정확히 비례하고, ω에는 거의 비례한다(모델이 1/25 s 간격으로 계산해 빠를수록 조금 작게 나온다)."
+    },
+    {
+      "key": "angular_speed",
+      "name": "각속도와 회전수",
+      "expr": "ω = 2πf",
+      "tex": "\\omega = 2\\pi f",
+      "variables": [
+        {
+          "key": "angularSpeed",
+          "symbol": "ω",
+          "name": "각속도",
+          "unit": "rad/s"
+        },
+        {
+          "key": "rotationFrequency",
+          "symbol": "f",
+          "name": "1초당 회전수",
+          "unit": "Hz"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 화면의 rpm 계기는 코일이 회전을 방해하는 정도를 반영해 최대 20 % 작게 나오지만, 모델에서 자석은 물 흐름대로 돈다. 서랍의 회전 속력은 자석이 실제로 돈 각도로 잰 값이다."
+    },
+    {
+      "key": "faraday_law",
+      "name": "패러데이 법칙",
+      "expr": "ε = −N ΔΦ/Δt",
+      "tex": "\\mathcal{E} = -N\\frac{d\\Phi}{dt}",
+      "variables": [
+        {
+          "key": "emf",
+          "symbol": "ε",
+          "name": "유도 기전력",
+          "unit": "V"
+        },
+        {
+          "key": "coilTurns",
+          "symbol": "N",
+          "name": "코일의 감은 수",
+          "unit": ""
+        },
+        {
+          "key": "magneticFlux",
+          "symbol": "Φ",
+          "name": "자기 선속",
+          "unit": "Wb"
+        },
+        {
+          "key": "time",
+          "symbol": "t",
+          "name": "시간",
+          "unit": "s"
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false
+    }
+  ],
+  "terms": [
+    {
+      "term": "발전기",
+      "definition": "자기장 속에서 코일과 자석을 서로 회전시켜 자기 선속을 계속 바꾸고, 그 유도 기전력으로 전기를 만드는 장치이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "교류",
+      "definition": "방향과 크기가 주기적으로 바뀌는 전류나 전압이다. 회전하는 발전기는 사인 모양의 교류 기전력을 만든다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "정류자와 브러시",
+      "definition": "반 바퀴마다 코일과 바깥 회로의 연결을 바꿔 주는 부품이다. 전동기에서는 회전 방향을 유지하고, 발전기에서는 출력을 한 방향(직류)으로 만든다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "전동기와 발전기",
+      "definition": "같은 구조에서 전류를 넣어 코일을 돌리면 전동기, 코일을 돌려 전류를 얻으면 발전기이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "렌츠 법칙",
+      "definition": "유도 전류는 자기 선속의 변화를 방해하는 방향으로 흐른다. 그래서 발전기를 돌리려면 일을 해 주어야 한다.",
+      "emphasis": true,
+      "outOfScope": false
+    }
+  ],
+  "classUnits": [
+    {
+      "quantity": "angularSpeed",
+      "phetUnit": "rpm",
+      "classUnit": "rad/s",
+      "factor": 0.10471975511965977
+    },
+    {
+      "quantity": "magneticField",
+      "phetUnit": "G",
+      "classUnit": "T",
+      "factor": 0.0001
+    }
+  ],
+  "sources": [
+    {
+      "item": "rotating_flux",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "generator_emf",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "peak_emf",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "peak_emf",
+      "from": "표준"
+    },
+    {
+      "item": "angular_speed",
+      "from": "표준"
+    },
+    {
+      "item": "faraday_law",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "발전기",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "교류",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "정류자와 브러시",
+      "from": "2026-09-01_1교시_f98ec349"
+    },
+    {
+      "item": "정류자와 브러시",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "전동기와 발전기",
+      "from": "2026-09-01_1교시_f98ec349"
+    },
+    {
+      "item": "전동기와 발전기",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "렌츠 법칙",
+      "from": "2026-09-15_1교시_66e02a40"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "simId": "generator",
+  "schemaVersion": 1,
+  "measurements": [
+    { "key": "time", "name": "시간", "unit": "s" },
+    { "key": "waterFlow", "name": "물 흐름", "unit": "%" },
+    { "key": "angularSpeed", "name": "자석의 회전 속력", "unit": "rpm", "classUnit": { "unit": "rad/s", "factor": 0.10471975511965977 } },
+    { "key": "rotationFrequency", "name": "1초당 회전수", "unit": "Hz" },
+    { "key": "rpmGauge", "name": "화면 rpm 계기 값", "unit": "rpm" },
+    { "key": "magneticField", "name": "자석의 세기", "unit": "G", "classUnit": { "unit": "T", "factor": 0.0001 } },
+    { "key": "coilTurns", "name": "코일의 감은 수", "unit": "" },
+    { "key": "loopArea", "name": "코일 한 바퀴의 면적 (최대의 %)", "unit": "%" },
+    { "key": "magneticFlux", "name": "코일 한 바퀴의 자기 선속 (모델 값)", "unit": "" },
+    { "key": "fluxChangeRate", "name": "자기 선속의 변화율 ΔΦ/Δt (모델 값)", "unit": "1/s" },
+    { "key": "emf", "name": "유도 기전력 (모델 값)", "unit": "" },
+    { "key": "emfPerFluxRate", "name": "기전력 ÷ 선속 변화율", "unit": "" },
+    { "key": "peakEmf", "name": "최대 기전력 크기 (모델 값)", "unit": "" }
+  ],
+  "graphs": [
+    { "id": "speed-vs-flow", "title": "물 흐름과 자석의 회전 속력", "x": "waterFlow", "y": "angularSpeed", "fit": "linear" },
+    { "id": "peak-emf-vs-speed", "title": "회전 속력과 최대 기전력", "x": "angularSpeed", "y": "peakEmf", "fit": "linear" },
+    { "id": "peak-emf-vs-turns", "title": "코일의 감은 수와 최대 기전력", "x": "coilTurns", "y": "peakEmf", "fit": "linear" },
+    { "id": "emf-and-flux-vs-time", "title": "시간에 따른 기전력과 자기 선속", "x": "time", "y": [ "emf", "magneticFlux" ], "fit": null }
+  ]
+}

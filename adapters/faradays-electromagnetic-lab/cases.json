@@ -1,0 +1,42 @@
+[
+  {
+    "name": "전자석: 전압 10 V(전류 최대), 감은 수 4 → B = 300 G × (4/4) × (10/10) = 300 G",
+    "params": { "screen": "electromagnet", "voltage": 10, "electromagnetTurns": 4 },
+    "expect": { "magneticField": { "value": 300 }, "coilCurrent": { "value": 1 } }
+  },
+  {
+    "name": "전자석: 전압 절반(5 V) → 전류 절반 → B도 절반인 150 G (B ∝ I)",
+    "params": { "screen": "electromagnet", "voltage": 5, "electromagnetTurns": 4 },
+    "expect": { "magneticField": { "value": 150 }, "coilCurrent": { "value": 0.5 } }
+  },
+  {
+    "name": "전자석: 감은 수 절반(2) → B도 절반인 150 G (B ∝ N)",
+    "params": { "screen": "electromagnet", "voltage": 10, "electromagnetTurns": 2 },
+    "expect": { "magneticField": { "value": 150 } }
+  },
+  {
+    "name": "경계: 전자석 전압 0 V → 전류 0 → B = 0",
+    "params": { "screen": "electromagnet", "voltage": 0, "electromagnetTurns": 4 },
+    "expect": { "magneticField": { "value": 0 }, "coilCurrent": { "value": 0 } }
+  },
+  {
+    "name": "유도 코일 N = 1, 자석 세기 50 % → 100 %: ε ÷ (ΔΦ/Δt) = −N = −1",
+    "params": { "screen": "pickup", "coilTurns": 1, "magnetStrengthPercent": 50, "thenMagnetStrengthPercent": 100 },
+    "expect": { "coilTurns": { "value": 1 }, "emfPerFluxRate": { "value": -1 } }
+  },
+  {
+    "name": "유도 코일 N = 4, 같은 변화: ε ÷ (ΔΦ/Δt) = −4 (감은 수가 4배면 기전력도 4배)",
+    "params": { "screen": "pickup", "coilTurns": 4, "magnetStrengthPercent": 50, "thenMagnetStrengthPercent": 100 },
+    "expect": { "coilTurns": { "value": 4 }, "emfPerFluxRate": { "value": -4 } }
+  },
+  {
+    "name": "변압기: 1차 전압 5 V → 10 V, 2차 코일 N = 3: ε ÷ (ΔΦ/Δt) = −3 (상호 유도)",
+    "params": { "screen": "transformer", "coilTurns": 3, "voltage": 5, "thenVoltage": 10 },
+    "expect": { "sourceVoltage": { "value": 10 }, "emfPerFluxRate": { "value": -3 } }
+  },
+  {
+    "name": "경계: 자석과 코일이 멈춰 있으면 선속 변화도 기전력도 0",
+    "params": { "screen": "pickup", "coilTurns": 2, "magnetStrengthPercent": 75 },
+    "expect": { "fluxChangeRate": { "value": 0 }, "emf": { "value": 0 }, "inducedCurrent": { "value": 0 } }
+  }
+]

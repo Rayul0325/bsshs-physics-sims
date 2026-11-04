@@ -1,0 +1,337 @@
+{
+  "id": "bsshs-photoelectric",
+  "title": "광전 효과",
+  "unit": "wave-particle-duality",
+  "formulas": [
+    {
+      "key": "photon_energy",
+      "name": "광자 한 개의 에너지",
+      "expr": "E = hf = hc/λ",
+      "tex": "E = h f = \\frac{h c}{\\lambda}",
+      "variables": [
+        {
+          "key": "photonEnergy",
+          "symbol": "E",
+          "name": "광자 에너지",
+          "unit": "J"
+        },
+        {
+          "key": "frequency",
+          "symbol": "f",
+          "name": "진동수",
+          "unit": "Hz"
+        },
+        {
+          "key": "wavelength",
+          "symbol": "λ",
+          "name": "파장",
+          "unit": "m"
+        },
+        {
+          "key": "planckConstant",
+          "symbol": "h",
+          "name": "플랑크 상수",
+          "unit": "J·s",
+          "constant": 6.62607015e-34
+        },
+        {
+          "key": "speedOfLight",
+          "symbol": "c",
+          "name": "진공에서 빛의 속력",
+          "unit": "m/s",
+          "constant": 299792458
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "key": "photoelectric_equation",
+      "name": "광전 효과 식",
+      "expr": "K_max = hf − W",
+      "tex": "K_{\\max} = h f - W",
+      "variables": [
+        {
+          "key": "kineticEnergyMax",
+          "symbol": "K_max",
+          "name": "광전자의 최대 운동 에너지",
+          "unit": "J"
+        },
+        {
+          "key": "frequency",
+          "symbol": "f",
+          "name": "진동수",
+          "unit": "Hz"
+        },
+        {
+          "key": "workFunction",
+          "symbol": "W",
+          "name": "일함수",
+          "unit": "J"
+        },
+        {
+          "key": "planckConstant",
+          "symbol": "h",
+          "name": "플랑크 상수",
+          "unit": "J·s",
+          "constant": 6.62607015e-34
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: hf < W이면 광전자가 나오지 않는다. 이때 식의 값은 음수이지만 운동 에너지가 음수가 되는 것은 아니다."
+    },
+    {
+      "key": "threshold_frequency",
+      "name": "문턱 진동수",
+      "expr": "f₀ = W/h",
+      "tex": "f_0 = \\frac{W}{h}",
+      "variables": [
+        {
+          "key": "thresholdFrequency",
+          "symbol": "f₀",
+          "name": "문턱 진동수",
+          "unit": "Hz"
+        },
+        {
+          "key": "workFunction",
+          "symbol": "W",
+          "name": "일함수",
+          "unit": "J"
+        },
+        {
+          "key": "planckConstant",
+          "symbol": "h",
+          "name": "플랑크 상수",
+          "unit": "J·s",
+          "constant": 6.62607015e-34
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "key": "stopping_voltage",
+      "name": "정지 전압",
+      "expr": "eV₀ = K_max",
+      "tex": "e V_0 = K_{\\max}",
+      "variables": [
+        {
+          "key": "stoppingVoltage",
+          "symbol": "V₀",
+          "name": "정지 전압",
+          "unit": "V"
+        },
+        {
+          "key": "kineticEnergyMax",
+          "symbol": "K_max",
+          "name": "광전자의 최대 운동 에너지",
+          "unit": "J"
+        },
+        {
+          "key": "elementaryCharge",
+          "symbol": "e",
+          "name": "기본 전하량",
+          "unit": "C",
+          "constant": 1.602176634e-19
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "key": "kmax_frequency_graph",
+      "name": "최대 운동 에너지-진동수 그래프",
+      "expr": "K_max = h(f − f₀)",
+      "tex": "K_{\\max} = h\\,(f - f_0)",
+      "variables": [
+        {
+          "key": "kineticEnergyMax",
+          "symbol": "K_max",
+          "name": "광전자의 최대 운동 에너지",
+          "unit": "J"
+        },
+        {
+          "key": "frequency",
+          "symbol": "f",
+          "name": "진동수",
+          "unit": "Hz"
+        },
+        {
+          "key": "thresholdFrequency",
+          "symbol": "f₀",
+          "name": "문턱 진동수",
+          "unit": "Hz"
+        },
+        {
+          "key": "planckConstant",
+          "symbol": "h",
+          "name": "플랑크 상수",
+          "unit": "J·s",
+          "constant": 6.62607015e-34
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 기울기는 플랑크 상수 h, 가로축 절편은 문턱 진동수, 세로축 절편은 −W이다. 기울기는 금속과 관계없이 같다."
+    }
+  ],
+  "terms": [
+    {
+      "term": "광전 효과",
+      "definition": "금속에 진동수가 충분히 큰 빛을 비추면 전자가 튀어나오는 현상이다. 빛이 광자라는 입자처럼 행동한다는 증거이다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "광전자",
+      "definition": "빛을 받아 금속에서 튀어나온 전자이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "광전류",
+      "definition": "광전자가 한 방향으로 움직이며 만드는 전류이다. 문턱 진동수 이상에서는 빛이 셀수록 커진다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "일함수",
+      "definition": "금속에서 전자 하나를 떼어 내는 데 필요한 최소 에너지이다. 금속마다 값이 다르다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "문턱 진동수",
+      "definition": "광전자를 튀어나오게 할 수 있는 빛의 최소 진동수이다. 이보다 낮으면 빛이 아무리 세도 광전자가 나오지 않는다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "정지 전압",
+      "definition": "역방향 전압을 높여 광전류가 0이 될 때의 전압이다. 가장 빠른 광전자도 되돌려 보낼 만큼의 전압이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "빛의 세기와 광자 수",
+      "definition": "빛의 세기는 광자의 수와 관련되고, 광자 한 개의 에너지는 진동수로만 정해진다. 그래서 세기는 광전류에만 영향을 주고 최대 운동 에너지는 바꾸지 못한다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "여러 빛을 함께 비출 때",
+      "definition": "진동수가 다른 빛을 함께 비추면 광자마다 광전 효과 식을 따로 세운다.",
+      "emphasis": true,
+      "outOfScope": false
+    }
+  ],
+  "classUnits": [
+    {
+      "quantity": "photonEnergy",
+      "phetUnit": "eV",
+      "classUnit": "J",
+      "factor": 1.602176634e-19
+    },
+    {
+      "quantity": "kineticEnergyMax",
+      "phetUnit": "eV",
+      "classUnit": "J",
+      "factor": 1.602176634e-19
+    },
+    {
+      "quantity": "workFunction",
+      "phetUnit": "eV",
+      "classUnit": "J",
+      "factor": 1.602176634e-19
+    },
+    {
+      "quantity": "wavelength",
+      "phetUnit": "nm",
+      "classUnit": "m",
+      "factor": 1e-9
+    }
+  ],
+  "sources": [
+    {
+      "item": "photon_energy",
+      "from": "2026-09-29_6교시_3001518b"
+    },
+    {
+      "item": "photoelectric_equation",
+      "from": "2026-09-29_6교시_3001518b"
+    },
+    {
+      "item": "photoelectric_equation",
+      "from": "2026-08-30_1608_4ea3f914"
+    },
+    {
+      "item": "photoelectric_equation",
+      "from": "2026-10-27_6교시_e5c0e997"
+    },
+    {
+      "item": "threshold_frequency",
+      "from": "2026-09-29_6교시_3001518b"
+    },
+    {
+      "item": "stopping_voltage",
+      "from": "2026-09-29_6교시_3001518b"
+    },
+    {
+      "item": "stopping_voltage",
+      "from": "2026-08-30_1608_4ea3f914"
+    },
+    {
+      "item": "kmax_frequency_graph",
+      "from": "2026-09-29_6교시_3001518b"
+    },
+    {
+      "item": "kmax_frequency_graph",
+      "from": "2026-08-30_1608_4ea3f914"
+    },
+    {
+      "item": "광전 효과",
+      "from": "2026-09-29_6교시_3001518b"
+    },
+    {
+      "item": "광전 효과",
+      "from": "2026-10-27_6교시_e5c0e997"
+    },
+    {
+      "item": "광전자",
+      "from": "2026-09-29_6교시_3001518b"
+    },
+    {
+      "item": "광전류",
+      "from": "2026-09-29_6교시_3001518b"
+    },
+    {
+      "item": "일함수",
+      "from": "2026-09-29_6교시_3001518b"
+    },
+    {
+      "item": "일함수",
+      "from": "2026-08-30_1608_4ea3f914"
+    },
+    {
+      "item": "문턱 진동수",
+      "from": "2026-09-29_6교시_3001518b"
+    },
+    {
+      "item": "정지 전압",
+      "from": "2026-09-29_6교시_3001518b"
+    },
+    {
+      "item": "빛의 세기와 광자 수",
+      "from": "2026-09-29_6교시_3001518b"
+    },
+    {
+      "item": "빛의 세기와 광자 수",
+      "from": "2026-08-30_1608_4ea3f914"
+    },
+    {
+      "item": "여러 빛을 함께 비출 때",
+      "from": "2026-09-29_6교시_3001518b"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+[
+  {
+    "name": "코일 한가운데에서 자석 뒤집기, Δt = 0.1 s: ε = N·ΔΦ/Δt = 2 × (2 − (−2)) / 0.1 = 80",
+    "params": { "x": 448, "y": 310, "orientation": "NS", "actions": [ { "flip": true, "dt": 0.1 } ] },
+    "expect": {
+      "magneticFlux": { "value": 2 },
+      "fluxChangeRate": { "value": 40 },
+      "emf": { "value": 80 },
+      "totalEmf": { "value": 80 },
+      "peakEmf": { "value": 80 }
+    }
+  },
+  {
+    "name": "같은 뒤집기를 두 배 느리게, Δt = 0.2 s: ε는 절반인 40",
+    "params": { "x": 448, "y": 310, "orientation": "NS", "actions": [ { "flip": true, "dt": 0.2 } ] },
+    "expect": { "fluxChangeRate": { "value": 20 }, "emf": { "value": 40 } }
+  },
+  {
+    "name": "코일 2개, 위 코일(N = 1) 한가운데에서 뒤집기, Δt = 0.1 s: ε = 1 × 4 / 0.1 = 40 (아래 코일 N = 2의 절반)",
+    "params": { "twoCoils": true, "x": 422, "y": 110, "orientation": "NS", "actions": [ { "flip": true, "dt": 0.1 } ] },
+    "expect": { "coilCount": { "value": 2 }, "topEmf": { "value": 40 } }
+  },
+  {
+    "name": "경계: 코일 안에서 자석을 20 px 움직여도 선속이 그대로면 ε = 0, 속력은 20 / 0.1 = 200 px/s",
+    "params": { "x": 448, "y": 310, "orientation": "NS", "actions": [ { "x": 468, "y": 310, "dt": 0.1 } ] },
+    "expect": { "magnetSpeed": { "value": 200 }, "fluxChangeRate": { "value": 0 }, "emf": { "value": 0 } }
+  },
+  {
+    "name": "경계: 자석이 멈춰 있으면 선속 변화도 기전력도 0",
+    "params": { "x": 647, "y": 200, "orientation": "NS", "actions": [ { "dt": 0.1 }, { "dt": 0.1 } ] },
+    "expect": { "magnetSpeed": { "value": 0 }, "emf": { "value": 0 }, "totalEmf": { "value": 0 } }
+  }
+]

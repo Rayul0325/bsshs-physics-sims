@@ -1,0 +1,24 @@
+{
+  "simId": "models-of-the-hydrogen-atom",
+  "schemaVersion": 1,
+  "measurements": [
+    { "key": "principalQuantumNumber", "name": "지금 전자의 양자수 n", "unit": "" },
+    { "key": "levelEnergy", "name": "지금 준위의 에너지", "unit": "eV", "classUnit": { "unit": "J", "factor": 1.602176634e-19 } },
+    { "key": "inverseNSquared", "name": "양자수 제곱의 역수 (1/n²)", "unit": "" },
+    { "key": "upperQuantumNumber", "name": "마지막 전이: 위 준위 n", "unit": "" },
+    { "key": "lowerQuantumNumber", "name": "마지막 전이: 아래 준위 n", "unit": "" },
+    { "key": "upperLevelEnergy", "name": "마지막 전이: 위 준위 에너지", "unit": "eV", "classUnit": { "unit": "J", "factor": 1.602176634e-19 } },
+    { "key": "lowerLevelEnergy", "name": "마지막 전이: 아래 준위 에너지", "unit": "eV", "classUnit": { "unit": "J", "factor": 1.602176634e-19 } },
+    { "key": "photonEnergy", "name": "마지막 전이: 광자 에너지 (준위 차)", "unit": "eV", "classUnit": { "unit": "J", "factor": 1.602176634e-19 } },
+    { "key": "wavelength", "name": "마지막 전이: 광자의 파장", "unit": "nm", "classUnit": { "unit": "m", "factor": 1e-9 } },
+    { "key": "frequency", "name": "마지막 전이: 광자의 진동수 (파장에서 계산)", "unit": "Hz" },
+    { "key": "rydbergTerm", "name": "마지막 전이: 1/n_l² − 1/n_u²", "unit": "" },
+    { "key": "lightWavelength", "name": "쏘는 빛의 파장 (단색광일 때)", "unit": "nm", "classUnit": { "unit": "m", "factor": 1e-9 } }
+  ],
+  "graphs": [
+    { "id": "level-energy-vs-inverse-n-squared", "title": "1/n²과 준위 에너지 (기울기 = −13.6 eV)", "x": "inverseNSquared", "y": "levelEnergy", "fit": "linear" },
+    { "id": "photon-energy-vs-rydberg-term", "title": "1/n_l² − 1/n_u²과 광자 에너지 (기울기 = 13.6 eV)", "x": "rydbergTerm", "y": "photonEnergy", "fit": "linear" },
+    { "id": "level-energy-vs-n", "title": "양자수와 준위 에너지", "x": "principalQuantumNumber", "y": "levelEnergy", "fit": null },
+    { "id": "wavelength-vs-upper-n", "title": "위 준위와 광자의 파장 (계열별로 보기)", "x": "upperQuantumNumber", "y": "wavelength", "fit": null }
+  ]
+}

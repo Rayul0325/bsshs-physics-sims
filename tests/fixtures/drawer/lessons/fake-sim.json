@@ -1,0 +1,43 @@
+{
+  "id": "fake-sim",
+  "title": "가짜 광전 효과",
+  "unit": "duality",
+  "formulas": [
+    {
+      "key": "photon_energy",
+      "name": "광자의 에너지",
+      "expr": "E = hf",
+      "tex": "E = hf",
+      "variables": [
+        { "key": "photonEnergy", "symbol": "E", "name": "광자 에너지", "unit": "J" },
+        { "key": "planckConstant", "symbol": "h", "name": "플랑크 상수", "unit": "J·s", "constant": 6.62607015e-34 },
+        { "key": "frequency", "symbol": "f", "name": "진동수", "unit": "Hz" }
+      ],
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "key": "work_function",
+      "name": "일함수와 문턱 진동수",
+      "expr": "f₀ = W/h",
+      "tex": "f_0 = W/h",
+      "variables": [
+        { "key": "thresholdFrequency", "symbol": "f₀", "name": "문턱 진동수", "unit": "Hz" },
+        { "key": "workFunction", "symbol": "W", "name": "일함수", "unit": "J" }
+      ],
+      "emphasis": false,
+      "outOfScope": true,
+      "note": "참고: 근사 때문에 시뮬레이션 값과 조금 다를 수 있다."
+    }
+  ],
+  "terms": [
+    { "term": "광자", "definition": "빛 에너지의 알갱이이다.", "emphasis": true, "outOfScope": false },
+    { "term": "일함수", "definition": "전자를 떼어 내는 데 필요한 최소 에너지이다.", "emphasis": false, "outOfScope": false },
+    { "term": "광전자", "definition": "빛을 받아 튀어나온 전자이다.", "emphasis": false, "outOfScope": true }
+  ],
+  "classUnits": [],
+  "sources": [
+    { "item": "photon_energy", "from": "2026-10-27_6교시_deadbeef" },
+    { "item": "광자", "from": "SECRET-SOURCE-MARKER" }
+  ]
+}

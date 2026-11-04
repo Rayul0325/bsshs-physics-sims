@@ -1,0 +1,71 @@
+{
+  "bsshs-laser": {
+    "title": { "value": "레이저" }
+  },
+  "screen": {
+    "main": { "value": "레이저 실험" }
+  },
+  "controls": {
+    "title": { "value": "조절" },
+    "pumpRate": { "value": "펌핑률 W" },
+    "lifetime": { "value": "위 준위 수명 τ" },
+    "reflectivity": { "value": "출력 거울 반사율 R" },
+    "upperEnergy": { "value": "전이 에너지 E₂ − E₁" }
+  },
+  "units": {
+    "perSecondPattern": { "value": "{{value}} /s" },
+    "millisecondsPattern": { "value": "{{value}} ms" },
+    "percentPattern": { "value": "{{value}} %" },
+    "electronVoltsPattern": { "value": "{{value}} eV" },
+    "nanometersPattern": { "value": "{{value}} nm" },
+    "wattsPattern": { "value": "{{value}} W" },
+    "perMeterPattern": { "value": "{{value}} /m" }
+  },
+  "cavity": {
+    "backMirror": { "value": "완전 반사 거울" },
+    "outputMirror": { "value": "출력 거울" },
+    "pumpLamp": { "value": "광펌핑 빛" },
+    "medium": { "value": "레이저 매질 (원자 64개 그림)" },
+    "meter": { "value": "광 측정기" },
+    "spontaneousLegend": { "value": "자발 방출: 방향·위상 제각각" },
+    "stimulatedLegend": { "value": "유도 방출: 에너지·방향·위상 같음" },
+    "groundLegend": { "value": "E₁ 원자" },
+    "excitedLegend": { "value": "E₂ 원자" }
+  },
+  "levels": {
+    "title": { "value": "에너지 준위와 원자 수" },
+    "pumpLevel": { "value": "E₃ 펌핑 준위" },
+    "upperLevel": { "value": "E₂ 준안정 상태" },
+    "lowerLevel": { "value": "E₁ 바닥 상태" },
+    "pump": { "value": "펌핑" },
+    "fastDecay": { "value": "빠른 전이" },
+    "laserLight": { "value": "레이저 빛" },
+    "populationPattern": { "value": "{{value}} %" }
+  },
+  "gain": {
+    "title": { "value": "이득과 손실" },
+    "gain": { "value": "이득 g" },
+    "loss": { "value": "손실 (문턱)" }
+  },
+  "readouts": {
+    "title": { "value": "측정" },
+    "output": { "value": "레이저 출력" },
+    "wavelength": { "value": "파장 λ" },
+    "photonEnergy": { "value": "광자 에너지 hf" },
+    "upper": { "value": "N₂ (위 준위)" },
+    "lower": { "value": "N₁ (아래 준위)" },
+    "difference": { "value": "N₂ − N₁" },
+    "thresholdPump": { "value": "문턱 펌핑률" },
+    "unreachable": { "value": "도달할 수 없음" }
+  },
+  "status": {
+    "noInversion": { "value": "밀도 반전 없음: N₂ < N₁" },
+    "belowThreshold": { "value": "밀도 반전, 문턱 아래: 결맞은 빛 없음" },
+    "lasing": { "value": "레이저 발진: 결맞은 빛이 나감" },
+    "lasingClosed": { "value": "발진 중이지만 R = 100 %라 빛이 나가지 않음" },
+    "neverLasing": { "value": "이득이 손실보다 작아 발진할 수 없음" }
+  },
+  "time": {
+    "scalePattern": { "value": "실제 1초 = 모델 시간 {{value}} ms" }
+  }
+}

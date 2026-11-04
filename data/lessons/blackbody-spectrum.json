@@ -1,0 +1,327 @@
+{
+  "id": "blackbody-spectrum",
+  "title": "흑체 복사",
+  "unit": "wave-particle-duality",
+  "formulas": [
+    {
+      "key": "wien_displacement",
+      "name": "빈의 변위 법칙",
+      "expr": "λ_max · T = b",
+      "tex": "\\lambda_{\\max}\\,T = b",
+      "variables": [
+        {
+          "key": "peakWavelength",
+          "symbol": "λ_max",
+          "name": "세기가 가장 큰 파장",
+          "unit": "m"
+        },
+        {
+          "key": "temperature",
+          "symbol": "T",
+          "name": "절대 온도",
+          "unit": "K"
+        },
+        {
+          "key": "wienConstant",
+          "symbol": "b",
+          "name": "빈 상수",
+          "unit": "m·K",
+          "constant": 0.002897771955
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 상수 b의 값을 외우기보다, 온도가 높을수록 세기가 가장 큰 파장이 짧아진다는 뜻을 아는 것이 중요하다."
+    },
+    {
+      "key": "planck_law",
+      "name": "플랑크의 흑체 복사 식",
+      "expr": "I(λ, T) = (2πhc²/λ⁵) · 1/(e^(hc/λkT) − 1)",
+      "tex": "I(\\lambda,T)=\\frac{2\\pi h c^{2}}{\\lambda^{5}}\\cdot\\frac{1}{e^{hc/\\lambda k T}-1}",
+      "variables": [
+        {
+          "key": "spectralIntensity",
+          "symbol": "I",
+          "name": "파장당 복사 세기",
+          "unit": "W/m³"
+        },
+        {
+          "key": "wavelength",
+          "symbol": "λ",
+          "name": "파장",
+          "unit": "m"
+        },
+        {
+          "key": "temperature",
+          "symbol": "T",
+          "name": "절대 온도",
+          "unit": "K"
+        },
+        {
+          "key": "planckConstant",
+          "symbol": "h",
+          "name": "플랑크 상수",
+          "unit": "J·s",
+          "constant": 6.62607015e-34
+        },
+        {
+          "key": "speedOfLight",
+          "symbol": "c",
+          "name": "진공에서 빛의 속력",
+          "unit": "m/s",
+          "constant": 299792458
+        },
+        {
+          "key": "boltzmannConstant",
+          "symbol": "k",
+          "name": "볼츠만 상수",
+          "unit": "J/K",
+          "constant": 1.380649e-23
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 앞부분은 흑체 안 정상파 모드의 수에서, 뒷부분은 모드 하나의 평균 에너지에서 나온다. 식의 구조를 이해하는 것이 핵심이다."
+    },
+    {
+      "key": "rayleigh_jeans_law",
+      "name": "레일리-진스 식",
+      "expr": "I(λ, T) = 2πckT/λ⁴",
+      "tex": "I(\\lambda,T)=\\frac{2\\pi c k T}{\\lambda^{4}}",
+      "variables": [
+        {
+          "key": "spectralIntensity",
+          "symbol": "I",
+          "name": "파장당 복사 세기",
+          "unit": "W/m³"
+        },
+        {
+          "key": "wavelength",
+          "symbol": "λ",
+          "name": "파장",
+          "unit": "m"
+        },
+        {
+          "key": "temperature",
+          "symbol": "T",
+          "name": "절대 온도",
+          "unit": "K"
+        },
+        {
+          "key": "speedOfLight",
+          "symbol": "c",
+          "name": "진공에서 빛의 속력",
+          "unit": "m/s",
+          "constant": 299792458
+        },
+        {
+          "key": "boltzmannConstant",
+          "symbol": "k",
+          "name": "볼츠만 상수",
+          "unit": "J/K",
+          "constant": 1.380649e-23
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 모드 하나의 평균 에너지를 kT로 둔 고전 식이다. 파장이 짧아질수록 값이 끝없이 커져 실험과 맞지 않는다(자외선 파탄)."
+    },
+    {
+      "key": "stefan_boltzmann_law",
+      "name": "슈테판-볼츠만 법칙",
+      "expr": "I_total = σT⁴",
+      "tex": "I_{\\text{total}} = \\sigma T^{4}",
+      "variables": [
+        {
+          "key": "totalIntensity",
+          "symbol": "I_total",
+          "name": "전체 복사 세기",
+          "unit": "W/m²"
+        },
+        {
+          "key": "temperature",
+          "symbol": "T",
+          "name": "절대 온도",
+          "unit": "K"
+        },
+        {
+          "key": "stefanBoltzmannConstant",
+          "symbol": "σ",
+          "name": "슈테판-볼츠만 상수",
+          "unit": "W/(m²·K⁴)",
+          "constant": 5.670374419e-8
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 수업에서 다루지 않은 표준 보충이다. 그래프 아래 넓이가 전체 복사 세기이다."
+    },
+    {
+      "key": "planck_quantization",
+      "name": "플랑크의 에너지 양자화",
+      "expr": "E = nhf (n = 0, 1, 2, …)",
+      "tex": "E = n h f\\quad(n = 0, 1, 2, \\dots)",
+      "variables": [
+        {
+          "key": "oscillatorEnergy",
+          "symbol": "E",
+          "name": "진동자 에너지",
+          "unit": "J"
+        },
+        {
+          "key": "quantumNumber",
+          "symbol": "n",
+          "name": "양자수",
+          "unit": ""
+        },
+        {
+          "key": "frequency",
+          "symbol": "f",
+          "name": "진동수",
+          "unit": "Hz"
+        },
+        {
+          "key": "planckConstant",
+          "symbol": "h",
+          "name": "플랑크 상수",
+          "unit": "J·s",
+          "constant": 6.62607015e-34
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false
+    }
+  ],
+  "terms": [
+    {
+      "term": "흑체",
+      "definition": "들어오는 빛을 모두 흡수하는 이상적인 물체이다. 가열하면 온도에 따라 정해진 스펙트럼의 빛을 낸다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "흑체 복사",
+      "definition": "흑체가 온도에 따라 내는 전자기파이다. 파장별 세기 그래프의 모양은 온도로만 정해진다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "빈의 변위 법칙",
+      "definition": "온도가 높아질수록 세기가 가장 큰 파장이 짧은 쪽으로 옮겨 간다는 법칙이다. 최대 세기 파장과 온도의 곱이 일정하다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "정상파 모드",
+      "definition": "흑체 내부에서 벽 사이를 오가며 생기는 정상파의 종류이다. 복사 식은 모드의 수와 모드 하나의 평균 에너지를 곱한 구조이다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "자외선 파탄",
+      "definition": "고전 이론인 레일리-진스 식이 짧은 파장 쪽에서 세기가 무한히 커진다고 예측해 실험과 어긋난 문제이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "에너지 양자화",
+      "definition": "진동자의 에너지가 연속적이지 않고 hf의 정수배 값만 가진다는 플랑크의 가정이다. 이 가정으로 흑체 복사 식이 실험과 맞게 되었다.",
+      "emphasis": false,
+      "outOfScope": false
+    }
+  ],
+  "classUnits": [
+    {
+      "quantity": "peakWavelength",
+      "phetUnit": "μm",
+      "classUnit": "m",
+      "factor": 0.000001
+    },
+    {
+      "quantity": "wavelength",
+      "phetUnit": "μm",
+      "classUnit": "m",
+      "factor": 0.000001
+    },
+    {
+      "quantity": "spectralIntensity",
+      "phetUnit": "MW/m²/μm",
+      "classUnit": "W/m³",
+      "factor": 1000000000000
+    }
+  ],
+  "sources": [
+    {
+      "item": "wien_displacement",
+      "from": "2026-10-27_6교시_34a0ac70"
+    },
+    {
+      "item": "wien_displacement",
+      "from": "2026-10-27_6교시_e5c0e997"
+    },
+    {
+      "item": "planck_law",
+      "from": "2026-10-27_6교시_34a0ac70"
+    },
+    {
+      "item": "planck_law",
+      "from": "2026-10-27_6교시_e5c0e997"
+    },
+    {
+      "item": "rayleigh_jeans_law",
+      "from": "2026-10-27_6교시_34a0ac70"
+    },
+    {
+      "item": "rayleigh_jeans_law",
+      "from": "2026-10-27_6교시_e5c0e997"
+    },
+    {
+      "item": "stefan_boltzmann_law",
+      "from": "표준"
+    },
+    {
+      "item": "planck_quantization",
+      "from": "2026-10-27_6교시_34a0ac70"
+    },
+    {
+      "item": "planck_quantization",
+      "from": "2026-10-27_6교시_e5c0e997"
+    },
+    {
+      "item": "흑체",
+      "from": "2026-10-27_6교시_34a0ac70"
+    },
+    {
+      "item": "흑체",
+      "from": "2026-10-27_6교시_e5c0e997"
+    },
+    {
+      "item": "흑체 복사",
+      "from": "2026-10-27_6교시_34a0ac70"
+    },
+    {
+      "item": "빈의 변위 법칙",
+      "from": "2026-10-27_6교시_34a0ac70"
+    },
+    {
+      "item": "빈의 변위 법칙",
+      "from": "2026-10-27_6교시_e5c0e997"
+    },
+    {
+      "item": "정상파 모드",
+      "from": "2026-10-27_6교시_e5c0e997"
+    },
+    {
+      "item": "자외선 파탄",
+      "from": "2026-10-27_6교시_e5c0e997"
+    },
+    {
+      "item": "에너지 양자화",
+      "from": "2026-10-27_6교시_34a0ac70"
+    },
+    {
+      "item": "에너지 양자화",
+      "from": "2026-10-27_6교시_e5c0e997"
+    }
+  ]
+}

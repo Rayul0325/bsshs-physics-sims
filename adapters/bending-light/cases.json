@@ -1,0 +1,8 @@
+[
+  { "name": "공기 → 물, 입사각 45° → 굴절각 32.05°, v = c/1.333, λₙ = 650/1.333 nm", "params": { "screen": "intro", "top": "air", "bottom": "water", "incidentAngle": 45 }, "expect": { "incidentAngle": { "value": 45 }, "reflectionAngle": { "value": 45 }, "refractionAngle": { "value": 32.04723 }, "refractiveIndex2": { "value": 1.333 }, "lightSpeedInMedium": { "value": 0.7501875 }, "wavelengthInMedium": { "value": 487.6219 } } },
+  { "name": "공기 → 유리, 입사각 60° → 굴절각 35.28°", "params": { "screen": "intro", "top": "air", "bottom": "glass", "incidentAngle": 60 }, "expect": { "refractionAngle": { "value": 35.27626 }, "sinRefractionAngle": { "value": 0.5775195 } } },
+  { "name": "유리 → 공기, 입사각 40° (임계각 41.83°보다 작음) → 굴절각 74.56°", "params": { "screen": "intro", "top": "glass", "bottom": "air", "incidentAngle": 40 }, "expect": { "refractionAngle": { "value": 74.55768 }, "refractiveIndex1": { "value": 1.5 } } },
+  { "name": "경계: 유리 → 공기, 입사각 43° (임계각보다 큼) → 전반사, 굴절 빛 0 %", "params": { "screen": "intro", "top": "glass", "bottom": "air", "incidentAngle": 43 }, "expect": { "reflectedPower": { "value": 100 }, "transmittedPower": { "value": 0 }, "reflectionAngle": { "value": 43 } } },
+  { "name": "경계: 수직 입사 공기 → 유리 → 굴절각 0°, 반사율 ((n₁−n₂)/(n₁+n₂))² = 3.99 %", "params": { "screen": "intro", "top": "air", "bottom": "glass", "incidentAngle": 0 }, "expect": { "refractionAngle": { "value": 0 }, "reflectedPower": { "value": 3.994377 }, "transmittedPower": { "value": 96.00562 } } },
+  { "name": "프리즘 화면: 공기 → 유리 사각 프리즘 면, 입사각 30° → 굴절각 19.48°", "params": { "screen": "prisms", "prism": "square", "incidentAngle": 30 }, "expect": { "incidentAngle": { "value": 30 }, "refractionAngle": { "value": 19.47716 }, "refractiveIndex2": { "value": 1.5 } } }
+]

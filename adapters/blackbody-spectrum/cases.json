@@ -1,0 +1,23 @@
+[
+  { "name": "태양 온도 5800 K: 빈의 변위 법칙과 슈테판-볼츠만 법칙",
+    "params": { "temperature": 5800 },
+    "expect": { "peakWavelength": { "value": 0.4996158543 }, "totalIntensity": { "value": 64168769.43 }, "inverseTemperature": { "value": 0.000172413793 }, "temperatureFourth": { "value": 1.1316496e15 } } },
+  { "name": "전구 온도 3000 K",
+    "params": { "temperature": 3000 },
+    "expect": { "peakWavelength": { "value": 0.965923985 }, "totalIntensity": { "value": 4593003.279 } } },
+  { "name": "가장 낮은 온도 200 K (경계)",
+    "params": { "temperature": 200 },
+    "expect": { "temperature": { "value": 200 }, "peakWavelength": { "value": 14.488859775 }, "totalIntensity": { "value": 90.725990704 } } },
+  { "name": "가장 높은 온도 11000 K (경계)",
+    "params": { "temperature": 11000 },
+    "expect": { "peakWavelength": { "value": 0.263433814 }, "totalIntensity": { "value": 830199518.7 } } },
+  { "name": "플랑크 식: 5800 K, 파장 1 μm",
+    "params": { "temperature": 5800, "wavelength": 1.0 },
+    "expect": { "wavelength": { "value": 1.0 }, "spectralIntensity": { "value": 34.174471505 } } },
+  { "name": "플랑크 식: 3000 K, 파장 0.5 μm",
+    "params": { "temperature": 3000, "wavelength": 0.5 },
+    "expect": { "spectralIntensity": { "value": 0.817657104 } } },
+  { "name": "플랑크 식: 5800 K, 세기가 가장 큰 파장에서",
+    "params": { "temperature": 5800, "showGraphValues": true },
+    "expect": { "wavelength": { "value": 0.4996158543 }, "spectralIntensity": { "value": 84.45292086 } } }
+]

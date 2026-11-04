@@ -1,0 +1,32 @@
+{
+  "simId": "bsshs-laser",
+  "schemaVersion": 1,
+  "measurements": [
+    { "key": "pumpRate", "name": "펌핑률 W (원자 하나가 1초에 올라갈 확률)", "unit": "/s" },
+    { "key": "upperLevelLifetime", "name": "위 준위(준안정 상태) 수명 τ", "unit": "ms", "classUnit": { "unit": "s", "factor": 0.001 } },
+    { "key": "mirrorReflectivity", "name": "출력 거울 반사율 R", "unit": "%" },
+    { "key": "lowerLevelEnergy", "name": "아래 준위 에너지 E₁", "unit": "eV", "classUnit": { "unit": "J", "factor": 1.602176634e-19 } },
+    { "key": "upperLevelEnergy", "name": "위 준위 에너지 E₂", "unit": "eV", "classUnit": { "unit": "J", "factor": 1.602176634e-19 } },
+    { "key": "pumpLevelEnergy", "name": "펌핑 준위 에너지 E₃", "unit": "eV", "classUnit": { "unit": "J", "factor": 1.602176634e-19 } },
+    { "key": "photonEnergy", "name": "레이저 광자 에너지 hf = E₂ − E₁", "unit": "eV", "classUnit": { "unit": "J", "factor": 1.602176634e-19 } },
+    { "key": "frequency", "name": "레이저 빛의 진동수 f", "unit": "THz", "classUnit": { "unit": "Hz", "factor": 1e12 } },
+    { "key": "wavelength", "name": "레이저 빛의 파장 λ", "unit": "nm", "classUnit": { "unit": "m", "factor": 1e-9 } },
+    { "key": "pumpFrequency", "name": "펌핑 빛의 진동수 f_p", "unit": "THz", "classUnit": { "unit": "Hz", "factor": 1e12 } },
+    { "key": "lowerPopulation", "name": "아래 준위의 원자 수 N₁ (전체의 %)", "unit": "%" },
+    { "key": "upperPopulation", "name": "위 준위의 원자 수 N₂ (전체의 %)", "unit": "%" },
+    { "key": "populationDifference", "name": "원자 수 차이 ΔN = N₂ − N₁ (전체의 %)", "unit": "%" },
+    { "key": "gainCoefficient", "name": "이득 계수 g (모델 값)", "unit": "1/m" },
+    { "key": "thresholdGain", "name": "문턱 이득 계수 (손실과 같아지는 이득)", "unit": "1/m" },
+    { "key": "thresholdPumpRate", "name": "문턱 펌핑률", "unit": "/s" },
+    { "key": "spontaneousRate", "name": "1초에 자발 방출되는 광자 수", "unit": "/s" },
+    { "key": "stimulatedRate", "name": "1초에 유도 방출로 늘어나는 광자 수 (흡수를 뺀 값)", "unit": "/s" },
+    { "key": "outputPower", "name": "레이저 출력 세기 (광 측정기)", "unit": "W" }
+  ],
+  "graphs": [
+    { "id": "output-vs-pump-rate", "title": "펌핑률과 레이저 출력 (문턱 위의 기록끼리 직선)", "x": "pumpRate", "y": "outputPower", "fit": "linear" },
+    { "id": "populations-vs-pump-rate", "title": "펌핑률과 두 준위의 원자 수", "x": "pumpRate", "y": [ "lowerPopulation", "upperPopulation" ], "fit": null },
+    { "id": "gain-vs-population-difference", "title": "원자 수 차이와 이득 계수", "x": "populationDifference", "y": "gainCoefficient", "fit": "linear" },
+    { "id": "emission-vs-pump-rate", "title": "펌핑률과 자발 방출·유도 방출", "x": "pumpRate", "y": [ "spontaneousRate", "stimulatedRate" ], "fit": null },
+    { "id": "photon-energy-vs-frequency", "title": "진동수와 광자 에너지 (기울기 = 플랑크 상수)", "x": "frequency", "y": "photonEnergy", "fit": "linear" }
+  ]
+}

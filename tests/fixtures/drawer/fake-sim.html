@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>fake sim</title>
+  <style>
+    html, body { margin: 0; height: 100%; overflow: hidden; }
+    #stage { position: absolute; inset: 0; background: linear-gradient(90deg, black, white); }
+    #stage button { position: absolute; left: 10px; width: 120px; height: 48px; }
+  </style>
+</head>
+<body>
+<div id="stage">
+  <button id="reset-all" style="top: 10px">Reset All</button>
+  <button id="next-screen" style="top: 70px">next screen</button>
+</div>
+<script>
+  // A stand-in for a PhET sim: two screens with their own models, a Reset All, and a window-level
+  // pointer listener like scenery's (counts events that leak out of the drawer).
+  window.fakeSim = {
+    selected: 0,
+    screens: [
+      { name: '광전 효과', model: { wavelength: 400, workFunction: 2.28 } },
+      { name: '금속 비교', model: { wavelength: 600, workFunction: 1.5 } }
+    ],
+    reset() { this.screens[ 0 ].model.wavelength = 400; this.screens[ 1 ].model.wavelength = 600; }
+  };
+  window.simPointerEvents = 0;
+  for ( const t of [ 'pointerdown', 'pointerup', 'mousedown', 'touchstart', 'keydown' ] ) {
+    window.addEventListener( t, () => { window.simPointerEvents++; } );
+  }
+  document.getElementById( 'reset-all' ).addEventListener( 'click', () => window.fakeSim.reset() );
+  document.getElementById( 'next-screen' ).addEventListener( 'click', () => { window.fakeSim.selected = ( window.fakeSim.selected + 1 ) % 2; } );
+</script>
+</body>
+</html>

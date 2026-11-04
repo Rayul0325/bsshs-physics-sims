@@ -1,0 +1,39 @@
+{
+  "bsshs-compton": {
+    "title": { "value": "콤프턴 산란" }
+  },
+  "screen": {
+    "main": { "value": "콤프턴 산란" }
+  },
+  "controlsTitle": { "value": "입사 X선과 검출기" },
+  "wavelength": { "value": "입사 파장 λ" },
+  "energy": { "value": "입사 에너지 E" },
+  "detectorAngle": { "value": "검출기 각도 θ" },
+  "picometersPattern": { "value": "{{value}} pm" },
+  "degreesPattern": { "value": "{{value}}°" },
+  "speedPattern": { "value": "{{value}} c" },
+  "readoutsTitle": { "value": "측정값" },
+  "scatteredWavelength": { "value": "산란 광자 파장 λ′" },
+  "wavelengthShift": { "value": "파장 변화 Δλ" },
+  "comptonWavelength": { "value": "콤프턴 파장 h/mₑc" },
+  "incidentEnergy": { "value": "충돌 전 광자 에너지 E" },
+  "scatteredEnergy": { "value": "산란 광자 에너지 E′" },
+  "electronKineticEnergy": { "value": "전자 운동 에너지 Kₑ" },
+  "energyAfter": { "value": "충돌 후 합 E′ + Kₑ" },
+  "recoilAngle": { "value": "전자 반동각 φ" },
+  "electronSpeed": { "value": "전자 속력 v" },
+  "xRayTube": { "value": "X선 관" },
+  "electronAtRest": { "value": "정지한 전자" },
+  "detector": { "value": "검출기" },
+  "recoilElectron": { "value": "반동 전자" },
+  "thetaPattern": { "value": "θ = {{value}}°" },
+  "phiPattern": { "value": "φ = {{value}}°" },
+  "waveNote": { "value": "물결 간격은 파장에 비례합니다. X선은 눈에 보이지 않으므로 색은 구분용입니다. 검출기를 끌어 각도를 바꿀 수 있습니다." },
+  "momentumTitle": { "value": "운동량 보존 p = p′ + pₑ" },
+  "momentumNote": { "value": "화살표 길이 비율은 실제와 같음" },
+  "energyTitle": { "value": "에너지 보존" },
+  "before": { "value": "충돌 전" },
+  "after": { "value": "충돌 후" },
+  "scaleTitle": { "value": "검출기 파장 눈금" },
+  "scaleAxis": { "value": "파장 (pm)" }
+}

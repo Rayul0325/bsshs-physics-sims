@@ -1,0 +1,368 @@
+{
+  "id": "wave-interference",
+  "title": "빛의 간섭과 회절",
+  "unit": "wave-optics",
+  "formulas": [
+    {
+      "key": "wave_number",
+      "name": "파수",
+      "expr": "k = 2π/λ",
+      "tex": "k = \\frac{2\\pi}{\\lambda}",
+      "variables": [
+        {
+          "key": "waveNumber",
+          "symbol": "k",
+          "name": "파수",
+          "unit": "rad/m"
+        },
+        {
+          "key": "wavelength",
+          "symbol": "λ",
+          "name": "파장",
+          "unit": "m"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "key": "path_to_phase",
+      "name": "경로차와 위상차",
+      "expr": "Δφ = 2πΔL/λ",
+      "tex": "\\Delta\\varphi = k\\,\\Delta L = \\frac{2\\pi\\,\\Delta L}{\\lambda}",
+      "variables": [
+        {
+          "key": "phaseDifference",
+          "symbol": "Δφ",
+          "name": "위상차",
+          "unit": "rad"
+        },
+        {
+          "key": "pathDifference",
+          "symbol": "ΔL",
+          "name": "경로차",
+          "unit": "m"
+        },
+        {
+          "key": "wavelength",
+          "symbol": "λ",
+          "name": "파장",
+          "unit": "m"
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 간섭은 경로차를 먼저 구하고, 위상차로 바꾼 뒤, 보강인지 상쇄인지 판단하는 순서로 푼다."
+    },
+    {
+      "key": "double_slit_bright",
+      "name": "이중 슬릿의 밝은 무늬",
+      "expr": "d sin θ = mλ (m = 0, ±1, ±2, …)",
+      "tex": "d\\sin\\theta = m\\lambda\\quad(m = 0, \\pm1, \\pm2, \\dots)",
+      "variables": [
+        {
+          "key": "slitSeparation",
+          "symbol": "d",
+          "name": "두 슬릿 사이의 간격",
+          "unit": "m"
+        },
+        {
+          "key": "fringeAngle",
+          "symbol": "θ",
+          "name": "무늬가 보이는 방향의 각",
+          "unit": "°"
+        },
+        {
+          "key": "order",
+          "symbol": "m",
+          "name": "차수",
+          "unit": ""
+        },
+        {
+          "key": "wavelength",
+          "symbol": "λ",
+          "name": "파장",
+          "unit": "m"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 가운데 밝은 무늬가 0차이다."
+    },
+    {
+      "key": "double_slit_dark",
+      "name": "이중 슬릿의 어두운 무늬",
+      "expr": "d sin θ = (m + ½)λ",
+      "tex": "d\\sin\\theta = \\left(m + \\tfrac{1}{2}\\right)\\lambda",
+      "variables": [
+        {
+          "key": "slitSeparation",
+          "symbol": "d",
+          "name": "두 슬릿 사이의 간격",
+          "unit": "m"
+        },
+        {
+          "key": "fringeAngle",
+          "symbol": "θ",
+          "name": "무늬가 보이는 방향의 각",
+          "unit": "°"
+        },
+        {
+          "key": "order",
+          "symbol": "m",
+          "name": "차수",
+          "unit": ""
+        },
+        {
+          "key": "wavelength",
+          "symbol": "λ",
+          "name": "파장",
+          "unit": "m"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "key": "fringe_spacing",
+      "name": "무늬 간격",
+      "expr": "Δx = Lλ/d",
+      "tex": "\\Delta x = \\frac{L\\lambda}{d}",
+      "variables": [
+        {
+          "key": "fringeSpacing",
+          "symbol": "Δx",
+          "name": "이웃한 무늬 사이 간격",
+          "unit": "m"
+        },
+        {
+          "key": "screenDistance",
+          "symbol": "L",
+          "name": "슬릿과 스크린 사이 거리",
+          "unit": "m"
+        },
+        {
+          "key": "wavelength",
+          "symbol": "λ",
+          "name": "파장",
+          "unit": "m"
+        },
+        {
+          "key": "slitSeparation",
+          "symbol": "d",
+          "name": "두 슬릿 사이의 간격",
+          "unit": "m"
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: L ≫ d이고 각이 작다는 근사(sin θ ≈ tan θ ≈ θ)로 얻은 식이다. PhET 화면은 L이 d의 몇 배밖에 안 되어 각이 크므로, 스크린에서 잰 간격이 이 식보다 5% 이상(스크린이 가까우면 수십 %) 넓고 두 슬릿까지의 경로차가 λ인 자리로 구한 값과 맞는다."
+    },
+    {
+      "key": "single_slit_dark",
+      "name": "단일 슬릿의 어두운 무늬",
+      "expr": "a sin θ = mλ (m = ±1, ±2, …)",
+      "tex": "a\\sin\\theta = m\\lambda\\quad(m = \\pm1, \\pm2, \\dots)",
+      "variables": [
+        {
+          "key": "slitWidth",
+          "symbol": "a",
+          "name": "슬릿의 폭",
+          "unit": "m"
+        },
+        {
+          "key": "fringeAngle",
+          "symbol": "θ",
+          "name": "무늬가 보이는 방향의 각",
+          "unit": "°"
+        },
+        {
+          "key": "order",
+          "symbol": "m",
+          "name": "차수",
+          "unit": ""
+        },
+        {
+          "key": "wavelength",
+          "symbol": "λ",
+          "name": "파장",
+          "unit": "m"
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: m은 0이 아니라 1부터 센다. 가운데 밝은 무늬는 다른 무늬보다 두 배 넓다."
+    },
+    {
+      "key": "missing_order",
+      "name": "사라진 차수 조건",
+      "expr": "d/a = m₂/m₁",
+      "tex": "\\frac{d}{a} = \\frac{m_2}{m_1}",
+      "variables": [
+        {
+          "key": "slitSeparation",
+          "symbol": "d",
+          "name": "두 슬릿 사이의 간격",
+          "unit": "m"
+        },
+        {
+          "key": "slitWidth",
+          "symbol": "a",
+          "name": "슬릿의 폭",
+          "unit": "m"
+        },
+        {
+          "key": "interferenceOrder",
+          "symbol": "m₂",
+          "name": "간섭 밝은 무늬의 차수",
+          "unit": ""
+        },
+        {
+          "key": "diffractionOrder",
+          "symbol": "m₁",
+          "name": "회절 어두운 무늬의 차수",
+          "unit": ""
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 간섭의 밝은 무늬 방향이 단일 슬릿 회절의 어두운 무늬 방향과 겹치면 그 차수의 밝은 무늬가 사라진다."
+    }
+  ],
+  "terms": [
+    {
+      "term": "간섭",
+      "definition": "두 파동이 겹칠 때 위상이 같으면 진폭이 커지고(보강 간섭), 반대이면 작아지는(상쇄 간섭) 현상이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "경로차",
+      "definition": "두 파원에서 나온 파동이 한 점까지 가는 거리의 차이이다. 간섭을 판단하는 출발점이다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "회절",
+      "definition": "파동이 좁은 틈이나 장애물을 지날 때 뒤쪽으로 휘어 퍼지는 현상이다. 틈이 좁을수록, 파장이 길수록 크게 일어난다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "회절무늬와 간섭무늬",
+      "definition": "슬릿 하나를 지난 빛이 스스로 만드는 무늬를 회절무늬, 두 슬릿에서 나온 빛이 서로 만나 만드는 무늬를 간섭무늬라고 한다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "결맞은 빛",
+      "definition": "위상 관계가 일정하게 유지되는 빛이다. 두 슬릿에 같은 위상의 빛이 들어가야 무늬가 생기므로 레이저나 앞쪽의 단일 슬릿을 쓴다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "사라진 차수",
+      "definition": "간섭의 밝은 무늬가 단일 슬릿 회절의 어두운 무늬와 겹쳐 보이지 않게 되는 차수이다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "분해능",
+      "definition": "가까이 있는 두 물체를 따로 구별하는 능력이다. 망원경은 구경이 클수록 회절이 덜 일어나 분해능이 좋다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "하위헌스 원리",
+      "definition": "파면 위의 모든 점이 새 파원이 되어 퍼져 나가고, 그 파들의 포락선이 다음 파면이 된다는 원리이다. 현상만 알면 되고 자세한 유도는 시험 범위가 아니다.",
+      "emphasis": false,
+      "outOfScope": true
+    }
+  ],
+  "classUnits": [
+    {
+      "quantity": "wavelength",
+      "phetUnit": "nm",
+      "classUnit": "m",
+      "factor": 1e-9
+    }
+  ],
+  "sources": [
+    {
+      "item": "wave_number",
+      "from": "2026-08-18_6교시_74bccfaf"
+    },
+    {
+      "item": "path_to_phase",
+      "from": "2026-08-18_6교시_74bccfaf"
+    },
+    {
+      "item": "double_slit_bright",
+      "from": "2026-08-25_7교시_2dc3505e"
+    },
+    {
+      "item": "double_slit_dark",
+      "from": "2026-08-25_7교시_2dc3505e"
+    },
+    {
+      "item": "fringe_spacing",
+      "from": "2026-08-25_6교시_f5176d68"
+    },
+    {
+      "item": "fringe_spacing",
+      "from": "2026-08-25_7교시_2dc3505e"
+    },
+    {
+      "item": "single_slit_dark",
+      "from": "2026-08-25_6교시_f5176d68"
+    },
+    {
+      "item": "single_slit_dark",
+      "from": "2026-08-25_7교시_2dc3505e"
+    },
+    {
+      "item": "missing_order",
+      "from": "2026-08-25_7교시_2dc3505e"
+    },
+    {
+      "item": "간섭",
+      "from": "2026-08-18_6교시_74bccfaf"
+    },
+    {
+      "item": "경로차",
+      "from": "2026-08-18_6교시_74bccfaf"
+    },
+    {
+      "item": "경로차",
+      "from": "2026-08-25_7교시_2dc3505e"
+    },
+    {
+      "item": "회절",
+      "from": "2026-08-25_6교시_f5176d68"
+    },
+    {
+      "item": "회절",
+      "from": "2026-08-25_7교시_2dc3505e"
+    },
+    {
+      "item": "회절무늬와 간섭무늬",
+      "from": "2026-08-25_7교시_2dc3505e"
+    },
+    {
+      "item": "결맞은 빛",
+      "from": "2026-08-25_7교시_2dc3505e"
+    },
+    {
+      "item": "사라진 차수",
+      "from": "2026-08-25_7교시_2dc3505e"
+    },
+    {
+      "item": "분해능",
+      "from": "2026-08-25_7교시_2dc3505e"
+    },
+    {
+      "item": "하위헌스 원리",
+      "from": "2026-08-25_6교시_f5176d68"
+    }
+  ]
+}

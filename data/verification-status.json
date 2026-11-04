@@ -1,0 +1,72 @@
+{
+  "blackbody-spectrum": {
+    "status": "확인 중",
+    "date": "2026-11-04",
+    "memo": ""
+  },
+  "models-of-the-hydrogen-atom": {
+    "status": "확인 중",
+    "date": "2026-11-04",
+    "memo": ""
+  },
+  "quantum-measurement": {
+    "status": "확인 중",
+    "date": "2026-11-04",
+    "memo": ""
+  },
+  "faradays-law": {
+    "status": "확인 중",
+    "date": "2026-11-04",
+    "memo": ""
+  },
+  "faradays-electromagnetic-lab": {
+    "status": "확인 중",
+    "date": "2026-11-04",
+    "memo": ""
+  },
+  "generator": {
+    "status": "확인 중",
+    "date": "2026-11-04",
+    "memo": ""
+  },
+  "wave-interference": {
+    "status": "확인 중",
+    "date": "2026-11-04",
+    "memo": ""
+  },
+  "bending-light": {
+    "status": "확인 중",
+    "date": "2026-11-04",
+    "memo": ""
+  },
+  "geometric-optics": {
+    "status": "확인 중",
+    "date": "2026-11-04",
+    "memo": ""
+  },
+  "bsshs-photoelectric": {
+    "status": "확인 중",
+    "date": "2026-11-04",
+    "memo": ""
+  },
+  "bsshs-compton": {
+    "status": "확인 중",
+    "date": "2026-11-04",
+    "memo": ""
+  },
+  "bsshs-laser": {
+    "status": "확인 중",
+    "date": "2026-11-04",
+    "memo": ""
+  },
+  "bsshs-semiconductor": {
+    "status": "확인 중",
+    "date": "2026-11-04",
+    "memo": ""
+  },
+  "bsshs-polarization": {
+    "status": "확인 중",
+    "date": "2026-11-04",
+    "memo": ""
+  }
+}

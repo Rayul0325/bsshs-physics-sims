@@ -1,0 +1,16 @@
+{
+  "simId": "wave-interference",
+  "schemaVersion": 1,
+  "measurements": [
+    { "key": "wavelength", "name": "파장", "unit": "nm", "classUnit": { "unit": "m", "factor": 1e-9 } },
+    { "key": "slitSeparation", "name": "두 슬릿(파원) 사이 간격", "unit": "nm", "classUnit": { "unit": "m", "factor": 1e-9 } },
+    { "key": "slitWidth", "name": "슬릿의 폭", "unit": "nm", "classUnit": { "unit": "m", "factor": 1e-9 } },
+    { "key": "screenDistance", "name": "슬릿(파원)과 스크린 사이 거리", "unit": "nm", "classUnit": { "unit": "m", "factor": 1e-9 } },
+    { "key": "fringeSpacing", "name": "무늬 간격 (스크린에서 잰 값)", "unit": "nm", "classUnit": { "unit": "m", "factor": 1e-9 } }
+  ],
+  "graphs": [
+    { "id": "fringe-vs-wavelength", "title": "파장과 무늬 간격", "x": "wavelength", "y": "fringeSpacing", "fit": "linear" },
+    { "id": "fringe-vs-screen-distance", "title": "스크린 거리와 무늬 간격", "x": "screenDistance", "y": "fringeSpacing", "fit": "linear" },
+    { "id": "fringe-vs-slit-separation", "title": "슬릿 간격과 무늬 간격", "x": "slitSeparation", "y": "fringeSpacing", "fit": null }
+  ]
+}

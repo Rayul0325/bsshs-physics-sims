@@ -1,0 +1,296 @@
+{
+  "id": "bsshs-polarization",
+  "title": "편광과 브루스터각",
+  "unit": "wave-optics",
+  "formulas": [
+    {
+      "key": "malus_law",
+      "name": "말뤼스 법칙",
+      "expr": "I = I₀ cos²θ",
+      "tex": "I = I_0\\cos^{2}\\theta",
+      "variables": [
+        {
+          "key": "transmittedIntensity",
+          "symbol": "I",
+          "name": "투과한 빛의 세기",
+          "unit": "W/m²"
+        },
+        {
+          "key": "incidentIntensity",
+          "symbol": "I₀",
+          "name": "들어오는 빛의 세기",
+          "unit": "W/m²"
+        },
+        {
+          "key": "polarizerAngle",
+          "symbol": "θ",
+          "name": "빛의 편광 방향과 편광판 축 사이의 각",
+          "unit": "°"
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 두 편광판이 나란하면 가장 밝고, 수직이면 완전히 어두워진다."
+    },
+    {
+      "key": "unpolarized_through_polarizer",
+      "name": "편광되지 않은 빛이 편광판을 지날 때",
+      "expr": "I = I₀/2",
+      "tex": "I = \\frac{I_0}{2}",
+      "variables": [
+        {
+          "key": "transmittedIntensity",
+          "symbol": "I",
+          "name": "투과한 빛의 세기",
+          "unit": "W/m²"
+        },
+        {
+          "key": "incidentIntensity",
+          "symbol": "I₀",
+          "name": "들어오는 빛의 세기",
+          "unit": "W/m²"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 편광되지 않은 빛은 편광판을 돌려도 투과 세기가 변하지 않는다."
+    },
+    {
+      "key": "brewster_angle",
+      "name": "브루스터각",
+      "expr": "tan θ_B = n₂/n₁",
+      "tex": "\\tan\\theta_B = \\frac{n_2}{n_1}",
+      "variables": [
+        {
+          "key": "brewsterAngle",
+          "symbol": "θ_B",
+          "name": "브루스터각",
+          "unit": "°"
+        },
+        {
+          "key": "refractiveIndex1",
+          "symbol": "n₁",
+          "name": "입사 쪽 매질의 굴절률",
+          "unit": ""
+        },
+        {
+          "key": "refractiveIndex2",
+          "symbol": "n₂",
+          "name": "굴절 쪽 매질의 굴절률",
+          "unit": ""
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 공기(n₁ = 1)에서 들어갈 때는 tan θ_B = n이 된다."
+    },
+    {
+      "key": "brewster_perpendicular",
+      "name": "브루스터각에서 반사광과 굴절광",
+      "expr": "θ_B + θ₂ = 90°",
+      "tex": "\\theta_B + \\theta_2 = 90^\\circ",
+      "variables": [
+        {
+          "key": "brewsterAngle",
+          "symbol": "θ_B",
+          "name": "브루스터각",
+          "unit": "°"
+        },
+        {
+          "key": "refractionAngle",
+          "symbol": "θ₂",
+          "name": "굴절각",
+          "unit": "°"
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 이때 반사광과 굴절광이 서로 수직이고, 반사광은 완전히 편광된다."
+    },
+    {
+      "key": "snell_law",
+      "name": "스넬 법칙",
+      "expr": "n₁ sin θ₁ = n₂ sin θ₂",
+      "tex": "n_1\\sin\\theta_1 = n_2\\sin\\theta_2",
+      "variables": [
+        {
+          "key": "refractiveIndex1",
+          "symbol": "n₁",
+          "name": "입사 쪽 매질의 굴절률",
+          "unit": ""
+        },
+        {
+          "key": "incidentAngle",
+          "symbol": "θ₁",
+          "name": "입사각",
+          "unit": "°"
+        },
+        {
+          "key": "refractiveIndex2",
+          "symbol": "n₂",
+          "name": "굴절 쪽 매질의 굴절률",
+          "unit": ""
+        },
+        {
+          "key": "refractionAngle",
+          "symbol": "θ₂",
+          "name": "굴절각",
+          "unit": "°"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false
+    }
+  ],
+  "terms": [
+    {
+      "term": "편광",
+      "definition": "빛의 전기장이 진동하는 방향이 한 방향으로 정렬된 상태이다. 편광의 기준은 전기장의 진동 방향이다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "편광판",
+      "definition": "한 방향으로 진동하는 전기장 성분만 통과시키는 필터이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "편광 판별",
+      "definition": "빛이 편광되었는지 알려면 편광판을 대고 돌려 본다. 세기가 각도에 따라 변하면 편광된 빛이다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "선편광과 원편광",
+      "definition": "전기장이 한 직선 방향으로만 진동하면 선편광, 진동 방향이 돌면서 나아가면 원편광이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "말뤼스 법칙",
+      "definition": "편광된 빛이 편광판을 지날 때 투과 세기가 두 방향 사이 각의 코사인 제곱에 비례한다는 법칙이다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "브루스터각",
+      "definition": "반사광과 굴절광이 서로 수직이 되는 입사각이다. 이 각에서 반사광은 완전히 편광된다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "반사에 의한 편광",
+      "definition": "빛이 물이나 유리 표면에서 반사되면 표면에 나란한 방향의 편광 성분이 많아진다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "광탄성",
+      "definition": "플라스틱처럼 투명한 물체를 휘거나 누를 때 편광판 사이에서 색 무늬가 달라 보이는 현상이다. 물체 속 변형의 정도를 볼 수 있다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "액정 표시 장치(LCD)",
+      "definition": "두 편광판 사이의 액정이 편광 방향을 돌리는 정도를 조절해 빛의 양과 색을 바꾸는 화면이다.",
+      "emphasis": false,
+      "outOfScope": false
+    }
+  ],
+  "classUnits": [],
+  "sources": [
+    {
+      "item": "malus_law",
+      "from": "2026-09-22_8교시_4ea27009"
+    },
+    {
+      "item": "malus_law",
+      "from": "2026-09-08_6교시_3f803012"
+    },
+    {
+      "item": "unpolarized_through_polarizer",
+      "from": "2026-09-08_6교시_3f803012"
+    },
+    {
+      "item": "unpolarized_through_polarizer",
+      "from": "표준"
+    },
+    {
+      "item": "brewster_angle",
+      "from": "2026-09-22_8교시_4ea27009"
+    },
+    {
+      "item": "brewster_angle",
+      "from": "2026-09-08_6교시_3f803012"
+    },
+    {
+      "item": "brewster_perpendicular",
+      "from": "2026-09-22_8교시_4ea27009"
+    },
+    {
+      "item": "brewster_perpendicular",
+      "from": "2026-09-08_6교시_3f803012"
+    },
+    {
+      "item": "snell_law",
+      "from": "2026-08-18_6교시_74bccfaf"
+    },
+    {
+      "item": "snell_law",
+      "from": "2026-09-01_6교시_e9d4e0c4"
+    },
+    {
+      "item": "편광",
+      "from": "2026-09-08_6교시_3f803012"
+    },
+    {
+      "item": "편광판",
+      "from": "2026-09-08_6교시_3f803012"
+    },
+    {
+      "item": "편광판",
+      "from": "2026-09-22_6교시_9e023d10"
+    },
+    {
+      "item": "편광 판별",
+      "from": "2026-09-08_6교시_3f803012"
+    },
+    {
+      "item": "선편광과 원편광",
+      "from": "2026-09-22_6교시_9e023d10"
+    },
+    {
+      "item": "말뤼스 법칙",
+      "from": "2026-09-22_8교시_4ea27009"
+    },
+    {
+      "item": "말뤼스 법칙",
+      "from": "2026-09-08_6교시_3f803012"
+    },
+    {
+      "item": "브루스터각",
+      "from": "2026-09-22_8교시_4ea27009"
+    },
+    {
+      "item": "브루스터각",
+      "from": "2026-09-08_6교시_3f803012"
+    },
+    {
+      "item": "반사에 의한 편광",
+      "from": "2026-09-08_6교시_3f803012"
+    },
+    {
+      "item": "광탄성",
+      "from": "2026-09-22_6교시_9e023d10"
+    },
+    {
+      "item": "액정 표시 장치(LCD)",
+      "from": "2026-09-08_6교시_3f803012"
+    },
+    {
+      "item": "액정 표시 장치(LCD)",
+      "from": "2026-09-22_6교시_9e023d10"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+[
+  { "name": "발머 계열 3 → 2 (에너지 준위 화면, 보어 모형)",
+    "params": { "screen": "energyLevels", "atom": "bohr", "from": 3, "to": 2 },
+    "expect": { "upperQuantumNumber": { "value": 3 }, "lowerQuantumNumber": { "value": 2 }, "upperLevelEnergy": { "value": -1.511111111 }, "lowerLevelEnergy": { "value": -3.4 }, "photonEnergy": { "value": 1.888888889 }, "wavelength": { "value": 656.3869329 }, "frequency": { "value": 4.567313013e14 } } },
+  { "name": "라이먼 계열 2 → 1: 저절로 내는 광자 (보어 모형)",
+    "params": { "screen": "energyLevels", "atom": "bohr", "spontaneousFrom": 2 },
+    "expect": { "upperQuantumNumber": { "value": 2 }, "lowerQuantumNumber": { "value": 1 }, "photonEnergy": { "value": 10.2 }, "wavelength": { "value": 121.5531357 }, "frequency": { "value": 2.466349027e15 }, "principalQuantumNumber": { "value": 1 }, "levelEnergy": { "value": -13.6 } } },
+  { "name": "흡수 1 → 6: 가장 높은 준위 (경계)",
+    "params": { "screen": "energyLevels", "atom": "bohr", "from": 1, "to": 6 },
+    "expect": { "principalQuantumNumber": { "value": 6 }, "levelEnergy": { "value": -0.377777778 }, "upperLevelEnergy": { "value": -0.377777778 }, "lowerLevelEnergy": { "value": -13.6 }, "photonEnergy": { "value": 13.22222222 }, "wavelength": { "value": 93.76956184 } } },
+  { "name": "파셴 계열 4 → 3 (스펙트럼 화면, 드브로이 모형)",
+    "params": { "screen": "spectra", "atom": "deBroglie", "from": 4, "to": 3 },
+    "expect": { "upperLevelEnergy": { "value": -0.85 }, "lowerLevelEnergy": { "value": -1.511111111 }, "photonEnergy": { "value": 0.661111111 }, "wavelength": { "value": 1875.391237 } } },
+  { "name": "바닥상태 n = 1 (슈뢰딩거 모형)",
+    "params": { "screen": "energyLevels", "atom": "schrodinger", "n": 1 },
+    "expect": { "principalQuantumNumber": { "value": 1 }, "levelEnergy": { "value": -13.6 } } }
+]

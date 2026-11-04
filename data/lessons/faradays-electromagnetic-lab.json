@@ -1,0 +1,349 @@
+{
+  "id": "faradays-electromagnetic-lab",
+  "title": "전자석, 상호 유도와 변압기",
+  "unit": "electromagnetic-induction",
+  "formulas": [
+    {
+      "key": "magnetic_flux",
+      "name": "자기 선속",
+      "expr": "Φ = BA cos θ",
+      "tex": "\\Phi = B A\\cos\\theta",
+      "variables": [
+        {
+          "key": "magneticFlux",
+          "symbol": "Φ",
+          "name": "자기 선속",
+          "unit": "Wb"
+        },
+        {
+          "key": "magneticField",
+          "symbol": "B",
+          "name": "자기장의 세기",
+          "unit": "T"
+        },
+        {
+          "key": "loopArea",
+          "symbol": "A",
+          "name": "코일 한 바퀴의 면적",
+          "unit": "m²"
+        },
+        {
+          "key": "fieldAngle",
+          "symbol": "θ",
+          "name": "자기장과 면의 법선 사이의 각",
+          "unit": "°"
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 자기장의 세기 B, 면적 A, 각 θ 가운데 하나라도 변하면 자기 선속이 변한다."
+    },
+    {
+      "key": "faraday_law",
+      "name": "패러데이 법칙",
+      "expr": "ε = −N ΔΦ/Δt",
+      "tex": "\\mathcal{E} = -N\\frac{d\\Phi}{dt}",
+      "variables": [
+        {
+          "key": "emf",
+          "symbol": "ε",
+          "name": "유도 기전력",
+          "unit": "V"
+        },
+        {
+          "key": "coilTurns",
+          "symbol": "N",
+          "name": "코일의 감은 수",
+          "unit": ""
+        },
+        {
+          "key": "magneticFlux",
+          "symbol": "Φ",
+          "name": "자기 선속",
+          "unit": "Wb"
+        },
+        {
+          "key": "time",
+          "symbol": "t",
+          "name": "시간",
+          "unit": "s"
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 서랍의 선속·기전력은 모델 값이다. 모델은 1/25 s마다 ε = −N ΔΦ/Δt로 계산하고, 「기전력 ÷ 선속 변화율」이 −N으로 나오는 것으로 확인할 수 있다."
+    },
+    {
+      "key": "solenoid_field",
+      "name": "솔레노이드 내부의 자기장",
+      "expr": "B = μ₀nI",
+      "tex": "B = \\mu_0 n I",
+      "variables": [
+        {
+          "key": "magneticField",
+          "symbol": "B",
+          "name": "자기장의 세기",
+          "unit": "T"
+        },
+        {
+          "key": "turnsPerLength",
+          "symbol": "n",
+          "name": "단위 길이당 감은 수",
+          "unit": "1/m"
+        },
+        {
+          "key": "coilCurrent",
+          "symbol": "I",
+          "name": "코일 전류",
+          "unit": "A"
+        },
+        {
+          "key": "vacuumPermeability",
+          "symbol": "μ₀",
+          "name": "진공의 투자율",
+          "unit": "T·m/A",
+          "constant": 0.00000125663706127
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 길고 촘촘히 감은 이상적인 솔레노이드의 식이다. 시뮬레이션의 전자석은 짧은 코일이라 자기장 값이 이 식과 다를 수 있다."
+    },
+    {
+      "key": "self_induction",
+      "name": "자체 유도 기전력",
+      "expr": "ε = −L ΔI/Δt",
+      "tex": "\\mathcal{E} = -L\\frac{dI}{dt}",
+      "variables": [
+        {
+          "key": "emf",
+          "symbol": "ε",
+          "name": "유도 기전력",
+          "unit": "V"
+        },
+        {
+          "key": "inductance",
+          "symbol": "L",
+          "name": "자체 인덕턴스",
+          "unit": "H"
+        },
+        {
+          "key": "coilCurrent",
+          "symbol": "I",
+          "name": "코일 전류",
+          "unit": "A"
+        },
+        {
+          "key": "time",
+          "symbol": "t",
+          "name": "시간",
+          "unit": "s"
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "key": "transformer_voltage_ratio",
+      "name": "변압기의 전압비",
+      "expr": "V₂/V₁ = N₂/N₁",
+      "tex": "\\frac{V_2}{V_1} = \\frac{N_2}{N_1}",
+      "variables": [
+        {
+          "key": "primaryVoltage",
+          "symbol": "V₁",
+          "name": "1차 코일 전압",
+          "unit": "V"
+        },
+        {
+          "key": "secondaryVoltage",
+          "symbol": "V₂",
+          "name": "2차 코일 전압",
+          "unit": "V"
+        },
+        {
+          "key": "primaryTurns",
+          "symbol": "N₁",
+          "name": "1차 코일 감은 수",
+          "unit": ""
+        },
+        {
+          "key": "secondaryTurns",
+          "symbol": "N₂",
+          "name": "2차 코일 감은 수",
+          "unit": ""
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 시뮬레이션의 두 코일은 철심 없이 떨어져 있어 이상적인 변압기가 아니므로, 기전력(모델 값)의 비가 감은 수의 비와 같지 않다."
+    },
+    {
+      "key": "ideal_transformer_power",
+      "name": "이상적인 변압기의 전력",
+      "expr": "V₁I₁ = V₂I₂",
+      "tex": "V_1 I_1 = V_2 I_2",
+      "variables": [
+        {
+          "key": "primaryVoltage",
+          "symbol": "V₁",
+          "name": "1차 코일 전압",
+          "unit": "V"
+        },
+        {
+          "key": "primaryCurrent",
+          "symbol": "I₁",
+          "name": "1차 코일 전류",
+          "unit": "A"
+        },
+        {
+          "key": "secondaryVoltage",
+          "symbol": "V₂",
+          "name": "2차 코일 전압",
+          "unit": "V"
+        },
+        {
+          "key": "secondaryCurrent",
+          "symbol": "I₂",
+          "name": "2차 코일 전류",
+          "unit": "A"
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 전력 손실이 없다고 본 식이다. 전압이 커진 만큼 전류는 작아진다."
+    }
+  ],
+  "terms": [
+    {
+      "term": "전자석",
+      "definition": "코일에 전류를 흘려 만든 자석이다. 전류가 클수록, 감은 수가 많을수록 자기장이 세다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "자체 유도",
+      "definition": "코일 자신의 전류가 변할 때 그 변화를 방해하는 기전력이 생기는 현상이다. 그래서 스위치를 켜거나 끌 때 전류가 바로 변하지 않는다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "상호 유도",
+      "definition": "한 코일의 전류가 변하면 그 자기장 변화 때문에 옆 코일에 기전력이 생기는 현상이다. 무선 충전기와 변압기가 대표적인 예이다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "변압기",
+      "definition": "철심에 감은 수가 다른 두 코일을 감아 교류 전압을 바꾸는 장치이다. 두 코일을 같은 자기 선속이 지나므로 전압비가 감은 수의 비와 같다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "맴돌이 전류",
+      "definition": "변하는 자기장 속 금속판에 소용돌이 모양으로 흐르는 유도 전류이다. 인덕션 레인지의 가열과 자기 브레이크에 쓰인다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "렌츠 법칙",
+      "definition": "유도 전류는 자기 선속의 변화를 방해하는 방향으로 흐른다.",
+      "emphasis": true,
+      "outOfScope": false
+    }
+  ],
+  "classUnits": [
+    {
+      "quantity": "magneticField",
+      "phetUnit": "G",
+      "classUnit": "T",
+      "factor": 0.0001
+    }
+  ],
+  "sources": [
+    {
+      "item": "magnetic_flux",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "faraday_law",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "solenoid_field",
+      "from": "2026-09-01_1교시_f98ec349"
+    },
+    {
+      "item": "solenoid_field",
+      "from": "표준"
+    },
+    {
+      "item": "self_induction",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "self_induction",
+      "from": "2026-09-22_1교시_67e86a06"
+    },
+    {
+      "item": "transformer_voltage_ratio",
+      "from": "2026-09-22_1교시_67e86a06"
+    },
+    {
+      "item": "transformer_voltage_ratio",
+      "from": "2026-09-29_1교시_309947a2"
+    },
+    {
+      "item": "ideal_transformer_power",
+      "from": "2026-09-22_1교시_67e86a06"
+    },
+    {
+      "item": "ideal_transformer_power",
+      "from": "2026-09-29_1교시_309947a2"
+    },
+    {
+      "item": "전자석",
+      "from": "2026-09-01_1교시_f98ec349"
+    },
+    {
+      "item": "자체 유도",
+      "from": "2026-09-15_1교시_66e02a40"
+    },
+    {
+      "item": "자체 유도",
+      "from": "2026-09-22_1교시_67e86a06"
+    },
+    {
+      "item": "자체 유도",
+      "from": "2026-09-29_1교시_309947a2"
+    },
+    {
+      "item": "상호 유도",
+      "from": "2026-09-22_1교시_67e86a06"
+    },
+    {
+      "item": "상호 유도",
+      "from": "2026-09-29_1교시_309947a2"
+    },
+    {
+      "item": "변압기",
+      "from": "2026-09-22_1교시_67e86a06"
+    },
+    {
+      "item": "변압기",
+      "from": "2026-09-29_1교시_309947a2"
+    },
+    {
+      "item": "맴돌이 전류",
+      "from": "2026-09-22_1교시_67e86a06"
+    },
+    {
+      "item": "맴돌이 전류",
+      "from": "2026-09-29_1교시_309947a2"
+    },
+    {
+      "item": "렌츠 법칙",
+      "from": "2026-09-15_1교시_66e02a40"
+    }
+  ]
+}

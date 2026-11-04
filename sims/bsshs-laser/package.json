@@ -1,0 +1,18 @@
+{
+  "name": "bsshs-laser",
+  "version": "1.0.0",
+  "license": "GPL-3.0-only",
+  "private": true,
+  "description": "Original rate-equation laser simulation (3-level atoms, pumping, optical cavity) for bsshs-physics-sims.",
+  "devDependencies": {
+    "grunt": "~1.5.3"
+  },
+  "phet": {
+    "requirejsNamespace": "BSSHS_LASER",
+    "runnable": true,
+    "simulation": true,
+    "supportedBrands": [
+      "adapted-from-phet"
+    ]
+  }
+}

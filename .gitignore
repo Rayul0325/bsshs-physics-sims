@@ -1,0 +1,10 @@
+# local working docs (dryforge, session handoff)
+.dryforge
+.claude/handoff
+# fetched PhET sources, build output, deploy output (regenerable)
+sources
+build
+dist
+# dependencies (slash-less so symlinks are matched too)
+node_modules
+.DS_Store

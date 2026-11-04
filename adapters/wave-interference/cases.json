@@ -1,0 +1,8 @@
+[
+  { "name": "진동수 0.5 /fs → 파장 c/f = 599.58 nm (v = fλ)", "params": { "frequency": 0.5 }, "expect": { "wavelength": { "value": 599.5849 } } },
+  { "name": "이중 슬릿 기본 위치: L = 2455 nm, d = 1500 nm, λ = 511.03 nm → 경로차 = λ인 첫 밝은 무늬 925.6 nm (Lλ/d = 836 nm보다 큼)", "params": { "screenDistance": 2455, "slitSeparation": 1500, "slitWidth": 200 }, "expect": { "wavelength": { "value": 511.0345 }, "slitSeparation": { "value": 1500 }, "fringeSpacing": { "value": 925.5816, "relTol": 0.04 } } },
+  { "name": "이중 슬릿 L = 2455 nm, d = 2600 nm, λ = 700 nm → 770.4 nm", "params": { "screenDistance": 2455, "slitSeparation": 2600, "slitWidth": 200, "wavelength": 700 }, "expect": { "fringeSpacing": { "value": 770.397, "relTol": 0.04 } } },
+  { "name": "이중 슬릿 L = 3581 nm, d = 3200 nm, λ = 600 nm → 746.5 nm", "params": { "screenDistance": 3581, "slitSeparation": 3200, "slitWidth": 200, "wavelength": 600 }, "expect": { "screenDistance": { "value": 3581 }, "fringeSpacing": { "value": 746.4953, "relTol": 0.04 } } },
+  { "name": "경계: 가장 짧은 파장 380 nm, 가장 넓은 슬릿 간격 3200 nm → 349.7 nm", "params": { "screenDistance": 2455, "slitSeparation": 3200, "slitWidth": 200, "wavelength": 380 }, "expect": { "wavelength": { "value": 380 }, "fringeSpacing": { "value": 349.7229, "relTol": 0.04 } } },
+  { "name": "간섭 화면 두 점파원: L = 4707 nm, d = 2700 nm, λ = 600 nm → 1114 nm", "params": { "screen": "interference", "slitSeparation": 2700, "wavelength": 600 }, "expect": { "screenDistance": { "value": 4707 }, "fringeSpacing": { "value": 1113.981, "relTol": 0.04 } } }
+]

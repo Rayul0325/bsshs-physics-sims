@@ -1,0 +1,114 @@
+# 전체 빌드와 검증 (사양 5)
+
+배포하기 전에 두 명령만 차례로 실행합니다. **`npm run verify`가 끝 코드 0으로 끝나야 「완료」입니다.**
+
+```sh
+npm run build-everything     # 시뮬레이션 68개 빌드 + 빌드 기록 정리 + 목록 사이트(dist/, 썸네일 포함)
+npm run verify               # V1~V10 전부, 보고서 build/verify/report.json
+npm run verify -- --only V2,V9   # 일부만 다시
+```
+
+## `npm run build-everything` (`tools/build-everything.mjs`)
+
+1. `build-all --brand bsshs --theme --jobs 10 --include-new`: PhET 63개 학교판과 직접 만든 시뮬레이션 5개를 `build/bsshs-theme/<id>/<id>_ko.html`로 빌드합니다. 이미 같은 조건으로 빌드된 것은 건너뜁니다(`--force`로 전부 다시).
+2. 빌드 기록 `data/build-matrix*.json`을 커밋하기 좋은 모양으로 정리합니다: 오류 문구 안의 이 컴퓨터 경로(캐시 폴더 → `$BSSHS_CACHE`, 저장소 폴더 → `.`)를 바꾸고, 줄 순서를 `data/sims.json` 순서(새 시뮬레이션은 id 순서)로 고정합니다. SHA·해시·빌드 시각 같은 값은 그대로 둡니다. 다시 실행해도 바뀌지 않은 시뮬레이션의 줄은 그대로입니다.
+3. `site/build-site.mjs --thumbs`로 `dist/`(git에 넣지 않음)에 목록 사이트를 만듭니다. 시험 범위 14개에는 이때 수업 서랍이 들어갑니다.
+
+끝 코드: 빌드나 사이트 중 하나라도 실패하면 1.
+
+## `npm run verify` (`tools/verify.mjs`)
+
+```
+node tools/verify.mjs [--only V2,V9] [--jobs N] [--sims-dir build/bsshs-theme] [--site-dir dist]
+                      [--report build/verify/report.json] [--names-file <파일>] [--cases <id>=<cases.json>]
+```
+
+- `--only`: `V1,V2,V3,V4,V5,V6,V9,V10a,V10b,V10c,TEST` 중에서 고릅니다. `V10`은 a·b·c 셋, `TEST`는 `npm test` 전체입니다.
+- `--jobs`: 동시에 여는 브라우저(Chrome) 작업 수. 기본은 `CPU 수 − 4`와 12 중 작은 값.
+- `--names-file`: 실명 목록(기본 `~/.config/bsshs-physics-sims/private-names.txt`, 환경변수 `BSSHS_PRIVATE_NAMES`). 이 파일은 저장소에 넣지 않습니다.
+- `--cases <id>=<파일>`: 그 시뮬레이션의 V3 사례 파일을 바꿔 씁니다(새 사례를 미리 돌려 보거나, 제외 규칙을 시험할 때). 쓰면 보고서의 V3 메모에 남습니다.
+
+### 각 항목
+
+| 항목 | 무엇을 확인하나 | 어떻게 |
+|---|---|---|
+| **V1 빌드** | 68개(PhET 63 + 새 5)가 모두 한국어 단일 파일 HTML로 빌드되고 사이트에 올라갔는지. 개수가 68이 아니면 실패 | 빌드 기록이 성공이고, **지금의** 디자인 토큰·패치 규칙·용어 교정으로 만든 것(`themeHash` 일치, 새 시뮬레이션은 `sims/` 소스 해시도 일치), 파일 크기가 기록과 같음(빌드 뒤 손대지 않음), 첫 `<html lang="ko">`, 다른 파일을 부르는 `<script src>`/`<link href>` 없음, 서랍이 들어 있지 않음(V9 비교 기준이므로), `dist/sims/<id>.html` 있음 |
+| **V2 check-sim** | 68개 × (데스크톱 1280, 휴대폰 390) = 136번 | `tools/check-sim.mjs`를 **사이트 파일**(`dist/sims/<id>.html`, 시험 범위는 서랍 포함)에 실행: 잡히지 않은 오류 없음, 「부산과학고」 워드마크, PhET 로고 없음, About 출처 6개, 다른 곳 요청 0건, 출처 밖 "PhET" 없음, 글꼴. 사이트 파일을 열기 때문에 V6의 「링크가 열린다」도 여기서 확인됩니다 |
+| **V3 물리 검사** | 시험 범위 14개의 자동 물리 사례 | 빌드에 서랍을 새로 넣은 사본(`build/verify/injected/<id>.html`, 사이트와 같은 도구·같은 데이터)에 `tools/run-cases.mjs`. 허용 오차는 사례에 적힌 값, 없으면 **상대 1%**(기본값 그대로) |
+| **V4 서랍 기록** | 기록이 새로 고침 뒤에도 남는지, 「모두 초기화」가 기록을 안 지우는지, 「새 실험 시작」, 화면 바꿈, CSV BOM, 그래프, 정의 버전 올림 | `npm test` 중 이름이 `V4`로 시작하는 테스트, `real build:` 테스트, `tests/drawer/core.test.mjs` |
+| **V5 확인 상태·해시** | 세 상태 표시, 해시가 다르면 「확인 중」, 해시 범위 | `npm test` 중 `V5…` 테스트, `tests/drawer/hash·status.test.mjs`, `tests/status/` |
+| **V6 목록 사이트** | 68개 링크, 시험 범위 14개 강조·배지, 바닥글 출처와 「학생 제작·공식 아님」, 실명 0건, 390px 가로 넘침 없음 등 | `tests/site/*.test.mjs`를 `BSSHS_SITE_DIR=dist`로 실행 + `index.html`에 카드 68개·시험 칸 14개인지 직접 셈(+1) |
+| **V9 닫힌 서랍** | 14개 × (1280, 390): 서랍을 닫아 둔 화면이 서랍 없는 빌드와 픽셀까지 같은지(열기 버튼만 제외) | `tools/compare-layout.mjs <서랍 사본> <빌드> --all-screens --pause-clock --seed-random --exclude-button` |
+| **V10a 디자인 값** | 색·글꼴 이름이 `theme/tokens.json` 밖에 없음 | `tests/theme/no-literals.test.mjs`, `tests/drawer/literals.test.mjs`, `tests/theme/tokens.test.mjs` |
+| **V10b 패치 허용 목록** | 패치가 허용된 파일만 건드림(invariant 9: 비시험 54개는 테마·브랜드·한국어 문자열·외부 통신 끄기만) | 아래 「V10b」 |
+| **V10c 실명 검색** | 실명 목록의 한 줄 한 줄이 빌드 68개, 사이트 전체, 저장소 추적 파일 어디에도 없음 | 아래 「V10c」 |
+| **TEST** | `npm test` 전체 | 위 V4·V5·V6·V10a와 같은 한 번의 실행(사이트 폴더 지정) |
+
+#### V10b 패치 허용 목록
+
+`tools/lib/verify-core.mjs`의 `PATCH_ALLOWLIST`가 종류마다 건드려도 되는 「저장소 + 파일 모양」을 적은 목록입니다. 패치 규칙 목록과 **따로** 적었기 때문에, 규칙이 시뮬레이션 저장소·모델 코드·다른 부품 파일로 벗어나면 걸립니다.
+
+- `telemetry`: `phetcommon` 통계 스크립트, `joist` 업데이트 확인, `chipper` `initialize-globals`
+- `brand`: `brand/adapted-from-phet/`의 `Brand`와 그림 파일, `joist`의 메뉴 버튼 이름 문자열(`joist-strings_en.json`, `JoistA11yStrings.js`, `PhetButton.js`), babel의 `joist/joist-strings_ko.json`
+- `theme`: `scenery-phet` `PhetFont`, `joist` `LookAndFeel`·`HomeScreen`, `sun`의 `ColorConstants`·`Panel`·`Checkbox`·슬라이더 손잡이
+- `terms`: babel의 `<저장소>/<저장소>-strings_ko.json`만
+
+검사하는 것은 세 가지입니다. (1) `ALL_RULES`의 모든 규칙과 시뮬레이션 68개 각각의 용어 교정 규칙(`termFixRules`, 고정된 번역 원본에서 계산)이 **적어 둔 후보 파일 전부**, (2) 빌드 기록(`patches`)에 적힌 **실제로 고친 파일**(시뮬레이션마다), (3) 빌드 설정 덧대기(`overlays`)가 문서에 적힌 두 가지(`supportedBrands` 한 줄, `chipper-skip-tsc`)뿐인지와, 빌드 뒤 체크아웃이 깨끗한지(`trackedChangesAfterBuild` 빈 배열). 시험 범위 시뮬레이션의 서랍은 빌드 뒤 HTML에 넣으므로 패치가 아니며, 여기서는 다른 시뮬레이션과 같은 규칙으로 검사됩니다.
+
+#### V10c 실명 검색
+
+- 목록 파일의 줄마다 앞뒤 공백을 빼고, 2글자 미만과 `#`으로 시작하는 줄은 뺍니다(`tests/site`의 검사와 같은 규칙).
+- 한 이름을 여러 모양으로 찾습니다: UTF-8(NFC, NFD), 자바스크립트 `\uXXXX`(대·소문자), HTML 숫자 문자 참조(`&#…;`, `&#x…;`). 빌드된 HTML은 한글을 이 모양들로 담기 때문입니다.
+- 대상: 빌드 68개, `dist/` 아래 모든 파일(썸네일 포함), `git ls-files`의 모든 파일. 내용이 같은 파일(예: 사이트에 그대로 복사된 빌드)은 한 번만 읽고, 걸리면 먼저 읽은 파일 이름으로 보고합니다.
+- 보고서와 화면에는 **파일 이름과 건수만** 나옵니다. 이름도, 몇 번째 줄인지도 쓰지 않습니다. `목록 지문`(이름 목록의 해시 앞 12자리)으로 같은 목록으로 돌렸는지만 비교할 수 있습니다.
+
+### 제외 규칙 (사양 3.6)
+
+V3에서 **새 시뮬레이션**(`sims/<id>`)이 하나라도 실패하면, 그 시뮬레이션을 통째로 공개 사이트에서 뺍니다: verify가 `site/build-site.mjs --exclude <id> --thumbs`로 `dist/`를 다시 만들고, `build/verify/exclusions.json`에 이유를 적습니다. 그러면 V1의 개수가 68보다 작아져 **V1도 실패**합니다(조용히 통과하지 않음). PhET 시뮬레이션이 V3에 실패하면 빼지 않고 V3 실패로만 보고합니다(어댑터나 사례 문제일 수 있으므로 사람이 봐야 함).
+`--only`에 V3가 없으면 마지막 V3 실행의 `exclusions.json`을 V1이 그대로 씁니다. 고친 뒤에는 `npm run build-everything`으로 사이트를 다시 만들고 V3를 포함해 다시 검증하세요.
+
+### 실행 순서와 시간
+
+1. 서랍 사본 만들기 → V3·V9 브라우저 작업(같은 작업 풀, V3 먼저)과 V10b(정적)를 함께
+2. 제외 규칙 적용(필요할 때만 사이트 다시 만듦)
+3. V1, V10c, V2(136번, 같은 풀)
+4. `npm test` 한 번(V4·V5·V6·V10a·TEST). 테스트가 브라우저를 많이 쓰므로 V2가 끝난 뒤에 돌립니다.
+
+### 보고서 읽기
+
+화면에는 항목마다 한 줄이 나옵니다: `통과  V2   check-sim 136/136`. 실패면 `— 실패 N건: <id> <폭> <이유>`가 붙고, 그 아래에 메모가 들여 쓰여 나옵니다. 끝 줄은 `모두 통과` 또는 `실패: V1, V3` · 걸린 시간 · 보고서 위치입니다.
+
+`build/verify/report.json`(schemaVersion 1):
+
+```json
+{ "tool": "verify", "schemaVersion": 1, "startedAt": "…", "ms": 0, "selected": ["V1", "…"], "ok": true, "failed": [],
+  "exclusions": [ { "id": "bsshs-…", "reason": "…" } ],
+  "checks": [ { "id": "V2", "name": "check-sim", "ok": true, "exitCode": 0, "passed": 136, "total": 136,
+                "failures": [ { "id": "<sim>", "width": 390, "error": "…" } ], "notes": [], "ms": 0, "details": [ … ] } ] }
+```
+
+- 항목은 끝 코드 0, 실패 0건, 그리고 **센 것이 1개 이상**이고 모두 통과일 때만 통과입니다. 아무것도 확인하지 못한 항목(파일 없음, 테스트 건너뜀)은 실패입니다. V4·V5·V6·V10a에 속한 테스트가 건너뛰어지면 그 항목은 실패입니다.
+- `details`: V2는 실행마다 `exitCode`·`ms`·`error`, V3는 시뮬레이션마다 사례 수와 허용 오차, V9는 화면 수와 서로 다른 화면 그림 수(`distinctShots`).
+- 각 도구의 원래 출력이 필요하면 같은 명령을 직접 실행하세요(예: `node tools/check-sim.mjs dist/sims/<id>.html --width 390`).
+
+## 알려진 한계
+
+- V2는 시작 화면·메뉴·About 창만 훑습니다. 설정 창·키보드 도움말 창은 열지 않습니다(theme.md 「남은 PhET 표기」).
+- V3는 사례 파일에 적힌 상태만 확인합니다. 사례가 덮지 않는 화면·값은 확인하지 않습니다.
+- V9의 `--pause-clock`은 처음 화면 다음부터 시계를 멈추고 찍습니다. 시간이 흐르며 생기는 차이는 비교하지 않습니다. `--seed-random`은 두 파일의 난수를 같게 맞춥니다.
+- V10b의 허용 목록은 「어느 파일을 건드리나」를 봅니다. 허용된 파일 **안에서** 무엇을 바꾸는지는 패치 규칙 단위 테스트(`tests/theme/patches.test.mjs`)와 `theme/patches/dry-run.mjs`가 봅니다.
+- V10c는 목록에 적힌 글자 그대로만 찾습니다(띄어쓰기를 바꾼 모양, 이미지 속 글자는 찾지 못함).
+- 헤드리스 Chrome은 창 폭 500px 아래로 배치하지 않아서, 390px은 CDP 기기 화면 흉내로 엽니다(check-sim과 같은 방법).
+
+## 허용 오차·플래그
+
+이 작업에서 바꾼 허용 오차나 검사 플래그는 없습니다. V3는 `run-cases`의 기본값(상대 1%, 0 기대값은 절대 1e-9)과 사례 파일에 적힌 값을 그대로 쓰고, V9는 `--max-diff-pixels 0`, `--tolerance 0`(기본값)입니다. 앞으로 바꾸면 이유를 이 절에 적습니다.
+
+## 실제로 돌려 본 결과 (2026-11-04, 32코어 맥)
+
+- `npm run build-everything`: 처음(63 + 5 다시 빌드) 약 6분 30초, 바뀐 것이 없을 때 약 1분 50초(대부분 썸네일). 두 번째 실행 뒤 빌드 기록 세 파일은 바이트까지 같았습니다.
+- `npm run verify`(전체): 약 7분. V2 136번 약 3분, V3·V9 함께 약 1분 30초, `npm test` 약 1분 50초.
+- 검사가 진짜로 잡는지 일부러 고장 내 확인했습니다(확인 뒤 원래대로 돌림):
+  - V10b: 빌드 기록 한 줄에 「`theme-panel`이 `sun/js/model/…`을 고쳤다」고 바꾸면 V10b만 실패(67/68).
+  - V10c: `dist/`에 실명 하나가 든 파일을 두면 V10c만 실패(파일 이름과 1건만 보고, 이름은 출력에 없음).
+  - 제외 규칙: `--cases bsshs-laser=<값 하나를 5% 바꾼 사례 파일>`이면 V3 실패 → 사이트에서 레이저를 빼고 다시 만듦 → V1 67/68 실패. V10b·V10c는 통과.

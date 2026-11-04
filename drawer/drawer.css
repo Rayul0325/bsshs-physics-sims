@@ -1,0 +1,230 @@
+/* Class drawer styles. Lives inside the drawer's shadow root, so nothing leaks into the sim and the
+   sim's CSS does not leak in. Every design value is a --bsshs-* variable from theme/tokens.json;
+   double-underscore placeholders are filled from drawer/config.mjs (layout defaults) by drawer/inject.mjs. */
+
+:host {
+  all: initial;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: __zIndex__;
+}
+
+[hidden] { display: none !important; }
+
+.root, .panel, .open-btn {
+  --tt: __touchTarget__;
+  --fs-body: var(--bsshs-font-size-base);
+  --fs-small: var(--bsshs-font-size-sm);
+  --fs-title: var(--bsshs-font-size-xl);
+  font: var(--fs-body) var(--bsshs-font-sans);
+  letter-spacing: var(--bsshs-tracking-tight);
+  color: var(--bsshs-color-text);
+  box-sizing: border-box;
+}
+* { box-sizing: border-box; }
+
+button, select, input { font: inherit; letter-spacing: inherit; color: inherit; }
+
+button, select {
+  min-height: var(--tt);
+  min-width: var(--tt);
+  border-radius: var(--bsshs-radius-md);
+  border: __hairline__ solid var(--bsshs-color-border);
+  background: var(--bsshs-color-surface);
+  padding: 0 var(--bsshs-space-3);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+button:focus-visible, select:focus-visible, input:focus-visible {
+  outline: __strongBorder__ solid var(--bsshs-color-focus);
+  outline-offset: __strongBorder__;
+}
+
+.primary {
+  background: var(--bsshs-color-accent);
+  color: var(--bsshs-color-accent-text);
+  border-color: var(--bsshs-color-accent);
+  font-weight: 600;
+}
+.accent-outline {
+  color: var(--bsshs-color-accent);
+  border: __strongBorder__ solid var(--bsshs-color-accent);
+  background: var(--bsshs-color-accent-soft);
+  font-weight: 600;
+}
+.danger { color: var(--bsshs-color-accent-text); background: var(--bsshs-color-danger); border-color: var(--bsshs-color-danger); }
+
+/* ---- open button at the screen edge ---- */
+.open-btn {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: var(--tt);
+  min-height: calc(var(--tt) * 2);
+  padding: var(--bsshs-space-3) var(--bsshs-space-2);
+  writing-mode: vertical-rl;
+  background: var(--bsshs-color-accent);
+  color: var(--bsshs-color-accent-text);
+  border: 0;
+  border-radius: var(--bsshs-radius-lg) 0 0 var(--bsshs-radius-lg);
+  /* No shadow: the button must paint only inside its own box (compare-layout excludes exactly that). */
+  font-weight: 600;
+}
+
+/* ---- panel: side drawer (default) ---- */
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: __sideWidth__;
+  display: flex;
+  flex-direction: column;
+  background: var(--bsshs-color-surface);
+  border-left: __hairline__ solid var(--bsshs-color-border);
+  box-shadow: var(--bsshs-shadow-card);
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform __motion__ ease, visibility 0s linear __motion__;
+  user-select: text;
+  -webkit-user-select: text;
+}
+.panel.open {
+  transform: none;
+  visibility: visible;
+  transition: transform __motion__ ease;
+}
+
+/* ---- bottom sheet on phones ---- */
+@media (max-width: __sheetMaxWidthPx__px) {
+  /* Portrait phones: PhET letterboxes the sim vertically, so the top-right corner is free space,
+     while the right edge's middle is where sims put their control panels. */
+  .open-btn {
+    top: var(--bsshs-space-3);
+    transform: none;
+    writing-mode: horizontal-tb;
+    min-height: var(--tt);
+    /* A fixed width keeps the box on whole pixels (text width depends on the device font). */
+    width: calc(var(--tt) * 2 + var(--bsshs-space-4));
+    padding: 0;
+    white-space: nowrap;
+  }
+  .panel {
+    top: auto;
+    left: 0;
+    width: auto;
+    height: __sheetHeight__;
+    /* PhET letterboxes a portrait phone: the play area is a band in the middle. The runtime sets
+       --sheet-fit to the space below that band, so the sheet overlays only what lies under the
+       experiment (never pushing or re-laying it out), within [sheetMinHeight, sheetHeight]. */
+    height: clamp(__sheetMinHeight__, var(--sheet-fit, __sheetHeight__), __sheetHeight__);
+    border-left: 0;
+    border-top: __hairline__ solid var(--bsshs-color-border);
+    border-radius: var(--bsshs-radius-xl) var(--bsshs-radius-xl) 0 0;
+    transform: translateY(100%);
+  }
+}
+
+/* ---- wide screens / whiteboards: larger body text ---- */
+@media (min-width: __wideMinWidthPx__px) {
+  .root, .panel, .open-btn {
+    --fs-body: var(--bsshs-font-size-large-screen-body);
+    --fs-small: var(--bsshs-font-size-large-screen-body);
+    --fs-title: var(--bsshs-font-size-2xl);
+  }
+  .panel { width: __sideWidthWide__; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel, .panel.open { transition: none; }
+}
+
+/* ---- header ---- */
+.head {
+  display: flex;
+  align-items: center;
+  gap: var(--bsshs-space-2);
+  padding: var(--bsshs-space-2) var(--bsshs-space-3);
+  border-bottom: __hairline__ solid var(--bsshs-color-border);
+}
+.title { margin: 0; font-size: var(--fs-title); font-weight: 700; flex: 1; }
+.status {
+  font-size: var(--fs-small);
+  padding: var(--bsshs-space-1) var(--bsshs-space-2);
+  border-radius: var(--bsshs-radius-full);
+  background: var(--bsshs-color-surface-alt);
+  color: var(--bsshs-color-text-muted);
+}
+.status[data-state="확인 완료"] { color: var(--bsshs-color-success); }
+.status[data-state="수정 중"] { color: var(--bsshs-color-warning); }
+
+.tabs { display: flex; gap: var(--bsshs-space-1); padding: var(--bsshs-space-2) var(--bsshs-space-3) 0; }
+.tabs [role="tab"] { flex: 1; border-radius: var(--bsshs-radius-md) var(--bsshs-radius-md) 0 0; border-bottom: 0; background: var(--bsshs-color-surface-alt); }
+.tabs [role="tab"][aria-selected="true"] { background: var(--bsshs-color-surface); color: var(--bsshs-color-accent); font-weight: 700; border-color: var(--bsshs-color-border-strong); }
+
+.body { flex: 1; overflow: auto; overscroll-behavior: contain; padding: 0 var(--bsshs-space-3) var(--bsshs-space-4); border-top: __hairline__ solid var(--bsshs-color-border-strong); }
+
+/* ---- log tab ---- */
+.log-top {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bsshs-space-2);
+  padding: var(--bsshs-space-3) 0;
+  background: var(--bsshs-color-surface);
+}
+.log-top .primary { flex: 1; }
+.notice, .confirm, .legacy {
+  margin: 0 0 var(--bsshs-space-3);
+  padding: var(--bsshs-space-3);
+  border-radius: var(--bsshs-radius-md);
+  background: var(--bsshs-color-surface-alt);
+  border: __hairline__ solid var(--bsshs-color-border);
+}
+.confirm { border-color: var(--bsshs-color-danger); }
+.legacy { border-color: var(--bsshs-color-warning); }
+.actions { display: flex; flex-wrap: wrap; gap: var(--bsshs-space-2); margin-top: var(--bsshs-space-2); }
+.notice p, .confirm p, .legacy p { margin: 0; }
+
+.live { margin: 0 0 var(--bsshs-space-3); display: grid; grid-template-columns: auto 1fr; gap: var(--bsshs-space-1) var(--bsshs-space-3); }
+.live dt { color: var(--bsshs-color-text-muted); }
+.live dd { margin: 0; font-variant-numeric: tabular-nums; text-align: right; }
+.section-title { margin: var(--bsshs-space-3) 0 var(--bsshs-space-2); font-size: var(--fs-body); font-weight: 700; }
+
+.table-wrap { overflow: auto; border: __hairline__ solid var(--bsshs-color-border); border-radius: var(--bsshs-radius-md); }
+table { border-collapse: collapse; width: max-content; min-width: 100%; font-variant-numeric: tabular-nums; }
+th, td { padding: var(--bsshs-space-1) var(--bsshs-space-2); border-bottom: __hairline__ solid var(--bsshs-color-border); text-align: right; white-space: nowrap; }
+th { position: sticky; top: 0; background: var(--bsshs-color-surface-alt); font-weight: 600; }
+th:nth-child(-n+3), td:nth-child(-n+3) { text-align: left; }
+.empty { color: var(--bsshs-color-text-muted); }
+
+/* ---- graphs tab ---- */
+.controls { display: flex; flex-wrap: wrap; gap: var(--bsshs-space-2); align-items: center; padding: var(--bsshs-space-3) 0; }
+.controls select { flex: 1 1 40%; max-width: 100%; }
+label.check { display: inline-flex; align-items: center; gap: var(--bsshs-space-2); min-height: var(--tt); min-width: var(--tt); cursor: pointer; }
+label.check input { width: var(--bsshs-space-5); height: var(--bsshs-space-5); accent-color: var(--bsshs-color-accent); }
+canvas { display: block; width: 100%; background: var(--bsshs-color-surface); border: __hairline__ solid var(--bsshs-color-border); border-radius: var(--bsshs-radius-md); }
+.fit-info { margin: var(--bsshs-space-2) 0; font-variant-numeric: tabular-nums; }
+
+/* ---- lessons tab ---- */
+.card { margin: var(--bsshs-space-3) 0; padding: var(--bsshs-space-3); border: __hairline__ solid var(--bsshs-color-border); border-radius: var(--bsshs-radius-lg); box-shadow: var(--bsshs-shadow-card); }
+.card h3 { margin: 0 0 var(--bsshs-space-2); font-size: var(--fs-body); font-weight: 700; }
+.expr { margin: var(--bsshs-space-2) 0; font: var(--bsshs-font-size-xl) var(--bsshs-font-serif); letter-spacing: var(--bsshs-tracking-normal); }
+.vars { margin: 0; padding-left: var(--bsshs-space-5); color: var(--bsshs-color-text-muted); }
+.note { margin: var(--bsshs-space-2) 0 0; color: var(--bsshs-color-text-muted); }
+.subst { margin: var(--bsshs-space-2) 0 0; padding: var(--bsshs-space-2); border-radius: var(--bsshs-radius-sm); background: var(--bsshs-color-accent-soft); color: var(--bsshs-color-accent-soft-text); font-variant-numeric: tabular-nums; }
+.subst p { margin: 0; }
+.badges { display: flex; flex-wrap: wrap; gap: var(--bsshs-space-1); margin-bottom: var(--bsshs-space-1); }
+.badge { font-size: var(--fs-small); padding: 0 var(--bsshs-space-2); border-radius: var(--bsshs-radius-full); }
+.badge.emph { background: var(--bsshs-color-accent); color: var(--bsshs-color-accent-text); }
+.badge.oos { background: var(--bsshs-color-surface-alt); color: var(--bsshs-color-text-muted); border: __hairline__ solid var(--bsshs-color-border); }
+dl.terms { margin: 0; }
+dl.terms > div { padding: var(--bsshs-space-2) 0; border-bottom: __hairline__ solid var(--bsshs-color-border); }
+dl.terms dt { font-weight: 700; }
+dl.terms dd { margin: var(--bsshs-space-1) 0 0; }

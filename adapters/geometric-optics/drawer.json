@@ -1,0 +1,23 @@
+{
+  "simId": "geometric-optics",
+  "schemaVersion": 1,
+  "measurements": [
+    { "key": "objectDistance", "name": "물체 거리 a", "unit": "cm" },
+    { "key": "imageDistance", "name": "상 거리 b (실상 +, 허상 −)", "unit": "cm" },
+    { "key": "focalLength", "name": "초점거리 f (모이게 하면 +)", "unit": "cm" },
+    { "key": "magnification", "name": "배율 m (정립 +, 도립 −)", "unit": "" },
+    { "key": "objectDistanceInverse", "name": "물체 거리의 역수 1/a", "unit": "1/cm" },
+    { "key": "imageDistanceInverse", "name": "상 거리의 역수 1/b", "unit": "1/cm" },
+    { "key": "objectFocalDistance", "name": "초점에서 물체까지 거리 a − f", "unit": "cm" },
+    { "key": "imageFocalDistance", "name": "초점에서 상까지 거리 b − f", "unit": "cm" },
+    { "key": "refractiveIndex", "name": "렌즈의 굴절률", "unit": "" },
+    { "key": "radiusOfCurvature1", "name": "렌즈 첫째 면의 곡률반지름 R₁", "unit": "cm" },
+    { "key": "radiusOfCurvature2", "name": "렌즈 둘째 면의 곡률반지름 R₂", "unit": "cm" },
+    { "key": "radiusOfCurvature", "name": "거울의 곡률반지름 R (오목 +)", "unit": "cm" }
+  ],
+  "graphs": [
+    { "id": "inverse-distances", "title": "역수 그래프: 1/a와 1/b (절편 = 1/f)", "x": "objectDistanceInverse", "y": "imageDistanceInverse", "fit": "linear" },
+    { "id": "image-vs-object-distance", "title": "물체 거리와 상 거리", "x": "objectDistance", "y": "imageDistance", "fit": null },
+    { "id": "magnification-vs-object-distance", "title": "물체 거리와 배율", "x": "objectDistance", "y": "magnification", "fit": null }
+  ]
+}

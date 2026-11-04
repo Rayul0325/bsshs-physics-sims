@@ -1,0 +1,24 @@
+{
+  "simId": "bending-light",
+  "schemaVersion": 1,
+  "measurements": [
+    { "key": "incidentAngle", "name": "입사각", "unit": "°" },
+    { "key": "reflectionAngle", "name": "반사각", "unit": "°" },
+    { "key": "refractionAngle", "name": "굴절각", "unit": "°" },
+    { "key": "refractiveIndex1", "name": "입사 쪽 매질의 굴절률", "unit": "" },
+    { "key": "refractiveIndex2", "name": "굴절 쪽 매질의 굴절률", "unit": "" },
+    { "key": "sinIncidentAngle", "name": "입사각의 사인 (sin θ₁)", "unit": "" },
+    { "key": "sinRefractionAngle", "name": "굴절각의 사인 (sin θ₂)", "unit": "" },
+    { "key": "reflectedPower", "name": "반사된 빛의 세기", "unit": "%" },
+    { "key": "transmittedPower", "name": "굴절된 빛의 세기", "unit": "%" },
+    { "key": "wavelength", "name": "레이저 파장 (진공)", "unit": "nm", "classUnit": { "unit": "m", "factor": 1e-9 } },
+    { "key": "refractiveIndex", "name": "굴절률 n (굴절 쪽 매질)", "unit": "" },
+    { "key": "lightSpeedInMedium", "name": "굴절 쪽 매질 속 빛의 속력", "unit": "c", "classUnit": { "unit": "m/s", "factor": 299792458 } },
+    { "key": "wavelengthInMedium", "name": "굴절 쪽 매질 속 파장", "unit": "nm", "classUnit": { "unit": "m", "factor": 1e-9 } }
+  ],
+  "graphs": [
+    { "id": "snell-sines", "title": "sin θ₁과 sin θ₂ (기울기 = n₁/n₂)", "x": "sinIncidentAngle", "y": "sinRefractionAngle", "fit": "linear" },
+    { "id": "refraction-vs-incidence", "title": "입사각과 굴절각", "x": "incidentAngle", "y": "refractionAngle", "fit": null },
+    { "id": "power-vs-incidence", "title": "입사각과 반사·굴절 빛의 세기 (전반사)", "x": "incidentAngle", "y": [ "reflectedPower", "transmittedPower" ], "fit": null }
+  ]
+}

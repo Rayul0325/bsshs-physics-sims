@@ -1,0 +1,27 @@
+{
+  "simId": "quantum-measurement",
+  "schemaVersion": 1,
+  "measurements": [
+    { "key": "probabilityUp", "name": "위(↑)·앞면이 나올 확률", "unit": "" },
+    { "key": "probabilityDown", "name": "아래(↓)·뒷면이 나올 확률", "unit": "" },
+    { "key": "upCount", "name": "위(↑)·앞면 측정 수 (스핀: 초당 평균)", "unit": "" },
+    { "key": "downCount", "name": "아래(↓)·뒷면 측정 수 (스핀: 초당 평균)", "unit": "" },
+    { "key": "measuredUpFraction", "name": "측정에서 위(↑)·앞면의 비율", "unit": "" },
+    { "key": "probabilityZero", "name": "|0⟩(업)이 나올 확률 P₀", "unit": "" },
+    { "key": "probabilityOne", "name": "|1⟩(다운)이 나올 확률 P₁", "unit": "" },
+    { "key": "amplitudeZero", "name": "진폭 α (크기)", "unit": "" },
+    { "key": "amplitudeOne", "name": "진폭 β (크기)", "unit": "" },
+    { "key": "measurementAngle", "name": "스핀 방향과 측정 축 사이 각", "unit": "°" },
+    { "key": "polarizationAngle", "name": "광자의 편광 각 (수평에서)", "unit": "°" },
+    { "key": "passProbability", "name": "수평 편광 검출기로 갈 확률", "unit": "" },
+    { "key": "horizontalDetections", "name": "수평 편광 검출기 (개수 또는 초당 개수)", "unit": "" },
+    { "key": "verticalDetections", "name": "수직 편광 검출기 (개수 또는 초당 개수)", "unit": "" },
+    { "key": "measuredPassFraction", "name": "측정에서 수평 검출기로 간 비율", "unit": "" }
+  ],
+  "graphs": [
+    { "id": "probability-up-vs-angle", "title": "측정 축과의 각과 위(↑) 확률", "x": "measurementAngle", "y": [ "probabilityUp", "measuredUpFraction" ], "fit": null },
+    { "id": "pass-probability-vs-polarization", "title": "편광 각과 수평 검출기로 갈 확률", "x": "polarizationAngle", "y": [ "passProbability", "measuredPassFraction" ], "fit": null },
+    { "id": "measured-vs-predicted-up", "title": "예상 확률과 측정 비율 (기울기 ≈ 1)", "x": "probabilityUp", "y": "measuredUpFraction", "fit": "linear" },
+    { "id": "measured-vs-predicted-pass", "title": "예상 통과 확률과 측정 비율 (기울기 ≈ 1)", "x": "passProbability", "y": "measuredPassFraction", "fit": "linear" }
+  ]
+}

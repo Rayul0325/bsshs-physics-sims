@@ -1,0 +1,21 @@
+{
+  "name": "bsshs-photoelectric",
+  "version": "1.0.0",
+  "license": "GPL-3.0-only",
+  "private": true,
+  "description": "Photoelectric effect: an original bsshs-physics-sims simulation built on the public PhET libraries.",
+  "devDependencies": {
+    "grunt": "~1.5.3"
+  },
+  "phet": {
+    "requirejsNamespace": "BSSHS_PHOTOELECTRIC",
+    "phetLibs": [
+      "bamboo"
+    ],
+    "runnable": true,
+    "simulation": true,
+    "supportedBrands": [
+      "adapted-from-phet"
+    ]
+  }
+}

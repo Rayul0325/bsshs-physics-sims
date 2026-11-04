@@ -1,0 +1,647 @@
+{
+  "id": "bsshs-compton",
+  "title": "콤프턴 산란",
+  "unit": "wave-particle-duality",
+  "formulas": [
+    {
+      "key": "compton_shift",
+      "name": "콤프턴 산란 식",
+      "expr": "Δλ = λ′ − λ = (h/mₑc)(1 − cos θ)",
+      "tex": "\\Delta\\lambda = \\lambda' - \\lambda = \\frac{h}{m_e c}\\,(1 - \\cos\\theta)",
+      "variables": [
+        {
+          "key": "wavelengthShift",
+          "symbol": "Δλ",
+          "name": "파장 변화",
+          "unit": "m"
+        },
+        {
+          "key": "scatteredWavelength",
+          "symbol": "λ′",
+          "name": "산란된 광자의 파장",
+          "unit": "m"
+        },
+        {
+          "key": "incidentWavelength",
+          "symbol": "λ",
+          "name": "입사 광자의 파장",
+          "unit": "m"
+        },
+        {
+          "key": "scatteringAngle",
+          "symbol": "θ",
+          "name": "광자의 산란각",
+          "unit": "°"
+        },
+        {
+          "key": "planckConstant",
+          "symbol": "h",
+          "name": "플랑크 상수",
+          "unit": "J·s",
+          "constant": 6.62607015e-34
+        },
+        {
+          "key": "electronMass",
+          "symbol": "mₑ",
+          "name": "전자의 질량",
+          "unit": "kg",
+          "constant": 9.1093837139e-31
+        },
+        {
+          "key": "speedOfLight",
+          "symbol": "c",
+          "name": "진공에서 빛의 속력",
+          "unit": "m/s",
+          "constant": 299792458
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: θ는 전자가 아니라 광자(X선)가 꺾인 각이다. 시뮬레이션은 근사 없이 상대론적 운동량·에너지 보존에서 얻은 이 식을 그대로 쓴다."
+    },
+    {
+      "key": "compton_wavelength",
+      "name": "콤프턴 파장",
+      "expr": "λ_C = h/(mₑc)",
+      "tex": "\\lambda_C = \\frac{h}{m_e c}",
+      "variables": [
+        {
+          "key": "comptonWavelength",
+          "symbol": "λ_C",
+          "name": "콤프턴 파장",
+          "unit": "m"
+        },
+        {
+          "key": "planckConstant",
+          "symbol": "h",
+          "name": "플랑크 상수",
+          "unit": "J·s",
+          "constant": 6.62607015e-34
+        },
+        {
+          "key": "electronMass",
+          "symbol": "mₑ",
+          "name": "전자의 질량",
+          "unit": "kg",
+          "constant": 9.1093837139e-31
+        },
+        {
+          "key": "speedOfLight",
+          "symbol": "c",
+          "name": "진공에서 빛의 속력",
+          "unit": "m/s",
+          "constant": 299792458
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 약 2.43 pm이며, 산란각이 90°일 때의 파장 변화와 같다."
+    },
+    {
+      "key": "photon_momentum",
+      "name": "광자의 운동량",
+      "expr": "p = h/λ",
+      "tex": "p = \\frac{h}{\\lambda}",
+      "variables": [
+        {
+          "key": "photonMomentum",
+          "symbol": "p",
+          "name": "입사 광자의 운동량",
+          "unit": "kg·m/s"
+        },
+        {
+          "key": "incidentWavelength",
+          "symbol": "λ",
+          "name": "입사 광자의 파장",
+          "unit": "m"
+        },
+        {
+          "key": "planckConstant",
+          "symbol": "h",
+          "name": "플랑크 상수",
+          "unit": "J·s",
+          "constant": 6.62607015e-34
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 시뮬레이션에서는 입사 광자의 값을 대입한다. 산란된 광자도 같은 식(p′ = h/λ′)을 따른다."
+    },
+    {
+      "key": "photon_energy",
+      "name": "광자의 에너지",
+      "expr": "E = pc = hc/λ",
+      "tex": "E = p c = \\frac{h c}{\\lambda}",
+      "variables": [
+        {
+          "key": "photonEnergy",
+          "symbol": "E",
+          "name": "입사 광자의 에너지",
+          "unit": "J"
+        },
+        {
+          "key": "photonMomentum",
+          "symbol": "p",
+          "name": "입사 광자의 운동량",
+          "unit": "kg·m/s"
+        },
+        {
+          "key": "incidentWavelength",
+          "symbol": "λ",
+          "name": "입사 광자의 파장",
+          "unit": "m"
+        },
+        {
+          "key": "planckConstant",
+          "symbol": "h",
+          "name": "플랑크 상수",
+          "unit": "J·s",
+          "constant": 6.62607015e-34
+        },
+        {
+          "key": "speedOfLight",
+          "symbol": "c",
+          "name": "진공에서 빛의 속력",
+          "unit": "m/s",
+          "constant": 299792458
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 시뮬레이션에서는 입사 광자의 값을 대입한다. 산란된 광자도 같은 식(E′ = hc/λ′)을 따른다."
+    },
+    {
+      "key": "recoil_energy",
+      "name": "반동 전자의 운동 에너지",
+      "expr": "Kₑ = hc/λ − hc/λ′",
+      "tex": "K_e = \\frac{h c}{\\lambda} - \\frac{h c}{\\lambda'}",
+      "variables": [
+        {
+          "key": "electronKineticEnergy",
+          "symbol": "Kₑ",
+          "name": "전자의 운동 에너지",
+          "unit": "J"
+        },
+        {
+          "key": "incidentWavelength",
+          "symbol": "λ",
+          "name": "입사 광자의 파장",
+          "unit": "m"
+        },
+        {
+          "key": "scatteredWavelength",
+          "symbol": "λ′",
+          "name": "산란된 광자의 파장",
+          "unit": "m"
+        },
+        {
+          "key": "planckConstant",
+          "symbol": "h",
+          "name": "플랑크 상수",
+          "unit": "J·s",
+          "constant": 6.62607015e-34
+        },
+        {
+          "key": "speedOfLight",
+          "symbol": "c",
+          "name": "진공에서 빛의 속력",
+          "unit": "m/s",
+          "constant": 299792458
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "key": "momentum_conservation",
+      "name": "운동량 보존(성분)",
+      "expr": "x: h/λ = (h/λ′)cos θ + pₑ cos φ,  y: 0 = (h/λ′)sin θ − pₑ sin φ",
+      "tex": "\\frac{h}{\\lambda} = \\frac{h}{\\lambda'}\\cos\\theta + p_e\\cos\\varphi,\\qquad 0 = \\frac{h}{\\lambda'}\\sin\\theta - p_e\\sin\\varphi",
+      "variables": [
+        {
+          "key": "incidentWavelength",
+          "symbol": "λ",
+          "name": "입사 광자의 파장",
+          "unit": "m"
+        },
+        {
+          "key": "scatteredWavelength",
+          "symbol": "λ′",
+          "name": "산란된 광자의 파장",
+          "unit": "m"
+        },
+        {
+          "key": "scatteringAngle",
+          "symbol": "θ",
+          "name": "광자의 산란각",
+          "unit": "°"
+        },
+        {
+          "key": "electronMomentum",
+          "symbol": "pₑ",
+          "name": "전자의 운동량",
+          "unit": "kg·m/s"
+        },
+        {
+          "key": "recoilAngle",
+          "symbol": "φ",
+          "name": "전자의 반동각",
+          "unit": "°"
+        },
+        {
+          "key": "planckConstant",
+          "symbol": "h",
+          "name": "플랑크 상수",
+          "unit": "J·s",
+          "constant": 6.62607015e-34
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 운동량 보존은 x·y 성분으로 나눠 쓰는 방법과 벡터로 쓰는 방법을 모두 익혀 둔다."
+    },
+    {
+      "key": "relativistic_energy_momentum",
+      "name": "상대론적 에너지와 운동량의 관계",
+      "expr": "E² = (pc)² + (mₑc²)²",
+      "tex": "E^{2} = (p c)^{2} + (m_e c^{2})^{2}",
+      "variables": [
+        {
+          "key": "electronTotalEnergy",
+          "symbol": "E",
+          "name": "전자의 전체 에너지",
+          "unit": "J"
+        },
+        {
+          "key": "electronMomentum",
+          "symbol": "pₑ",
+          "name": "전자의 운동량",
+          "unit": "kg·m/s"
+        },
+        {
+          "key": "electronMass",
+          "symbol": "mₑ",
+          "name": "전자의 질량",
+          "unit": "kg",
+          "constant": 9.1093837139e-31
+        },
+        {
+          "key": "speedOfLight",
+          "symbol": "c",
+          "name": "진공에서 빛의 속력",
+          "unit": "m/s",
+          "constant": 299792458
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": false,
+      "note": "참고: 광자는 정지 질량이 0이므로 E = pc가 된다."
+    },
+    {
+      "key": "relativistic_kinetic_energy",
+      "name": "상대론적 운동 에너지",
+      "expr": "Kₑ = (γ − 1)mₑc², γ = 1/√(1 − v²/c²)",
+      "tex": "K_e = (\\gamma - 1)\\,m_e c^{2},\\qquad \\gamma = \\frac{1}{\\sqrt{1 - v^{2}/c^{2}}}",
+      "variables": [
+        {
+          "key": "electronKineticEnergy",
+          "symbol": "Kₑ",
+          "name": "전자의 운동 에너지",
+          "unit": "J"
+        },
+        {
+          "key": "electronSpeed",
+          "symbol": "v",
+          "name": "전자의 속력",
+          "unit": "m/s"
+        },
+        {
+          "key": "electronMass",
+          "symbol": "mₑ",
+          "name": "전자의 질량",
+          "unit": "kg",
+          "constant": 9.1093837139e-31
+        },
+        {
+          "key": "speedOfLight",
+          "symbol": "c",
+          "name": "진공에서 빛의 속력",
+          "unit": "m/s",
+          "constant": 299792458
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false,
+      "note": "참고: 반동 전자처럼 빠른 입자의 운동 에너지와 운동량(p = γmₑv)은 상대론적 식으로 계산한다. 시뮬레이션의 전자 속력은 v/c = pₑc/(Kₑ + mₑc²)로 구한다."
+    },
+    {
+      "key": "low_speed_approximation",
+      "name": "느린 전자의 근사",
+      "expr": "Kₑ ≈ ½mₑv² (v ≪ c)",
+      "tex": "K_e \\approx \\tfrac{1}{2} m_e v^{2}\\quad(v \\ll c)",
+      "variables": [
+        {
+          "key": "electronKineticEnergy",
+          "symbol": "Kₑ",
+          "name": "전자의 운동 에너지",
+          "unit": "J"
+        },
+        {
+          "key": "electronSpeed",
+          "symbol": "v",
+          "name": "전자의 속력",
+          "unit": "m/s"
+        },
+        {
+          "key": "electronMass",
+          "symbol": "mₑ",
+          "name": "전자의 질량",
+          "unit": "kg",
+          "constant": 9.1093837139e-31
+        }
+      ],
+      "emphasis": false,
+      "outOfScope": true,
+      "note": "참고: 상대론적 식을 테일러 전개해 얻는 근사이다. 빠른 전자에는 쓰면 안 된다. 시뮬레이션은 이 근사를 쓰지 않고 상대론적 식으로 계산한다."
+    },
+    {
+      "key": "de_broglie_wavelength",
+      "name": "드브로이 물질파 파장",
+      "expr": "λ = h/p",
+      "tex": "\\lambda = \\frac{h}{p}",
+      "variables": [
+        {
+          "key": "matterWavelength",
+          "symbol": "λ",
+          "name": "물질파 파장",
+          "unit": "m"
+        },
+        {
+          "key": "particleMomentum",
+          "symbol": "p",
+          "name": "입자의 운동량",
+          "unit": "kg·m/s"
+        },
+        {
+          "key": "planckConstant",
+          "symbol": "h",
+          "name": "플랑크 상수",
+          "unit": "J·s",
+          "constant": 6.62607015e-34
+        }
+      ],
+      "emphasis": true,
+      "outOfScope": false
+    }
+  ],
+  "terms": [
+    {
+      "term": "콤프턴 효과",
+      "definition": "X선 광자가 전자와 충돌한 뒤 파장이 길어지는(에너지가 줄어드는) 현상이다. 빛이 운동량을 가진 입자처럼 행동한다는 증거이다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "콤프턴 파장",
+      "definition": "h/(mₑc)로 정해지는 길이로, 약 2.43 pm이다. 파장 변화의 크기를 정하는 기준값이다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "광자의 운동량",
+      "definition": "광자는 질량이 없어도 운동량 h/λ를 가진다. 에너지와 운동량 사이에 E = pc가 성립한다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "반동 전자",
+      "definition": "광자와 충돌한 뒤 튀어 나가는 전자이다. 광자가 잃은 에너지와 운동량을 넘겨받는다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "탄성 충돌",
+      "definition": "운동량과 운동 에너지가 모두 보존되는 충돌이다. 콤프턴 산란은 광자와 전자의 탄성 충돌로 해석한다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "정지 질량 에너지",
+      "definition": "정지해 있는 입자가 가진 에너지 mₑc²이다. 전체 에너지에서 이 값을 빼면 운동 에너지가 된다.",
+      "emphasis": false,
+      "outOfScope": false
+    },
+    {
+      "term": "물질파",
+      "definition": "전자 같은 입자도 파장 h/p의 파동성을 가진다는 개념이다. 전자도 간섭하기 때문에 도입되었다.",
+      "emphasis": true,
+      "outOfScope": false
+    },
+    {
+      "term": "상대론적 근사",
+      "definition": "빠르지 않은 입자의 상대론적 식을 테일러 전개해 고전 식으로 바꾸는 과정이다. 참고로만 보면 된다.",
+      "emphasis": false,
+      "outOfScope": true
+    }
+  ],
+  "classUnits": [
+    {
+      "quantity": "incidentWavelength",
+      "phetUnit": "pm",
+      "classUnit": "m",
+      "factor": 1e-12
+    },
+    {
+      "quantity": "scatteredWavelength",
+      "phetUnit": "pm",
+      "classUnit": "m",
+      "factor": 1e-12
+    },
+    {
+      "quantity": "wavelengthShift",
+      "phetUnit": "pm",
+      "classUnit": "m",
+      "factor": 1e-12
+    },
+    {
+      "quantity": "comptonWavelength",
+      "phetUnit": "pm",
+      "classUnit": "m",
+      "factor": 1e-12
+    },
+    {
+      "quantity": "photonEnergy",
+      "phetUnit": "keV",
+      "classUnit": "J",
+      "factor": 1.602176634e-16
+    },
+    {
+      "quantity": "electronKineticEnergy",
+      "phetUnit": "keV",
+      "classUnit": "J",
+      "factor": 1.602176634e-16
+    },
+    {
+      "quantity": "photonMomentum",
+      "phetUnit": "keV/c",
+      "classUnit": "kg·m/s",
+      "factor": 5.344285992678308e-25
+    },
+    {
+      "quantity": "electronMomentum",
+      "phetUnit": "keV/c",
+      "classUnit": "kg·m/s",
+      "factor": 5.344285992678308e-25
+    },
+    {
+      "quantity": "electronTotalEnergy",
+      "phetUnit": "keV",
+      "classUnit": "J",
+      "factor": 1.602176634e-16
+    },
+    {
+      "quantity": "electronSpeed",
+      "phetUnit": "c",
+      "classUnit": "m/s",
+      "factor": 299792458
+    }
+  ],
+  "sources": [
+    {
+      "item": "compton_shift",
+      "from": "2026-10-27_6교시_e5c0e997"
+    },
+    {
+      "item": "compton_shift",
+      "from": "2026-10-27_7교시_7e09958f"
+    },
+    {
+      "item": "compton_shift",
+      "from": "2026-10-27_8교시_f3a62522"
+    },
+    {
+      "item": "compton_shift",
+      "from": "2026-08-30_1608_4ea3f914"
+    },
+    {
+      "item": "compton_wavelength",
+      "from": "2026-10-27_7교시_7e09958f"
+    },
+    {
+      "item": "photon_momentum",
+      "from": "2026-10-27_7교시_7e09958f"
+    },
+    {
+      "item": "photon_momentum",
+      "from": "2026-10-27_8교시_f3a62522"
+    },
+    {
+      "item": "photon_energy",
+      "from": "2026-10-27_7교시_7e09958f"
+    },
+    {
+      "item": "photon_energy",
+      "from": "2026-10-27_8교시_f3a62522"
+    },
+    {
+      "item": "recoil_energy",
+      "from": "2026-10-27_8교시_f3a62522"
+    },
+    {
+      "item": "momentum_conservation",
+      "from": "2026-10-27_6교시_e5c0e997"
+    },
+    {
+      "item": "momentum_conservation",
+      "from": "2026-10-27_7교시_7e09958f"
+    },
+    {
+      "item": "momentum_conservation",
+      "from": "2026-10-27_8교시_f3a62522"
+    },
+    {
+      "item": "relativistic_energy_momentum",
+      "from": "2026-10-27_6교시_e5c0e997"
+    },
+    {
+      "item": "relativistic_energy_momentum",
+      "from": "2026-10-27_7교시_7e09958f"
+    },
+    {
+      "item": "relativistic_energy_momentum",
+      "from": "2026-10-27_8교시_f3a62522"
+    },
+    {
+      "item": "relativistic_kinetic_energy",
+      "from": "2026-10-27_7교시_7e09958f"
+    },
+    {
+      "item": "low_speed_approximation",
+      "from": "2026-10-27_6교시_e5c0e997"
+    },
+    {
+      "item": "low_speed_approximation",
+      "from": "2026-10-27_7교시_7e09958f"
+    },
+    {
+      "item": "de_broglie_wavelength",
+      "from": "2026-10-27_7교시_7e09958f"
+    },
+    {
+      "item": "de_broglie_wavelength",
+      "from": "2026-08-30_1608_4ea3f914"
+    },
+    {
+      "item": "콤프턴 효과",
+      "from": "2026-10-27_6교시_e5c0e997"
+    },
+    {
+      "item": "콤프턴 효과",
+      "from": "2026-10-27_8교시_f3a62522"
+    },
+    {
+      "item": "콤프턴 효과",
+      "from": "2026-08-30_1608_4ea3f914"
+    },
+    {
+      "item": "콤프턴 파장",
+      "from": "2026-10-27_7교시_7e09958f"
+    },
+    {
+      "item": "광자의 운동량",
+      "from": "2026-10-27_8교시_f3a62522"
+    },
+    {
+      "item": "반동 전자",
+      "from": "2026-10-27_8교시_f3a62522"
+    },
+    {
+      "item": "탄성 충돌",
+      "from": "2026-10-27_6교시_34a0ac70"
+    },
+    {
+      "item": "탄성 충돌",
+      "from": "2026-10-27_6교시_e5c0e997"
+    },
+    {
+      "item": "정지 질량 에너지",
+      "from": "2026-10-27_7교시_7e09958f"
+    },
+    {
+      "item": "물질파",
+      "from": "2026-08-30_1608_4ea3f914"
+    },
+    {
+      "item": "물질파",
+      "from": "2026-10-27_7교시_7e09958f"
+    },
+    {
+      "item": "상대론적 근사",
+      "from": "2026-10-27_6교시_e5c0e997"
+    },
+    {
+      "item": "상대론적 근사",
+      "from": "2026-10-27_7교시_7e09958f"
+    }
+  ]
+}

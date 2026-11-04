@@ -1,0 +1,15 @@
+{
+  "simId": "fake-sim",
+  "schemaVersion": 2,
+  "measurements": [
+    { "key": "wavelength", "name": "파장", "unit": "nm", "classUnit": { "unit": "m", "factor": 1e-9 } },
+    { "key": "frequency", "name": "진동수", "unit": "Hz" },
+    { "key": "photonEnergy", "name": "광자 에너지", "unit": "eV", "classUnit": { "unit": "J", "factor": 1.602176634e-19 } },
+    { "key": "stoppingVoltage", "name": "정지 전압", "unit": "V" }
+  ],
+  "graphs": [
+    { "id": "energy-vs-frequency", "title": "진동수와 광자 에너지", "x": "frequency", "y": "photonEnergy", "fit": "linear" },
+    { "id": "energy-and-voltage", "title": "진동수와 광자 에너지·정지 전압", "x": "frequency", "y": [ "photonEnergy", "stoppingVoltage" ], "fit": "linear" },
+    { "id": "energy-vs-wavelength", "title": "파장과 광자 에너지", "x": "wavelength", "y": "photonEnergy", "fit": null }
+  ]
+}

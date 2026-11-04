@@ -1,0 +1,24 @@
+{
+  "simId": "bsshs-photoelectric",
+  "schemaVersion": 1,
+  "measurements": [
+    { "key": "wavelength", "name": "빛의 파장", "unit": "nm", "classUnit": { "unit": "m", "factor": 1e-9 } },
+    { "key": "frequency", "name": "빛의 진동수", "unit": "Hz" },
+    { "key": "photonEnergy", "name": "광자 한 개의 에너지", "unit": "eV", "classUnit": { "unit": "J", "factor": 1.602176634e-19 } },
+    { "key": "workFunction", "name": "금속의 일함수", "unit": "eV", "classUnit": { "unit": "J", "factor": 1.602176634e-19 } },
+    { "key": "thresholdFrequency", "name": "문턱 진동수", "unit": "Hz" },
+    { "key": "kineticEnergyMax", "name": "광전자의 최대 운동 에너지 (광전자가 없으면 빈칸)", "unit": "eV", "classUnit": { "unit": "J", "factor": 1.602176634e-19 } },
+    { "key": "stoppingVoltage", "name": "정지 전압 (광전자가 없으면 빈칸)", "unit": "V" },
+    { "key": "intensity", "name": "빛의 세기", "unit": "%" },
+    { "key": "photonRate", "name": "1초에 금속에 닿는 광자 수", "unit": "개/s" },
+    { "key": "electronRate", "name": "1초에 튀어나오는 광전자 수", "unit": "개/s" },
+    { "key": "voltage", "name": "전압 (양극 − 음극)", "unit": "V" },
+    { "key": "photocurrent", "name": "광전류", "unit": "μA", "classUnit": { "unit": "A", "factor": 1e-6 } }
+  ],
+  "graphs": [
+    { "id": "kinetic-energy-vs-frequency", "title": "진동수와 최대 운동 에너지 (기울기 h, 절편 −W)", "x": "frequency", "y": "kineticEnergyMax", "fit": "linear" },
+    { "id": "stopping-voltage-vs-frequency", "title": "진동수와 정지 전압 (기울기 h/e)", "x": "frequency", "y": "stoppingVoltage", "fit": "linear" },
+    { "id": "current-vs-voltage", "title": "전압과 광전류", "x": "voltage", "y": "photocurrent", "fit": null },
+    { "id": "current-vs-intensity", "title": "빛의 세기와 광전류", "x": "intensity", "y": "photocurrent", "fit": "linear" }
+  ]
+}

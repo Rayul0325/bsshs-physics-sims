@@ -1,0 +1,794 @@
+{
+  "global": [
+    {
+      "from": "푸우리에",
+      "to": "푸리에",
+      "reason": "표기"
+    },
+    {
+      "from": "죤 트라볼티지",
+      "to": "존 트라볼티지",
+      "reason": "표기"
+    },
+    {
+      "from": "콘덴서",
+      "to": "축전기",
+      "reason": "수업 용어"
+    },
+    {
+      "from": "파라데이",
+      "to": "패러데이",
+      "reason": "수업 용어"
+    },
+    {
+      "from": "시물레이션",
+      "to": "시뮬레이션",
+      "reason": "표기"
+    },
+    {
+      "from": "플렛폼",
+      "to": "플랫폼",
+      "reason": "표기"
+    },
+    {
+      "from": "브라우져",
+      "to": "브라우저",
+      "reason": "표기"
+    },
+    {
+      "from": "질문 변수",
+      "to": "쿼리 매개변수",
+      "reason": "오역"
+    },
+    {
+      "from": "얍력",
+      "to": "압력",
+      "reason": "표기"
+    },
+    {
+      "from": "읿부",
+      "to": "일부",
+      "reason": "표기"
+    },
+    {
+      "from": "시스템에서 이틸",
+      "to": "시스템에서 이탈",
+      "reason": "표기"
+    },
+    {
+      "from": "슈뢰딩어",
+      "to": "슈뢰딩거",
+      "reason": "표기"
+    },
+    {
+      "from": "드 브로이",
+      "to": "드브로이",
+      "reason": "수업 용어"
+    },
+    {
+      "from": "라이프니찌",
+      "to": "라이프니츠",
+      "reason": "표기"
+    },
+    {
+      "from": "이심율",
+      "to": "이심률",
+      "reason": "표기"
+    },
+    {
+      "from": "눈 깜작할",
+      "to": "눈 깜짝할",
+      "reason": "표기"
+    },
+    {
+      "from": "다이아그램",
+      "to": "다이어그램",
+      "reason": "표기"
+    },
+    {
+      "from": "첨프",
+      "to": "점프",
+      "reason": "표기"
+    },
+    {
+      "from": "에니메이션",
+      "to": "애니메이션",
+      "reason": "표기"
+    },
+    {
+      "from": "배크륨",
+      "to": "버클륨",
+      "reason": "오역"
+    },
+    {
+      "from": "나켈",
+      "to": "니켈",
+      "reason": "표기"
+    },
+    {
+      "from": "제놈",
+      "to": "제논",
+      "reason": "오역"
+    },
+    {
+      "from": "탐탈륨",
+      "to": "탄탈륨",
+      "reason": "표기"
+    },
+    {
+      "from": "털늄",
+      "to": "툴륨",
+      "reason": "오역"
+    },
+    {
+      "from": "프로스디뮴",
+      "to": "프라세오디뮴",
+      "reason": "오역"
+    },
+    {
+      "from": "플르오르",
+      "to": "플루오르",
+      "reason": "표기"
+    }
+  ],
+  "perSim": {
+    "atomic-interactions": [
+      {
+        "from": "상테",
+        "to": "상태",
+        "reason": "표기"
+      }
+    ],
+    "balloons-and-static-electricity": [
+      {
+        "from": "하전",
+        "to": "전하",
+        "reason": "수업 용어"
+      }
+    ],
+    "bending-light": [
+      {
+        "from": "관행",
+        "to": "사용자 정의",
+        "reason": "오역"
+      }
+    ],
+    "build-a-nucleus": [
+      {
+        "from": "인간의 평균 수면",
+        "to": "인간의 평균 수명",
+        "reason": "오역"
+      },
+      {
+        "from": "가장 가까운 붕괴형태",
+        "to": "가장 가능성이 높은 붕괴 형태",
+        "reason": "오역"
+      }
+    ],
+    "build-an-atom": [
+      {
+        "from": "전체 하전은",
+        "to": "전체 전하는",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "하전",
+        "to": "전하",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "양성자; {0}",
+        "to": "양성자: {0}",
+        "reason": "표기"
+      }
+    ],
+    "buoyancy": [
+      {
+        "from": "관례",
+        "to": "사용자 정의",
+        "reason": "오역"
+      }
+    ],
+    "buoyancy-basics": [
+      {
+        "from": "관례",
+        "to": "사용자 정의",
+        "reason": "오역"
+      }
+    ],
+    "calculus-grapher": [
+      {
+        "from": "파생적인",
+        "to": "도함수",
+        "reason": "오역"
+      },
+      {
+        "from": "적분학",
+        "to": "적분",
+        "reason": "오역"
+      },
+      {
+        "from": "탄제트의 기울기",
+        "to": "접선의 기울기",
+        "reason": "오역"
+      },
+      {
+        "from": "탄젠트",
+        "to": "접선",
+        "reason": "오역"
+      },
+      {
+        "from": "변인",
+        "to": "변수",
+        "reason": "오역"
+      }
+    ],
+    "capacitor-lab-basics": [
+      {
+        "from": "콘덴서 실험:기초",
+        "to": "축전기 실험: 기초",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "하전",
+        "to": "전하",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "콘덴서",
+        "to": "전기 용량",
+        "reason": "오역"
+      }
+    ],
+    "charges-and-fields": [
+      {
+        "from": "하전과 전기장",
+        "to": "전하와 전기장",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "하전",
+        "to": "전하",
+        "reason": "수업 용어"
+      }
+    ],
+    "circuit-construction-kit-ac": [
+      {
+        "from": "충전기",
+        "to": "축전기",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "전류 순서",
+        "to": "정격 전류",
+        "reason": "오역"
+      },
+      {
+        "from": "서명",
+        "to": "부호 있음",
+        "reason": "오역"
+      }
+    ],
+    "circuit-construction-kit-ac-virtual-lab": [
+      {
+        "from": "충전기",
+        "to": "축전기",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "전류 순서",
+        "to": "정격 전류",
+        "reason": "오역"
+      },
+      {
+        "from": "서명",
+        "to": "부호 있음",
+        "reason": "오역"
+      }
+    ],
+    "circuit-construction-kit-dc": [
+      {
+        "from": "충전기",
+        "to": "축전기",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "전류 순서",
+        "to": "정격 전류",
+        "reason": "오역"
+      },
+      {
+        "from": "서명",
+        "to": "부호 있음",
+        "reason": "오역"
+      }
+    ],
+    "circuit-construction-kit-dc-virtual-lab": [
+      {
+        "from": "충전기",
+        "to": "축전기",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "전류 순서",
+        "to": "정격 전류",
+        "reason": "오역"
+      },
+      {
+        "from": "서명",
+        "to": "부호 있음",
+        "reason": "오역"
+      }
+    ],
+    "collision-lab": [
+      {
+        "from": "관레",
+        "to": "사용자 정의",
+        "reason": "오역"
+      },
+      {
+        "from": "막대",
+        "to": "붙음",
+        "reason": "오역"
+      },
+      {
+        "from": "실수",
+        "to": "미끄러짐",
+        "reason": "오역"
+      },
+      {
+        "from": "속력",
+        "to": "속도",
+        "reason": "수업 용어"
+      }
+    ],
+    "coulombs-law": [
+      {
+        "from": "<sub>1<sub>",
+        "to": "<sub>1</sub>",
+        "reason": "표기"
+      }
+    ],
+    "curve-fitting": [
+      {
+        "from": "나머지",
+        "to": "잔차",
+        "reason": "오역"
+      }
+    ],
+    "density": [
+      {
+        "from": "관례",
+        "to": "사용자 정의",
+        "reason": "오역"
+      }
+    ],
+    "diffusion": [
+      {
+        "from": "내부온도 (K)",
+        "to": "초기 온도 (K)",
+        "reason": "오역"
+      },
+      {
+        "from": " constant.<br>",
+        "to": "<br>",
+        "reason": "표기"
+      },
+      {
+        "from": "T그릇이",
+        "to": "그릇이",
+        "reason": "표기"
+      }
+    ],
+    "energy-skate-park": [
+      {
+        "from": "관례",
+        "to": "사용자 정의",
+        "reason": "오역"
+      }
+    ],
+    "energy-skate-park-basics": [
+      {
+        "from": "관례",
+        "to": "사용자 정의",
+        "reason": "오역"
+      }
+    ],
+    "faradays-electromagnetic-lab": [
+      {
+        "from": "코일 선택",
+        "to": "검출 코일",
+        "reason": "오역"
+      },
+      {
+        "from": "픽업 코일",
+        "to": "검출 코일",
+        "reason": "수업 용어"
+      }
+    ],
+    "fourier-making-waves": [
+      {
+        "from": "푸우리에: 파형만들기",
+        "to": "푸리에: 파형 만들기",
+        "reason": "표기"
+      },
+      {
+        "from": "관례",
+        "to": "사용자 정의",
+        "reason": "오역"
+      },
+      {
+        "from": "파형 봉투",
+        "to": "파형 포락선",
+        "reason": "오역"
+      },
+      {
+        "from": "표준변이",
+        "to": "표준편차",
+        "reason": "오역"
+      },
+      {
+        "from": "핑크파도와 매취시키시오",
+        "to": "핑크 파도와 일치시키시오",
+        "reason": "표기"
+      },
+      {
+        "from": "핑크 파도와 매취시키시오",
+        "to": "핑크 파도와 일치시키시오",
+        "reason": "표기"
+      },
+      {
+        "from": "피크 웨이브를 매취하시오",
+        "to": "핑크 파도를 일치시키시오",
+        "reason": "표기"
+      }
+    ],
+    "gas-properties": [
+      {
+        "from": "내부온도 (K)",
+        "to": "초기 온도 (K)",
+        "reason": "오역"
+      },
+      {
+        "from": " constant.<br>",
+        "to": "<br>",
+        "reason": "표기"
+      },
+      {
+        "from": "T그릇이",
+        "to": "그릇이",
+        "reason": "표기"
+      }
+    ],
+    "gases-intro": [
+      {
+        "from": "내부온도 (K)",
+        "to": "초기 온도 (K)",
+        "reason": "오역"
+      },
+      {
+        "from": " constant.<br>",
+        "to": "<br>",
+        "reason": "표기"
+      },
+      {
+        "from": "T그릇이",
+        "to": "그릇이",
+        "reason": "표기"
+      }
+    ],
+    "geometric-optics": [
+      {
+        "from": "물건축",
+        "to": "광축",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "실제 이미지",
+        "to": "실상",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "실제이미지",
+        "to": "실상 ",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "가상 이미지",
+        "to": "허상",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "가상이미지",
+        "to": "허상 ",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "곡선의 반지름",
+        "to": "곡률반지름",
+        "reason": "수업 용어"
+      }
+    ],
+    "geometric-optics-basics": [
+      {
+        "from": "물건축",
+        "to": "광축",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "실제 이미지",
+        "to": "실상",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "실제이미지",
+        "to": "실상 ",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "가상 이미지",
+        "to": "허상",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "가상이미지",
+        "to": "허상 ",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "곡선의 반지름",
+        "to": "곡률반지름",
+        "reason": "수업 용어"
+      }
+    ],
+    "gravity-and-orbits": [
+      {
+        "from": "속력",
+        "to": "속도",
+        "reason": "수업 용어"
+      }
+    ],
+    "gravity-force-lab": [
+      {
+        "from": "n2",
+        "to": "m2",
+        "reason": "표기"
+      }
+    ],
+    "gravity-force-lab-basics": [
+      {
+        "from": "n2",
+        "to": "m2",
+        "reason": "표기"
+      },
+      {
+        "from": " km translated",
+        "to": " km",
+        "reason": "표기"
+      }
+    ],
+    "keplers-laws": [
+      {
+        "from": "관례",
+        "to": "사용자 정의",
+        "reason": "오역"
+      },
+      {
+        "from": "속력",
+        "to": "속도",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "오비탈",
+        "to": "궤도",
+        "reason": "오역"
+      },
+      {
+        "from": "쓴 면적",
+        "to": "쓸고 간 면적",
+        "reason": "오역"
+      }
+    ],
+    "masses-and-springs": [
+      {
+        "from": "관습",
+        "to": "사용자 정의",
+        "reason": "오역"
+      },
+      {
+        "from": "추첨",
+        "to": "많음",
+        "reason": "오역"
+      }
+    ],
+    "masses-and-springs-basics": [
+      {
+        "from": "관습",
+        "to": "사용자 정의",
+        "reason": "오역"
+      },
+      {
+        "from": "추첨",
+        "to": "많음",
+        "reason": "오역"
+      }
+    ],
+    "models-of-the-hydrogen-atom": [
+      {
+        "from": "트랜지스터",
+        "to": "전이",
+        "reason": "오역"
+      },
+      {
+        "from": "전통적인",
+        "to": "고전적인",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "전통적 태양계",
+        "to": "고전적 태양계",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "여기 된 전자",
+        "to": "들뜬 전자",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "여기 상태에",
+        "to": "들뜬상태에",
+        "reason": "수업 용어"
+      }
+    ],
+    "my-solar-system": [
+      {
+        "from": "관례",
+        "to": "사용자 정의",
+        "reason": "오역"
+      },
+      {
+        "from": "속력",
+        "to": "속도",
+        "reason": "수업 용어"
+      }
+    ],
+    "pendulum-lab": [
+      {
+        "from": "관습",
+        "to": "사용자 정의",
+        "reason": "오역"
+      },
+      {
+        "from": "속력",
+        "to": "속도",
+        "reason": "수업 용어"
+      }
+    ],
+    "projectile-motion": [
+      {
+        "from": "관습",
+        "to": "사용자 정의",
+        "reason": "오역"
+      },
+      {
+        "from": "견인계수",
+        "to": "항력 계수",
+        "reason": "오역"
+      },
+      {
+        "from": "견인",
+        "to": "항력",
+        "reason": "오역"
+      },
+      {
+        "from": "속력벡터",
+        "to": "속도 벡터",
+        "reason": "수업 용어"
+      }
+    ],
+    "quantum-measurement": [
+      {
+        "from": "관례",
+        "to": "사용자 정의",
+        "reason": "오역"
+      },
+      {
+        "from": "평균 분극 표현",
+        "to": "평균 편광 표현",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "평균 편극에",
+        "to": "평균 편광에",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "평균 분광",
+        "to": "평균 편광",
+        "reason": "오역"
+      },
+      {
+        "from": "기초상태",
+        "to": "기저 상태",
+        "reason": "오역"
+      },
+      {
+        "from": "기초",
+        "to": "기저",
+        "reason": "오역"
+      },
+      {
+        "from": "단일 입지",
+        "to": "단일 입자",
+        "reason": "표기"
+      },
+      {
+        "from": "빔<br>분산기",
+        "to": "빔<br>분할기",
+        "reason": "오역"
+      },
+      {
+        "from": "전통적 동전",
+        "to": "고전 동전",
+        "reason": "수업 용어"
+      },
+      {
+        "from": "전통적인",
+        "to": "고전적인",
+        "reason": "수업 용어"
+      }
+    ],
+    "resistance-in-a-wire": [
+      {
+        "from": "저항력",
+        "to": "비저항",
+        "reason": "오역"
+      }
+    ],
+    "states-of-matter": [
+      {
+        "from": "상테",
+        "to": "상태",
+        "reason": "표기"
+      }
+    ],
+    "states-of-matter-basics": [
+      {
+        "from": "상테",
+        "to": "상태",
+        "reason": "표기"
+      }
+    ],
+    "under-pressure": [
+      {
+        "from": "비중",
+        "to": "중력",
+        "reason": "오역"
+      }
+    ],
+    "wave-interference": [
+      {
+        "from": "굴절",
+        "to": "회절",
+        "reason": "오역"
+      },
+      {
+        "from": "슬릿 분리",
+        "to": "슬릿 간격",
+        "reason": "수업 용어"
+      }
+    ],
+    "waves-intro": [
+      {
+        "from": "굴절",
+        "to": "회절",
+        "reason": "오역"
+      },
+      {
+        "from": "슬릿 분리",
+        "to": "슬릿 간격",
+        "reason": "수업 용어"
+      }
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "simId": "faradays-electromagnetic-lab",
+  "schemaVersion": 1,
+  "measurements": [
+    { "key": "time", "name": "시간", "unit": "s" },
+    { "key": "magneticField", "name": "자석의 세기 (자석 안쪽 자기장)", "unit": "G", "classUnit": { "unit": "T", "factor": 0.0001 } },
+    { "key": "electromagnetTurns", "name": "전자석 코일의 감은 수", "unit": "" },
+    { "key": "sourceVoltage", "name": "전자석 전원의 전압", "unit": "V" },
+    { "key": "coilCurrent", "name": "전자석 전류 (모델 값, 최대 = 1)", "unit": "" },
+    { "key": "coilTurns", "name": "유도 코일의 감은 수", "unit": "" },
+    { "key": "loopArea", "name": "유도 코일 한 바퀴의 면적 (최대의 %)", "unit": "%" },
+    { "key": "magneticFlux", "name": "유도 코일 한 바퀴의 자기 선속 (모델 값)", "unit": "" },
+    { "key": "fluxChangeRate", "name": "자기 선속의 변화율 ΔΦ/Δt (모델 값)", "unit": "1/s" },
+    { "key": "emf", "name": "유도 기전력 (모델 값)", "unit": "" },
+    { "key": "emfPerFluxRate", "name": "기전력 ÷ 선속 변화율", "unit": "" },
+    { "key": "inducedCurrent", "name": "유도 전류 (모델 값, 최대 = 1)", "unit": "" },
+    { "key": "peakEmf", "name": "최근 최대 기전력 크기 (모델 값)", "unit": "" }
+  ],
+  "graphs": [
+    { "id": "field-vs-current", "title": "전자석 전류와 자석의 세기", "x": "coilCurrent", "y": "magneticField", "fit": "linear" },
+    { "id": "emf-vs-flux-rate", "title": "자기 선속의 변화율과 유도 기전력", "x": "fluxChangeRate", "y": "emf", "fit": "linear" },
+    { "id": "peak-emf-vs-turns", "title": "유도 코일의 감은 수와 최대 기전력", "x": "coilTurns", "y": "peakEmf", "fit": "linear" }
+  ]
+}

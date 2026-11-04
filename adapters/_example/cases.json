@@ -1,0 +1,4 @@
+[
+  { "name": "물을 잠그면 바퀴가 서 있다", "params": { "waterFlow": 0 }, "expect": { "angularSpeed": { "value": 0 }, "emf": { "value": 0 } } },
+  { "name": "감은 수를 3으로", "params": { "coilTurns": 3 }, "expect": { "coilTurns": { "value": 3 } } }
+]

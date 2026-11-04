@@ -1,0 +1,317 @@
+[
+  {
+    "id": "atomic-interactions",
+    "branch": "1.2",
+    "version": "1.2.20"
+  },
+  {
+    "id": "balancing-act",
+    "branch": "1.3",
+    "version": "1.3.6"
+  },
+  {
+    "id": "balloons-and-static-electricity",
+    "branch": "1.5",
+    "version": "1.5.25"
+  },
+  {
+    "id": "bending-light",
+    "branch": "1.2",
+    "version": "1.2.4"
+  },
+  {
+    "id": "blackbody-spectrum",
+    "branch": "1.0",
+    "version": "1.0.25"
+  },
+  {
+    "id": "build-a-nucleus",
+    "branch": "1.1",
+    "version": "1.1.9"
+  },
+  {
+    "id": "build-an-atom",
+    "branch": "1.9",
+    "version": "1.9.2"
+  },
+  {
+    "id": "buoyancy",
+    "branch": "1.2",
+    "version": "1.2.11"
+  },
+  {
+    "id": "buoyancy-basics",
+    "branch": "1.2",
+    "version": "1.2.10"
+  },
+  {
+    "id": "calculus-grapher",
+    "branch": "1.1",
+    "version": "1.1.0"
+  },
+  {
+    "id": "capacitor-lab-basics",
+    "branch": "1.6",
+    "version": "1.6.38"
+  },
+  {
+    "id": "charges-and-fields",
+    "branch": "1.0",
+    "version": "1.0.66"
+  },
+  {
+    "id": "circuit-construction-kit-ac",
+    "branch": "1.0",
+    "version": "1.0.22"
+  },
+  {
+    "id": "circuit-construction-kit-ac-virtual-lab",
+    "branch": "1.0",
+    "version": "1.0.21"
+  },
+  {
+    "id": "circuit-construction-kit-dc",
+    "branch": "1.5",
+    "version": "1.5.1"
+  },
+  {
+    "id": "circuit-construction-kit-dc-virtual-lab",
+    "branch": "1.5",
+    "version": "1.5.1"
+  },
+  {
+    "id": "collision-lab",
+    "branch": "1.1",
+    "version": "1.1.22"
+  },
+  {
+    "id": "color-vision",
+    "branch": "1.3",
+    "version": "1.3.6"
+  },
+  {
+    "id": "coulombs-law",
+    "branch": "1.0",
+    "version": "1.0.31"
+  },
+  {
+    "id": "curve-fitting",
+    "branch": "1.0",
+    "version": "1.0.19"
+  },
+  {
+    "id": "density",
+    "branch": "1.2",
+    "version": "1.2.9"
+  },
+  {
+    "id": "diffusion",
+    "branch": "1.1",
+    "version": "1.1.6"
+  },
+  {
+    "id": "energy-forms-and-changes",
+    "branch": "1.4",
+    "version": "1.4.23"
+  },
+  {
+    "id": "energy-skate-park",
+    "branch": "1.5",
+    "version": "1.5.0"
+  },
+  {
+    "id": "energy-skate-park-basics",
+    "branch": "1.5",
+    "version": "1.5.0"
+  },
+  {
+    "id": "faradays-electromagnetic-lab",
+    "branch": "1.0",
+    "version": "1.0.6"
+  },
+  {
+    "id": "faradays-law",
+    "branch": "1.4",
+    "version": "1.4.24"
+  },
+  {
+    "id": "forces-and-motion-basics",
+    "branch": "2.6",
+    "version": "2.6.4"
+  },
+  {
+    "id": "fourier-making-waves",
+    "branch": "1.1",
+    "version": "1.1.4"
+  },
+  {
+    "id": "friction",
+    "branch": "1.6",
+    "version": "1.6.22"
+  },
+  {
+    "id": "gas-properties",
+    "branch": "1.1",
+    "version": "1.1.9"
+  },
+  {
+    "id": "gases-intro",
+    "branch": "1.1",
+    "version": "1.1.6"
+  },
+  {
+    "id": "generator",
+    "branch": "1.0",
+    "version": "1.0.6"
+  },
+  {
+    "id": "geometric-optics",
+    "branch": "1.3",
+    "version": "1.3.15"
+  },
+  {
+    "id": "geometric-optics-basics",
+    "branch": "1.3",
+    "version": "1.3.15"
+  },
+  {
+    "id": "gravity-and-orbits",
+    "branch": "1.6",
+    "version": "1.6.27"
+  },
+  {
+    "id": "gravity-force-lab",
+    "branch": "2.2",
+    "version": "2.2.24"
+  },
+  {
+    "id": "gravity-force-lab-basics",
+    "branch": "1.1",
+    "version": "1.1.26"
+  },
+  {
+    "id": "hookes-law",
+    "branch": "1.2",
+    "version": "1.2.3"
+  },
+  {
+    "id": "john-travoltage",
+    "branch": "1.6",
+    "version": "1.6.25"
+  },
+  {
+    "id": "keplers-laws",
+    "branch": "1.2",
+    "version": "1.2.11"
+  },
+  {
+    "id": "magnet-and-compass",
+    "branch": "1.0",
+    "version": "1.0.6"
+  },
+  {
+    "id": "magnets-and-electromagnets",
+    "branch": "1.0",
+    "version": "1.0.6"
+  },
+  {
+    "id": "masses-and-springs",
+    "branch": "1.0",
+    "version": "1.0.28"
+  },
+  {
+    "id": "masses-and-springs-basics",
+    "branch": "1.0",
+    "version": "1.0.27"
+  },
+  {
+    "id": "models-of-the-hydrogen-atom",
+    "branch": "1.0",
+    "version": "1.0.8"
+  },
+  {
+    "id": "molecules-and-light",
+    "branch": "1.5",
+    "version": "1.5.32"
+  },
+  {
+    "id": "my-solar-system",
+    "branch": "1.3",
+    "version": "1.3.15"
+  },
+  {
+    "id": "ohms-law",
+    "branch": "1.4",
+    "version": "1.4.30"
+  },
+  {
+    "id": "pendulum-lab",
+    "branch": "1.0",
+    "version": "1.0.34"
+  },
+  {
+    "id": "plinko-probability",
+    "branch": "1.1",
+    "version": "1.1.35"
+  },
+  {
+    "id": "projectile-data-lab",
+    "branch": "1.0",
+    "version": "1.0.11"
+  },
+  {
+    "id": "projectile-motion",
+    "branch": "1.0",
+    "version": "1.0.33"
+  },
+  {
+    "id": "quantum-measurement",
+    "branch": "1.0",
+    "version": "1.0.4"
+  },
+  {
+    "id": "resistance-in-a-wire",
+    "branch": "1.6",
+    "version": "1.6.31"
+  },
+  {
+    "id": "rutherford-scattering",
+    "branch": "1.1",
+    "version": "1.1.28"
+  },
+  {
+    "id": "states-of-matter",
+    "branch": "1.2",
+    "version": "1.2.22"
+  },
+  {
+    "id": "states-of-matter-basics",
+    "branch": "1.2",
+    "version": "1.2.22"
+  },
+  {
+    "id": "under-pressure",
+    "branch": "1.1",
+    "version": "1.1.35"
+  },
+  {
+    "id": "vector-addition",
+    "branch": "1.2",
+    "version": "1.2.3"
+  },
+  {
+    "id": "wave-interference",
+    "branch": "2.0",
+    "version": "2.0.21"
+  },
+  {
+    "id": "wave-on-a-string",
+    "branch": "1.2",
+    "version": "1.2.3"
+  },
+  {
+    "id": "waves-intro",
+    "branch": "1.1",
+    "version": "1.1.23"
+  }
+]

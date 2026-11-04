@@ -1,0 +1,32 @@
+{
+  "simId": "bsshs-polarization",
+  "schemaVersion": 1,
+  "measurements": [
+    { "key": "sourceIntensity", "name": "광원의 세기", "unit": "W/m²" },
+    { "key": "polarizerCount", "name": "넣은 편광판 수", "unit": "개" },
+    { "key": "incidentIntensity", "name": "마지막 편광판에 들어오는 빛의 세기 (I₀)", "unit": "W/m²" },
+    { "key": "transmittedIntensity", "name": "마지막 편광판을 지난 빛의 세기 (I)", "unit": "W/m²" },
+    { "key": "polarizerAngle", "name": "마지막 편광판에서 편광 방향과 축 사이의 각 (θ)", "unit": "°" },
+    { "key": "cosSquared", "name": "각의 코사인 제곱 (cos²θ)", "unit": "" },
+    { "key": "intensityRatio", "name": "마지막 편광판의 투과 비율 (I/I₀)", "unit": "" },
+    { "key": "transmittedFraction", "name": "광원 대비 검출기 세기", "unit": "" },
+    { "key": "incidentAngle", "name": "입사각 (θ₁)", "unit": "°" },
+    { "key": "refractionAngle", "name": "굴절각 (θ₂)", "unit": "°" },
+    { "key": "refractiveIndex1", "name": "입사 쪽 굴절률 (n₁)", "unit": "" },
+    { "key": "refractiveIndex2", "name": "굴절 쪽 굴절률 (n₂)", "unit": "" },
+    { "key": "reflectanceS", "name": "s 편광 반사율 (Rₛ)", "unit": "" },
+    { "key": "reflectanceP", "name": "p 편광 반사율 (Rₚ)", "unit": "" },
+    { "key": "reflectance", "name": "고른 빛의 반사율 (R)", "unit": "" },
+    { "key": "brewsterAngle", "name": "브루스터각 (θ_B)", "unit": "°" },
+    { "key": "tanBrewster", "name": "브루스터각의 탄젠트 (tan θ_B)", "unit": "" },
+    { "key": "raysAngle", "name": "반사광과 굴절광 사이의 각", "unit": "°" },
+    { "key": "reflectedPolarization", "name": "편광되지 않은 빛을 비출 때 반사광의 편광도", "unit": "" }
+  ],
+  "graphs": [
+    { "id": "intensity-ratio-vs-cos-squared", "title": "cos²θ와 투과 비율 I/I₀ (말뤼스 법칙, 기울기 = 1)", "x": "cosSquared", "y": "intensityRatio", "fit": "linear" },
+    { "id": "transmitted-vs-polarizer-angle", "title": "편광판 각과 투과한 빛의 세기", "x": "polarizerAngle", "y": "transmittedIntensity", "fit": null },
+    { "id": "reflectance-vs-incident-angle", "title": "입사각에 따른 s·p 편광 반사율", "x": "incidentAngle", "y": [ "reflectanceS", "reflectanceP" ], "fit": null },
+    { "id": "tan-brewster-vs-index", "title": "굴절률 n₂와 tan θ_B (기울기 = 1/n₁)", "x": "refractiveIndex2", "y": "tanBrewster", "fit": "linear" },
+    { "id": "brewster-vs-index", "title": "굴절률 n₂와 브루스터각", "x": "refractiveIndex2", "y": "brewsterAngle", "fit": null }
+  ]
+}
