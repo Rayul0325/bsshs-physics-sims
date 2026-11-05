@@ -10,7 +10,7 @@
   - 글꼴은 `<out>/fonts/`에 같은 사이트 파일로 넣습니다(외부 CDN 없음). OFL 라이선스 파일도 함께 복사합니다.
   - 빌드가 없는 시뮬레이션이 있으면 멈춥니다. 물리 검사에 실패한 새 시뮬레이션처럼 일부러 뺄 때는 `--exclude`를 씁니다.
   - `--no-drawer id,id`: 시험 범위 시뮬레이션을 수업 서랍 없이(테마 빌드 그대로) 공개합니다. 물리 검사에 실패한 PhET 시뮬레이션에 verify가 씁니다(사양 3.5).
-- 순서: 맨 위 「기말 시험 범위」(14개, 확인 배지) → `data/units.json` 단원 순서 → 「기타」.
+- 순서: `data/units.json` 단원 순서 → 「기타」. 시험 범위 14개를 따로 묶는 칸은 없고, 자기 단원 안에서 「시험 범위」 표시와 확인 배지를 답니다.
 - 제목: PhET 63개는 `data/titles.json`(용어 교정 반영), 새 시뮬레이션 5개는 빌드된 HTML의 `<title>`.
 - 디자인 값: `site/site.css`는 `--bsshs-*`(토큰 전체)와 `--site-*`(`tokens.site`)만 씁니다. 화면 폭 기준(600px, 1600px)도 `tokens.breakpoint`에서 채웁니다.
 - 검사: `tests/site/site.test.mjs`(구성), `tests/site/site-browser.test.mjs`(`BSSHS_SITE_DIR`의 실제 빌드: 링크·배지·출처·실명 0건·390px 가로 넘침 없음·누르는 곳 44px·1600px 글자 18px·외부 요청 0건).

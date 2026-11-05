@@ -1,4 +1,4 @@
-// Catalogue model and HTML (spec 3.7): exam scope first, class units in order, 기타 last, badges, attribution.
+// Catalogue model and HTML (spec 3.7): class units in order, 기타 last, no separate exam section, exam cards badged, attribution.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { catalogueModel, indexHtml, titleFromHtml, siteCss, esc } from '../../site/build-site.mjs';
@@ -14,19 +14,19 @@ const exam = { exam: '기말', ids: [ 'p1', 'n1' ] };
 const status = { p1: { state: '확인 중', label: '선생님 확인 중' }, n1: { state: '확인 완료', label: '선생님 확인 완료' } };
 const model = catalogueModel( { ids: [ 'p1', 'p2', 'p3', 'n1' ], titles: { p1: '하나', n1: '새것' }, units, exam, status, originals: new Set( [ 'n1' ] ), thumbs: new Set( [ 'p1' ] ) } );
 
-test( 'exam section first, units in order, 기타 last; every available sim appears in a unit', () => {
-  assert.deepEqual( model.map( s => s.id ), [ 'exam', 'a', 'b', 'etc' ] );
-  assert.deepEqual( model[ 0 ].cards.map( c => c.id ), [ 'p1', 'n1' ] );
-  assert.ok( model[ 0 ].cards.every( c => c.exam && c.status ) );
+test( 'units in order, 기타 last, no exam section; exam sims stay in their unit with a badge', () => {
+  assert.deepEqual( model.map( s => s.id ), [ 'a', 'b', 'etc' ] );
+  const cards = model.flatMap( s => s.cards );
+  assert.deepEqual( cards.filter( c => c.exam ).map( c => c.id ).sort(), [ 'n1', 'p1' ] );
+  assert.ok( cards.filter( c => c.exam ).every( c => c.status ) );
   assert.equal( model.find( s => s.id === 'b' ).cards[ 0 ].status, null );
-  assert.equal( model[ 0 ].cards[ 0 ].thumb, 'thumbs/p1.png' );
-  assert.equal( model[ 0 ].cards[ 1 ].thumb, null );
+  assert.equal( cards.find( c => c.id === 'p1' ).thumb, 'thumbs/p1.png' );
+  assert.equal( cards.find( c => c.id === 'n1' ).thumb, null );
 } );
 
 test( 'missing builds are left out instead of linking to nothing', () => {
   const m = catalogueModel( { ids: [ 'p2' ], titles: {}, units, exam, status, originals: new Set(), thumbs: new Set() } );
-  assert.equal( m[ 0 ].cards.length, 0 );
-  assert.deepEqual( m.slice( 1 ).map( s => s.id ), [ 'b' ] );
+  assert.deepEqual( m.map( s => s.id ), [ 'b' ] );
 } );
 
 test( 'index.html: badges, attribution, not-official line, repo link, Korean lang, no teacher wording', () => {

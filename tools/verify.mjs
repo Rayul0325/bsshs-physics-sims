@@ -284,19 +284,18 @@ async function applyExclusions( o, ctx, exclusions ) {
 
 // ---------------------------------------------------------------------------------------------------- V6 extra
 
-/** The catalogue itself: one card per published sim, every exam sim in the exam section. */
+/** The catalogue itself: one card per published sim, every exam sim tagged with a status badge. */
 function catalogueCounts( o, ctx ) {
   const index = path.join( o.siteDir, 'index.html' );
   if ( !existsSync( index ) ) { return [ { id: 'index.html', error: '사이트 없음' } ]; }
   const html = readFileSync( index, 'utf8' );
   const cards = [ ...html.matchAll( /<a class="card" href="sims\/([^"]+)\.html" data-sim="([^"]+)"/g ) ].map( m => m[ 2 ] );
-  const examBlock = html.slice( html.indexOf( '<section class="exam"' ), html.indexOf( '</section>', html.indexOf( '<section class="exam"' ) ) );
-  const examCards = [ ...examBlock.matchAll( /data-sim="([^"]+)"/g ) ].map( m => m[ 1 ] );
+  const examCards = [ ...html.matchAll( /<li><a class="card"[^>]*data-sim="([^"]+)">(?:(?!<\/li>)[^])*?class="badge /g ) ].map( m => m[ 1 ] );
   const problems = [];
   const missing = ctx.allIds.filter( id => !cards.includes( id ) );
   if ( missing.length ) { problems.push( { id: 'index.html', error: `카드 없음: ${missing.join( ', ' )}` } ); }
   const missingExam = ctx.examIds.filter( id => !examCards.includes( id ) );
-  if ( missingExam.length ) { problems.push( { id: 'index.html', error: `시험 범위 칸에 없음: ${missingExam.join( ', ' )}` } ); }
+  if ( missingExam.length ) { problems.push( { id: 'index.html', error: `확인 배지 없음: ${missingExam.join( ', ' )}` } ); }
   return problems;
 }
 

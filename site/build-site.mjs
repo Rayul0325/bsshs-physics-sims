@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Builds the catalogue site (spec 3.7) into a static folder:
-//   <out>/index.html          catalogue (exam scope first, then class units, then 기타)
+//   <out>/index.html          catalogue (class units in order, 기타 last; exam-scope cards carry a tag and a status badge)
 //   <out>/sims/<id>.html      the themed build; exam-scope sims get the class drawer injected
 //   <out>/thumbs/<id>.png     card thumbnails (optional, --thumbs)
 //   <out>/fonts/*             same-origin fonts + OFL licenses (no CDN, invariant 8)
@@ -83,10 +83,7 @@ export function catalogueModel( input ) {
     original: input.originals.has( id ),
     status: input.exam.ids.includes( id ) ? input.status[ id ] : null
   } );
-  const sections = [ {
-    kind: 'exam', id: 'exam', name: '기말 시험 범위', note: input.exam.exam,
-    cards: input.exam.ids.filter( id => available.has( id ) ).map( card )
-  } ];
+  const sections = [];
   for ( const u of [ ...input.units.units ].sort( ( a, b ) => a.order - b.order ) ) {
     const cards = u.sims.filter( id => available.has( id ) ).map( card );
     if ( cards.length ) { sections.push( { kind: 'unit', id: u.id, name: u.name, cards } ); }
@@ -115,7 +112,6 @@ export function indexHtml( sections, tokens, total ) {
   const body = sections.map( s => `
 <section class="${s.kind}" id="${esc( s.id )}">
   <header><h2>${esc( s.name )}</h2><span class="count">${s.cards.length}개</span></header>
-  ${s.note ? `<p class="exam-name">${esc( s.note )}</p>` : ''}
   <ul class="grid">${s.cards.map( cardHtml ).join( '' )}</ul>
 </section>` ).join( '\n' );
   return `<!DOCTYPE html>

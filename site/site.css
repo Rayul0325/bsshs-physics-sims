@@ -63,14 +63,6 @@ section > header {
 }
 section h2 { margin: 0; font-size: var(--bsshs-font-size-xl); }
 section .count { color: var(--bsshs-color-text-subtle); font-size: var(--bsshs-font-size-sm); }
-section.exam {
-  background: var(--bsshs-color-surface);
-  border: var(--bsshs-size-hairline) solid var(--bsshs-color-border);
-  border-radius: var(--bsshs-radius-2xl);
-  box-shadow: var(--bsshs-shadow-card);
-  padding: var(--bsshs-space-6);
-}
-section.exam .exam-name { color: var(--bsshs-color-text-muted); font-size: var(--bsshs-font-size-sm); }
 
 /* ---- cards ---- */
 .grid {
@@ -136,7 +128,6 @@ footer.site a { display: inline-flex; align-items: center; min-height: var(--bss
 @media (max-width: __BREAKPOINT_SHEET__) {
   .wrap { padding-left: var(--bsshs-space-3); padding-right: var(--bsshs-space-3); }
   .hero h1 { font-size: var(--site-hero-title-small); }
-  section.exam { padding: var(--bsshs-space-4); border-radius: var(--bsshs-radius-xl); }
   .grid { grid-template-columns: 1fr 1fr; gap: var(--bsshs-space-3); }
 }
 
@@ -145,5 +136,5 @@ footer.site a { display: inline-flex; align-items: center; min-height: var(--bss
   body { font-size: var(--bsshs-font-size-large-screen-body); }
   .card .title { font-size: var(--bsshs-font-size-large-screen-body); }
   .hero .wordmark { font-size: var(--bsshs-font-size-large-screen-body); }
-  .tag, .badge, section .count, section.exam .exam-name, footer.site { font-size: var(--bsshs-font-size-large-screen-body); }
+  .tag, .badge, section .count, footer.site { font-size: var(--bsshs-font-size-large-screen-body); }
 }

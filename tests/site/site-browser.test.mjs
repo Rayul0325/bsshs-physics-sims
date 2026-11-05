@@ -15,17 +15,18 @@ const NAMES_FILE = process.env.BSSHS_PRIVATE_NAMES || path.join( os.homedir(), '
 const skip = existsSync( INDEX ) ? false : `no site build at ${SITE} (run node site/build-site.mjs)`;
 const exam = JSON.parse( readFileSync( path.join( ROOT, 'data', 'exam-scope.json' ), 'utf8' ) ).ids;
 
-test( 'every card links to a sim file that exists; exam sims are highlighted with a status badge', { skip }, () => {
+test( 'every card links to a sim file that exists; exam sims carry a status badge inside their unit, with no separate exam section', { skip }, () => {
   const html = readFileSync( INDEX, 'utf8' );
   const hrefs = [ ...html.matchAll( /<a class="card" href="([^"]+)" data-sim="([^"]+)"/g ) ].map( m => ( { href: m[ 1 ], id: m[ 2 ] } ) );
   const ids = new Set( hrefs.map( h => h.id ) );
   for ( const h of hrefs ) { assert.ok( existsSync( path.join( SITE, h.href ) ), h.href ); }
   const sims = readdirSync( path.join( SITE, 'sims' ) ).filter( f => f.endsWith( '.html' ) );
   assert.equal( ids.size, sims.length, 'each built sim appears on the page' );
-  const examBlock = html.slice( html.indexOf( '<section class="exam"' ), html.indexOf( '</section>' ) );
+  assert.ok( !html.includes( '<section class="exam"' ), 'exam section is gone' );
   for ( const id of exam ) {
     if ( !ids.has( id ) ) { continue; } // an excluded original sim is simply not listed
-    assert.match( examBlock, new RegExp( `data-sim="${id}"[^]*?class="badge` ), id );
+    const start = html.indexOf( `data-sim="${id}"` );
+    assert.match( html.slice( start, html.indexOf( '</li>', start ) ), /class="badge/, id );
   }
 } );
 
