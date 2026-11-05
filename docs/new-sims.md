@@ -90,6 +90,7 @@ sims/<id>/
 
 - 모든 코드 파일 첫 두 줄: `// Copyright 2026, bsshs-physics-sims contributors` / `// SPDX-License-Identifier: GPL-3.0-only`. `@author`나 사람 이름은 쓰지 않습니다.
 - 디자인 값(색 `#…`·`rgb(…)`, 글꼴 이름)은 `sims/`에 쓰지 않습니다. 패널·버튼·슬라이더·체크박스는 PhET 기본 부품을 기본 색으로 쓰면 빌드 때 `theme/tokens.json` 색으로 바뀝니다. 광자 색처럼 **물리적 의미가 있는 색**은 파장에서 계산합니다(`VisibleColor.wavelengthToColor`).
+- 새 시뮬레이션에도 안쪽 디자인 검사가 적용됩니다(V11은 `data/style-done.json`에 든 id, V12는 5개 모두). 새 시뮬레이션의 `build-new-sim`은 시뮬레이션별 규칙과 해시를 63개와 같은 방식으로 받습니다(`variantInputs`의 `newSim` 표시가 있으면 해시에 `sim` 토큰 묶음 전체가 들어갑니다). `js/view/`의 색은 토큰 모듈 `SimTokens`에서 읽습니다. 이 모듈(`js/view/SimTokens.ts`, `theme/sim-tokens-module.mjs`가 `color`·`sim` 토큰으로 만든 글)은 `build-new-sim`이 스테이징할 때 슬롯의 복사본에만 쓰고 커밋하지 않으므로 `sims/` 소스에는 색 값이 없습니다(`tests/new-sims/sources.test.mjs`). 소스에서는 `import SimTokens from './SimTokens.js'` 하고 `SimTokens.physics.electron`처럼 역할 이름으로 씁니다(편집기에서는 이 파일이 없어 빨간 줄이 보이지만 빌드와 타입 검사는 슬롯에서 돕니다). 모델 파일은 건드리지 않으므로 `physicsHash`는 그대로입니다.
 - 코드에 다른 주소(`http(s)://`)를 넣지 않습니다(외부 요청 금지). `check-sim`이 실제 요청을 기록해 확인합니다.
 - `package.json`의 `phet.supportedBrands`에 `adapted-from-phet`가 있어야 합니다(학교판 `bsshs`가 이 브랜드 자리를 빌려 씀).
 

@@ -25,7 +25,6 @@ import Circle from '../../../scenery/js/nodes/Circle.js';
 import Line from '../../../scenery/js/nodes/Line.js';
 import Node from '../../../scenery/js/nodes/Node.js';
 import Text from '../../../scenery/js/nodes/Text.js';
-import Color from '../../../scenery/js/util/Color.js';
 import Panel from '../../../sun/js/Panel.js';
 import bsshsPhotoelectric from '../bsshsPhotoelectric.js';
 import BsshsPhotoelectricStrings from '../BsshsPhotoelectricStrings.js';
@@ -46,11 +45,11 @@ export default class CurrentVoltageChartNode extends Panel {
       modelXRange: voltageRange,
       modelYRange: new Range( -0.06, CURRENT_MAX ) // a little below 0, so the zero-current line stays visible
     } );
-    const background = new ChartRectangle( chartTransform, { fill: Color.WHITE, stroke: C.GLASS_STROKE } );
-    const gridX = new GridLineSet( chartTransform, Orientation.HORIZONTAL, 2, { stroke: Color.LIGHT_GRAY, lineWidth: 0.5 } );
-    const gridY = new GridLineSet( chartTransform, Orientation.VERTICAL, 0.5, { stroke: Color.LIGHT_GRAY, lineWidth: 0.5 } );
-    const xAxis = new AxisLine( chartTransform, Orientation.HORIZONTAL, { stroke: Color.BLACK, lineWidth: 1 } );
-    const yAxis = new AxisLine( chartTransform, Orientation.VERTICAL, { stroke: Color.BLACK, lineWidth: 1 } );
+    const background = new ChartRectangle( chartTransform, { fill: C.CARD_FILL, stroke: C.GLASS_STROKE } );
+    const gridX = new GridLineSet( chartTransform, Orientation.HORIZONTAL, 2, { stroke: C.GRID_STROKE, lineWidth: 0.5 } );
+    const gridY = new GridLineSet( chartTransform, Orientation.VERTICAL, 0.5, { stroke: C.GRID_STROKE, lineWidth: 0.5 } );
+    const xAxis = new AxisLine( chartTransform, Orientation.HORIZONTAL, { stroke: C.AXIS_STROKE, lineWidth: 1 } );
+    const yAxis = new AxisLine( chartTransform, Orientation.VERTICAL, { stroke: C.AXIS_STROKE, lineWidth: 1 } );
     const xLabels = new TickLabelSet( chartTransform, Orientation.HORIZONTAL, 2, {
       edge: 'min',
       createLabel: v => new Text( toFixed( v, 0 ), { font: C.SMALL_FONT } )
@@ -61,8 +60,8 @@ export default class CurrentVoltageChartNode extends Panel {
     } );
 
     const curve = new LinePlot( chartTransform, [], { stroke: C.ELECTRON_COLOR, lineWidth: 2.5 } );
-    const marker = new Circle( 6, { fill: Color.RED, stroke: Color.BLACK, lineWidth: 1 } );
-    const cutoffLine = new Line( 0, 0, 0, chartHeight, { stroke: Color.DARK_GRAY, lineDash: [ 5, 4 ], lineWidth: 1.5 } );
+    const marker = new Circle( 6, { fill: C.MARKER_FILL, stroke: C.CARD_FILL, lineWidth: 1.5 } );
+    const cutoffLine = new Line( 0, 0, 0, chartHeight, { stroke: C.CUTOFF_STROKE, lineDash: [ 5, 4 ], lineWidth: 1.5 } );
 
     Multilink.multilink( [ model.saturationCurrentProperty, model.stoppingVoltageProperty ], () => {
       const data: Vector2[] = [];

@@ -5,12 +5,12 @@
 import { createHash } from 'node:crypto';
 
 /** Every V-item the verifier knows, in report order. `TEST` is the whole npm test run. */
-export const CHECK_IDS = Object.freeze( [ 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V9', 'V10a', 'V10b', 'V10c', 'TEST' ] );
+export const CHECK_IDS = Object.freeze( [ 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V9', 'V10a', 'V10b', 'V10c', 'V11', 'V12', 'TEST' ] );
 
 /** Short Korean names for the summary lines. */
 export const CHECK_NAMES = Object.freeze( {
   V1: '빌드', V2: 'check-sim', V3: '물리 검사', V4: '서랍 기록', V5: '확인 상태·해시', V6: '목록 사이트',
-  V9: '닫힌 서랍 화면 비교', V10a: '디자인 값 위치', V10b: '패치 허용 목록', V10c: '실명 검색', TEST: 'npm test 전체'
+  V9: '닫힌 서랍 화면 비교', V10a: '디자인 값 위치', V10b: '패치 허용 목록', V10c: '실명 검색', V11: '화면 팔레트', V12: '배치 불변', TEST: 'npm test 전체'
 } );
 
 /**
@@ -34,13 +34,15 @@ export function parseOnly( spec ) {
 
 /**
  * One check result. `passed`/`total` count the units (sims, runs, tests); `exitCode` is the check's own
- * status (0 = pass). A check passes only when exitCode is 0, nothing failed and total > 0.
+ * status (0 = pass). A check passes only when exitCode is 0, nothing failed and total > 0. The one exception is
+ * `allowEmpty`: V11 runs over a list that is genuinely empty until the first sim is restyled, and 0 of 0 then passes
+ * (the caller sets it only after reading a well-formed empty list; a missing or broken list is a failure).
  * @param {string} id
- * @param {{ passed: number, total: number, failures?: object[], notes?: string[], exitCode?: number, ms?: number, details?: any }} r
+ * @param {{ passed: number, total: number, failures?: object[], notes?: string[], exitCode?: number, ms?: number, details?: any, allowEmpty?: boolean }} r
  */
 export function makeResult( id, r ) {
   const failures = r.failures || [];
-  const ok = ( r.exitCode ?? 0 ) === 0 && failures.length === 0 && r.total > 0 && r.passed === r.total;
+  const ok = ( r.exitCode ?? 0 ) === 0 && failures.length === 0 && ( r.total > 0 || r.allowEmpty === true ) && r.passed === r.total;
   return { id, name: CHECK_NAMES[ id ], ok, exitCode: ok ? 0 : ( r.exitCode || 1 ), passed: r.passed, total: r.total,
            failures, notes: r.notes || [], ms: r.ms ?? null, details: r.details ?? null };
 }
@@ -178,12 +180,16 @@ export function buildCount( { expected, built, published, excluded } ) {
 // ---------------------------------------------------------------------------------------------------
 
 /**
- * What a patch of each kind may touch in the throwaway slot checkout: `repo` + a pattern for the
- * repo-relative file. Written independently of the rule lists (theme/patches, brand/bsshs/patches.mjs,
- * theme/patches/terms.mjs) so a rule that strays (a sim repo, model code, another library file) fails.
+ * What a patch of each kind may touch in the throwaway slot checkout: `repo` (a name, or a pattern for the
+ * per-sim kinds) + a pattern for the repo-relative file. Written independently of the rule lists
+ * (theme/patches, brand/bsshs/patches.mjs, theme/patches/terms.mjs, theme/sim-styles, theme/art) so a rule that
+ * strays (a sim's model code, another library file) fails.
  * theme = common UI defaults; brand = the brand folder PhET reserves for third-party builds plus the
- * menu-button name strings; telemetry = the outbound-traffic switch; terms = Korean string files only.
+ * menu-button name strings; telemetry = the outbound-traffic switch; terms = Korean string files only;
+ * sim-color = color literals in the JS/TS sources of the sim's own and shared repos (never model paths);
+ * art = the PNG pictures, the modules generated from them and the license record beside them.
  */
+const PER_SIM_REPO = /^(?!(?:babel|chipper|perennial-alias|brand)$)[a-z0-9-]+$/;
 export const PATCH_ALLOWLIST = Object.freeze( {
   telemetry: [
     { repo: 'phetcommon', file: /^js\/analytics\/google-analytics\.js$/ },
@@ -196,14 +202,24 @@ export const PATCH_ALLOWLIST = Object.freeze( {
     { repo: 'babel', file: /^joist\/joist-strings_ko\.json$/ }
   ],
   theme: [
-    { repo: 'scenery-phet', file: /^js\/PhetFont\.(js|ts)$/ },
+    { repo: 'scenery-phet', file: /^js\/(PhetFont|PhetColorScheme|ShadedSphereNode|ShadedRectangle|NumberDisplay|ProbeNode|SpectrumSlider)\.(js|ts)$/ },
     { repo: 'joist', file: /^js\/(LookAndFeel|HomeScreen)\.(js|ts)$/ },
-    { repo: 'sun', file: /^js\/(ColorConstants|Panel|Checkbox|CheckBox|SliderThumb|Slider|HSlider)\.(js|ts)$/ }
+    { repo: 'sun', file: /^js\/(ColorConstants|Panel|Checkbox|CheckBox|SliderThumb|Slider|HSlider|HSliderTrack|DefaultSliderTrack|AccordionBox|ComboBox|ComboBoxButton|ComboBoxListBox|ComboBoxListItemNode|Carousel|PageControl|NumberPicker|ExpandCollapseButton)\.(js|ts)$/ },
+    { repo: 'sun', file: /^js\/buttons\/(ButtonNode|RectangularButton|RectangularButtonView|RoundButton|RoundButtonView|RectangularRadioButtonGroup|ArrowButton|CarouselButton)\.(js|ts)$/ }
   ],
   terms: [
     { repo: 'babel', file: /^[a-z0-9]+(?:-[a-z0-9]+)*\/[a-z0-9]+(?:-[a-z0-9]+)*-strings_ko\.json$/ }
+  ],
+  'sim-color': [
+    { repo: PER_SIM_REPO, file: /^js\/.+\.(js|ts)$/ }
+  ],
+  art: [
+    { repo: PER_SIM_REPO, file: /^(?:[A-Za-z0-9_-]+\/)*(?:images|mipmaps)\/(?:[A-Za-z0-9_.-]+(?:\.png|_png\.js|_png\.ts)|license\.json)$/ }
   ]
 } );
+
+/** Paths no patch may touch, whatever the kind: physics lives in `model` directories. */
+export const PATCH_DENY = Object.freeze( [ /(^|\/)model\// ] );
 
 /** Build-config overlays recorded in `overlays` (docs/build.md), not patches; anything else is a violation. */
 export const OVERLAY_ALLOWLIST = Object.freeze( [
@@ -219,7 +235,8 @@ export const OVERLAY_ALLOWLIST = Object.freeze( [
  * @returns {boolean}
  */
 export function isAllowed( kind, repo, file, allow = PATCH_ALLOWLIST ) {
-  return ( allow[ kind ] || [] ).some( a => a.repo === repo && a.file.test( file ) );
+  if ( PATCH_DENY.some( re => re.test( file ) ) ) { return false; }
+  return ( allow[ kind ] || [] ).some( a => ( a.repo instanceof RegExp ? a.repo.test( repo ) : a.repo === repo ) && a.file.test( file ) );
 }
 
 /**
@@ -254,7 +271,7 @@ export function checkPatchAllowlist( { rules, records, allow = PATCH_ALLOWLIST, 
   for ( const r of rules ) {
     if ( ruleById.has( r.id ) && ruleById.get( r.id ).repo !== r.repo ) { failures.push( { id: r.id, what: 'rule', reason: 'same rule id with another repo' } ); }
     ruleById.set( r.id, r );
-    if ( !Object.hasOwn( allow, r.kind ) ) { failures.push( { id: r.id, what: 'rule', reason: `kind ${r.kind} is not theme/brand/telemetry/terms` } ); continue; }
+    if ( !Object.hasOwn( allow, r.kind ) ) { failures.push( { id: r.id, what: 'rule', reason: `kind ${r.kind} is not theme/brand/telemetry/terms/sim-color/art` } ); continue; }
     for ( const f of r.files ) {
       filesChecked++;
       if ( !isAllowed( r.kind, r.repo, f, allow ) ) { failures.push( { id: r.id, what: 'rule', reason: `${r.kind} rule may touch ${r.repo}/${f}, not allow-listed` } ); }

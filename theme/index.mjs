@@ -17,8 +17,16 @@ export const REQUIRED_KEYS = {
   tracking: [],
   radius: [],
   space: [],
-  shadow: []
+  shadow: [],
+  sim: [ 'canvas', 'canvasDark', 'surface', 'line', 'control', 'controlActive', 'text', 'textOnDark', 'physics', 'check' ]
 };
+
+/** Keys of `sim.physics` (physical meaning of a color survives the restyle, only the value moves). */
+export const SIM_PHYSICS_KEYS = [ 'positive', 'negative', 'electron', 'proton', 'neutron', 'magnetN', 'magnetS', 'copper',
+                                  'conductor', 'insulator', 'forceA', 'forceB', 'energy', 'light', 'water', 'glass' ];
+
+/** Keys of `sim.check`: numeric thresholds of tools/check-style.mjs (V11) and tools/compare-bounds.mjs (V12). */
+export const SIM_CHECK_KEYS = [ 'paletteTolerance', 'outsideShareMax', 'minContrast', 'boundsTolerance', 'maxExceptions' ];
 
 /** PhET role -> token group that the role's value (a token key) is looked up in. */
 export const PHET_ROLE_GROUPS = {
@@ -26,19 +34,72 @@ export const PHET_ROLE_GROUPS = {
   homeScreenBackground: 'color',
   pushButtonBase: 'color',
   panelFill: 'color',
-  panelStroke: 'color',
+  panelStroke: 'sim',
   panelCornerRadius: 'radius',
   checkbox: 'color',
   sliderThumb: 'color',
   sliderThumbHighlight: 'color',
   wordmarkOnWhite: 'color',
   wordmarkOnBlack: 'color',
-  splashText: 'color'
+  splashText: 'color',
+  // roles of the flat component defaults (theme/patches/theme.mjs); the `sim` group is read through them so a
+  // global rule never names a sim token directly
+  buttonStroke: 'sim',
+  resetAllButton: 'sim',
+  zoomButton: 'sim',
+  componentFill: 'color',
+  componentStroke: 'sim',
+  componentHighlight: 'color',
+  componentText: 'color',
+  componentAccent: 'color',
+  componentMuted: 'color',
+  selectedStroke: 'color'
 };
 
 // Values PhET's scenery Color parser understands: #rgb, #rrggbb, rgb()/rgba(). (Not oklch.)
 const PHET_COLOR_RE = /^(#[0-9a-f]{3}|#[0-9a-f]{6}|rgba?\(\s*\d+(\.\d+)?\s*,\s*\d+(\.\d+)?\s*,\s*\d+(\.\d+)?\s*(,\s*(0|1|0?\.\d+)\s*)?\))$/i;
 const LENGTH_RE = /^-?\d+(\.\d+)?(px|em|rem)$/;
+
+/** Parses a token color (#rgb, #rrggbb, rgb(), rgba()) to 0-255 channels and alpha 0-1; null when it is not one. */
+export function parseTokenColor( value ) {
+  if ( typeof value !== 'string' || !PHET_COLOR_RE.test( value ) ) { return null; }
+  const v = value.trim();
+  if ( v.startsWith( '#' ) ) {
+    const h = v.length === 4 ? [ ...v.slice( 1 ) ].map( c => c + c ).join( '' ) : v.slice( 1 );
+    return { r: parseInt( h.slice( 0, 2 ), 16 ), g: parseInt( h.slice( 2, 4 ), 16 ), b: parseInt( h.slice( 4, 6 ), 16 ), a: 1 };
+  }
+  const n = v.slice( v.indexOf( '(' ) + 1, -1 ).split( ',' ).map( x => Number( x.trim() ) );
+  return { r: n[ 0 ], g: n[ 1 ], b: n[ 2 ], a: n.length > 3 ? n[ 3 ] : 1 };
+}
+
+/**
+ * Problems in the `sim` group: colors must be PhET-readable, `physics` and `check` must hold exactly the
+ * documented keys, and pure black must not be a token (spec 3.1: no black borders or black canvas).
+ * @param {any} sim
+ * @returns {string[]}
+ */
+export function validateSimTokens( sim ) {
+  const errors = [];
+  if ( !sim || typeof sim !== 'object' ) { return [ 'sim must be an object' ]; }
+  const color = ( key, v ) => {
+    const c = parseTokenColor( v );
+    if ( !c ) { errors.push( `sim.${key} must be #hex or rgb()/rgba(), got ${JSON.stringify( v )}` ); }
+    else if ( c.r === 0 && c.g === 0 && c.b === 0 && c.a === 1 ) { errors.push( `sim.${key} must not be pure black` ); }
+  };
+  for ( const k of [ 'canvas', 'canvasDark', 'surface', 'line', 'control', 'controlActive', 'text', 'textOnDark' ] ) { color( k, sim[ k ] ); }
+  if ( !sim.physics || typeof sim.physics !== 'object' ) { errors.push( 'sim.physics must be an object' ); }
+  else {
+    for ( const k of SIM_PHYSICS_KEYS ) { if ( !( k in sim.physics ) ) { errors.push( `missing sim.physics.${k}` ); } }
+    for ( const [ k, v ] of Object.entries( sim.physics ) ) { color( `physics.${k}`, v ); }
+  }
+  if ( !sim.check || typeof sim.check !== 'object' ) { errors.push( 'sim.check must be an object' ); }
+  else {
+    for ( const k of SIM_CHECK_KEYS ) {
+      if ( typeof sim.check[ k ] !== 'number' || !Number.isFinite( sim.check[ k ] ) || sim.check[ k ] < 0 ) { errors.push( `sim.check.${k} must be a non-negative number` ); }
+    }
+  }
+  return errors;
+}
 
 /**
  * Validates a tokens object. Returns human-readable problems (empty = valid).
@@ -78,6 +139,7 @@ export function validateTokens( t ) {
       errors.push( `font.faces entries need family, file and license: ${JSON.stringify( face )}` );
     }
   }
+  errors.push( ...validateSimTokens( t.sim ) );
   if ( t.phet ) {
     for ( const [ role, group ] of Object.entries( PHET_ROLE_GROUPS ) ) {
       const key = t.phet[ role ];
@@ -97,6 +159,49 @@ export function loadTokens( file = TOKENS_JSON ) {
   const errors = validateTokens( t );
   if ( errors.length ) { throw new Error( `invalid ${file}:\n  ${errors.join( '\n  ' )}` ); }
   return t;
+}
+
+/**
+ * Every color token the restyled sims may paint with, as `{ path, value, rgba }` (path like `sim.physics.copper`
+ * or `color.accent`). The palette of the V11 check: the `sim` group plus the shared `color` group.
+ * @param {any} tokens
+ * @returns {{ path: string, value: string, rgba: { r: number, g: number, b: number, a: number } }[]}
+ */
+export function simPalette( tokens ) {
+  const out = [];
+  const add = ( path, value ) => { const rgba = parseTokenColor( value ); if ( rgba ) { out.push( { path, value, rgba } ); } };
+  for ( const [ k, v ] of Object.entries( tokens.color ) ) { add( `color.${k}`, v ); }
+  for ( const k of [ 'canvas', 'canvasDark', 'surface', 'line', 'control', 'controlActive', 'text', 'textOnDark' ] ) { add( `sim.${k}`, tokens.sim[ k ] ); }
+  for ( const [ k, v ] of Object.entries( tokens.sim.physics ) ) { add( `sim.physics.${k}`, v ); }
+  return out;
+}
+
+/**
+ * Looks a dotted token path up (`sim.physics.copper`). Throws on a path that is not a color token.
+ * @param {any} tokens
+ * @param {string} tokenPath
+ * @returns {string} the color value
+ */
+export function resolveColorToken( tokens, tokenPath ) {
+  const hit = simPalette( tokens ).find( p => p.path === tokenPath );
+  if ( !hit ) { throw new Error( `unknown color token ${JSON.stringify( tokenPath )} (use color.* or sim.* paths)` ); }
+  return hit.value;
+}
+
+/**
+ * Replaces `{{sim.physics.copper}}`-style placeholders of an SVG text with token colors. An unknown
+ * placeholder throws, so a typo can never reach a built image.
+ * @param {string} svg
+ * @param {any} tokens
+ * @returns {string}
+ */
+export function resolveSvgPlaceholders( svg, tokens ) {
+  return String( svg ).replace( /\{\{\s*([A-Za-z0-9_.]+)\s*\}\}/g, ( _, p ) => resolveColorToken( tokens, p ) );
+}
+
+/** Token paths named by `{{…}}` placeholders in an SVG text. @param {string} svg @returns {string[]} */
+export function svgPlaceholders( svg ) {
+  return [ ...new Set( [ ...String( svg ).matchAll( /\{\{\s*([A-Za-z0-9_.]+)\s*\}\}/g ) ].map( m => m[ 1 ] ) ) ];
 }
 
 /**
@@ -164,7 +269,7 @@ export function toCssVariables( tokens, opts = {} ) {
 export function toPhetColors( tokens ) {
   const out = {};
   for ( const [ role, group ] of Object.entries( PHET_ROLE_GROUPS ) ) {
-    if ( group === 'color' ) { out[ role ] = tokens.color[ tokens.phet[ role ] ]; }
+    if ( group === 'color' || group === 'sim' ) { out[ role ] = tokens[ group ][ tokens.phet[ role ] ]; }
   }
   return out;
 }

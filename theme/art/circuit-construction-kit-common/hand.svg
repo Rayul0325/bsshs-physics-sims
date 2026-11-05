@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="212" height="133" viewBox="0 0 212 133">
+ <!-- pointing hand: one flat tan shape -->
+ <path d="M211 3 H146 C118 3 98 14 78 24 L12 50 C1 54 0 66 10 68 L62 64 C74 63 80 70 77 80 C73 92 76 108 90 112 C100 115 110 109 112 100 C113 112 122 124 134 124 C146 124 152 112 150 104 C156 116 170 116 176 106 C182 96 186 84 192 74 C198 62 205 56 211 54 Z" fill="{{sim.physics.insulator}}"/>
+ <path d="M146 3 V64" stroke="{{color.surfaceAlt}}" stroke-width="3" opacity="0.6" fill="none"/>
+</svg>

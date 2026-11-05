@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="146" height="46" viewBox="0 0 146 46">
+ <!-- battery: dark body, orange positive end, small contact -->
+ <rect x="0" y="1" width="140" height="43" rx="7" fill="{{color.inverseSurface}}"/>
+ <path d="M97 1 H133 A7 7 0 0 1 140 8 V37 A7 7 0 0 1 133 44 H97 Z" fill="{{sim.physics.energy}}"/>
+ <rect x="139" y="14" width="7" height="17" rx="3" fill="{{sim.physics.conductor}}"/>
+</svg>

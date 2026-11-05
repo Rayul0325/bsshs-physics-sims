@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="318" viewBox="0 0 256 318">
+ <!-- voltmeter body: dark bezel, light face, black and red jacks -->
+ <path d="M40 1 H216 Q255 1 255 40 L246 232 Q240 316 170 316 H86 Q16 316 10 232 L1 40 Q1 1 40 1 Z" fill="{{color.inverseSurface}}"/>
+ <path d="M44 28 H212 Q232 28 232 48 L226 206 Q224 232 200 232 H56 Q32 232 30 206 L24 48 Q24 28 44 28 Z" fill="{{color.surfaceAlt}}"/>
+ <ellipse cx="128" cy="282" rx="48" ry="24" fill="{{color.textMuted}}"/>
+ <circle cx="108" cy="282" r="12" fill="{{sim.text}}"/>
+ <circle cx="148" cy="282" r="12" fill="{{sim.physics.positive}}"/>
+</svg>

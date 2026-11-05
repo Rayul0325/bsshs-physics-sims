@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="179" viewBox="0 0 256 179">
+ <!-- ammeter body: dark bezel, light face, one contact dot -->
+ <rect x="0" y="0" width="256" height="179" rx="38" fill="{{color.inverseSurface}}"/>
+ <rect x="17" y="30" width="222" height="130" rx="28" fill="{{color.surfaceAlt}}"/>
+ <circle cx="134" cy="22" r="14" fill="{{color.textMuted}}"/>
+ <circle cx="134" cy="22" r="8" fill="{{sim.physics.energy}}"/>
+</svg>

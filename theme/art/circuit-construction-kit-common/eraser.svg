@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="213" height="75" viewBox="0 0 213 75">
+ <!-- eraser: flat pink block with a darker end -->
+ <rect x="2" y="1" width="209" height="72" rx="16" fill="{{sim.physics.positive}}" opacity="0.4"/>
+ <path d="M168 1 H195 A16 16 0 0 1 211 17 V57 A16 16 0 0 1 195 73 H168 Z" fill="{{sim.physics.positive}}" opacity="0.4"/>
+</svg>

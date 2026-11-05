@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="44" viewBox="0 0 150 44">
+ <!-- resistor body: flat tan capsule (the colour bands are drawn by the sim) -->
+ <rect x="3" y="1" width="144" height="42" rx="21" fill="{{sim.physics.insulator}}"/>
+</svg>

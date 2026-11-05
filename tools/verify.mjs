@@ -1,15 +1,16 @@
 #!/usr/bin/env node
-// Spec 5 verification in one command (docs/verify.md). Runs V1–V10 against the current builds and the
+// Spec 5 verification in one command (docs/verify.md). Runs V1–V12 against the current builds and the
 // built site, writes build/verify/report.json and prints one Korean line per check. Exit 0 only when every
 // selected check passes.
 //
 // Usage: node tools/verify.mjs [--only V2,V9] [--jobs 12] [--sims-dir build/bsshs-theme] [--site-dir dist]
 //          [--report build/verify/report.json] [--names-file <file>] [--cases <id>=<cases.json>]
+//          [--style-done data/style-done.json] [--baseline-dir <layout baseline>]
 //
 // Inputs: build/bsshs-theme/<id>/<id>_ko.html (68 school builds, no drawer), data/build-matrix.bsshs-theme.json
 // and data/build-matrix.new-sims.json, and the site in dist/ (npm run build-everything makes all of them).
 // Order: V10b and V3/V9 first (V3 decides exclusions, spec 3.6) → exclusion applied to the site → V1, V10c,
-// V2 → the npm test run (V4, V5, V6, V10a). Browser jobs share one pool of --jobs processes.
+// V2, V11, V12 → the npm test run (V4, V5, V6, V10a). Browser jobs share one pool of --jobs processes.
 import { spawn } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -23,10 +24,14 @@ import {
   parseOnly, makeResult, aggregate, summaryLine, exclusionsFromV3, buildCount, checkPatchAllowlist,
   parseNames, scanForNames, groupTestEvents, pool, toleranceNoteProblems, exclusionSiteArgs, siteNeedsRebuild
 } from './lib/verify-core.mjs';
+import { loadStyleDone } from './lib/style-core.mjs';
+import { baselineDir, baselineFile } from './compare-bounds.mjs';
 import { DRAWER_MARKER_START } from '../drawer/inject.mjs';
 import '../drawer/core.js';
 
 const NODE = process.execPath;
+/** V11/V12 open two Chrome pages per sim (WebGL sims are heavy); more than this in parallel only slows everything down. */
+const STYLE_JOBS_MAX = 8;
 const TOOLS = path.join( REPO_ROOT, 'tools' );
 const readJson = file => JSON.parse( readFileSync( file, 'utf8' ) );
 
@@ -37,6 +42,7 @@ export function parseVerifyArgs( argv ) {
     simsDir: path.join( REPO_ROOT, 'build', 'bsshs-theme' ), siteDir: path.join( REPO_ROOT, 'dist' ),
     report: path.join( REPO_ROOT, 'build', 'verify', 'report.json' ),
     namesFile: process.env.BSSHS_PRIVATE_NAMES || path.join( os.homedir(), '.config', 'bsshs-physics-sims', 'private-names.txt' ),
+    styleDone: path.join( REPO_ROOT, 'data', 'style-done.json' ), baselineDir: baselineDir(),
     cases: {}
   };
   for ( let i = 0; i < argv.length; i++ ) {
@@ -48,6 +54,8 @@ export function parseVerifyArgs( argv ) {
     else if ( a.startsWith( '--site-dir' ) ) { o.siteDir = path.resolve( val() ); }
     else if ( a.startsWith( '--report' ) ) { o.report = path.resolve( val() ); }
     else if ( a.startsWith( '--names-file' ) ) { o.namesFile = path.resolve( val() ); }
+    else if ( a.startsWith( '--style-done' ) ) { o.styleDone = path.resolve( val() ); }
+    else if ( a.startsWith( '--baseline-dir' ) ) { o.baselineDir = path.resolve( val() ); }
     else if ( a.startsWith( '--cases' ) ) {
       const [ id, file ] = val().split( /=(.*)/s );
       if ( !id || !file ) { throw new Error( '--cases expects <id>=<cases.json>' ); }
@@ -124,12 +132,25 @@ function context( o ) {
 
 // ---------------------------------------------------------------------------------------------------- V1
 
-/** Expected theme hash of a bsshs-theme build made now (tokens + rules + term fixes), without rendering. */
-async function expectedThemeHash() {
+/**
+ * Expected theme hash of each sim's bsshs-theme build made now (tokens + global rules + the sim's own style
+ * colors and pictures + term fixes), without drawing or rendering anything. A sim without a dependency set
+ * (no manifest, no record) maps to null.
+ * @returns {Promise<Map<string, string|null>>}
+ */
+async function expectedThemeHashes( ctx ) {
   const { loadTokens } = await import( '../theme/index.mjs' );
-  const { variantHash } = await import( '../theme/patches/index.mjs' );
+  const { simVariantHash } = await import( '../theme/patches/index.mjs' );
   const { loadTermFixes, termFixesHash } = await import( '../theme/patches/terms.mjs' );
-  return `${variantHash( loadTokens(), { brand: 'bsshs', theme: true } )}+${termFixesHash( await loadTermFixes() ).slice( 0, 16 )}`;
+  const tokens = loadTokens();
+  const suffix = `+${termFixesHash( await loadTermFixes() ).slice( 0, 16 )}`;
+  const out = new Map();
+  for ( const id of ctx.allIds ) {
+    const isNew = ctx.newIds.includes( id );
+    const deps = isNew ? ( ctx.records.get( id ) || {} ).deps : ( await readManifest( id ) || {} ).deps;
+    out.set( id, deps ? `${await simVariantHash( tokens, { brand: 'bsshs', theme: true, ...( isNew ? { newSim: true } : {} ) }, id, deps )}${suffix}` : null );
+  }
+  return out;
 }
 
 /**
@@ -138,7 +159,7 @@ async function expectedThemeHash() {
  */
 async function checkV1( o, ctx, exclusions ) {
   const t0 = Date.now();
-  const themeHash = await expectedThemeHash();
+  const themeHashes = await expectedThemeHashes( ctx );
   const { sourceHash } = await import( './lib/new-sims.mjs' );
   const good = [];
   const failures = [];
@@ -149,7 +170,7 @@ async function checkV1( o, ctx, exclusions ) {
     if ( !r ) { why.push( '빌드 기록 없음' ); }
     else {
       if ( !r.success ) { why.push( `빌드 실패: ${String( r.error ).slice( 0, 120 )}` ); }
-      if ( r.themeHash !== themeHash ) { why.push( '디자인 토큰·패치 규칙이 바뀐 뒤 다시 빌드하지 않음 (themeHash 다름)' ); }
+      if ( r.themeHash !== themeHashes.get( id ) ) { why.push( '디자인 토큰·패치 규칙이 바뀐 뒤 다시 빌드하지 않음 (themeHash 다름)' ); }
       if ( ctx.newIds.includes( id ) && r.sourceHash !== sourceHash( path.join( REPO_ROOT, 'sims', id ) ) ) { why.push( 'sims/ 소스가 바뀐 뒤 다시 빌드하지 않음' ); }
     }
     if ( !existsSync( file ) ) { why.push( `결과 파일 없음 ${path.relative( REPO_ROOT, file )}` ); }
@@ -170,7 +191,7 @@ async function checkV1( o, ctx, exclusions ) {
   const seen = new Set( counted.failures.map( f => f.id ) );
   for ( const f of failures ) { if ( !seen.has( f.id ) ) { counted.failures.push( f ); } }
   return makeResult( 'V1', { ...counted, ms: Date.now() - t0,
-    notes: [ `PhET ${ctx.phetIds.length} + 새 시뮬레이션 ${ctx.newIds.length} = ${ctx.allIds.length}개 기대, 사이트에 ${publishedIds.length}개`, `themeHash ${themeHash.slice( 0, 12 )}…` ] } );
+    notes: [ `PhET ${ctx.phetIds.length} + 새 시뮬레이션 ${ctx.newIds.length} = ${ctx.allIds.length}개 기대, 사이트에 ${publishedIds.length}개`, `themeHash ${String( themeHashes.get( ctx.allIds[ 0 ] ) ).slice( 0, 12 )}… (시뮬레이션마다 다름)` ] } );
 }
 
 // ---------------------------------------------------------------------------------------------------- V2
@@ -262,6 +283,65 @@ async function runV9Job( o, ctx, prep, job ) {
              ( screens.filter( s => !s.ok ).map( s => `${s.name || s.index}: ${s.diffPixels}px` ).join( ', ' ) || firstLine( r.stderr ) || `exit ${r.code}` ) };
 }
 
+// ---------------------------------------------------------------------------------------------------- V11 / V12
+
+/** Short description of why a check-style run failed. @param {any} rep */
+function styleReason( rep ) {
+  if ( !rep ) { return null; }
+  if ( rep.fatal ) { return rep.fatal; }
+  const open = ( rep.openFindings || [] ).slice( 0, 3 ).map( f => `${f.kind} ${f.node}${f.color ? ` ${f.color}` : ''}${f.dialog ? ` (${f.dialog})` : ''}` );
+  return [ rep.openFindings && rep.openFindings.length ? `열린 지적 ${rep.openFindings.length}건: ${open.join( '; ' )}${rep.openFindings.length > 3 ? ' …' : ''}` : null,
+           ...( rep.problems || [] ).slice( 0, 3 ) ].filter( Boolean ).join( ' | ' ) || null;
+}
+
+/**
+ * V11: every sim of data/style-done.json passes tools/check-style.mjs. A well-formed EMPTY list is 0 of 0 and
+ * passes (nothing is restyled yet, so there is nothing to fail); a missing, unreadable or malformed list fails.
+ */
+async function runV11( o, ctx ) {
+  const t0 = Date.now();
+  const done = loadStyleDone( o.styleDone, ctx.allIds );
+  if ( done.problems.length ) {
+    return makeResult( 'V11', { passed: 0, total: 0, failures: done.problems.map( p => ( { id: 'style-done', reason: p } ) ), ms: Date.now() - t0 } );
+  }
+  const res = await pool( done.ids, Math.min( o.jobs, STYLE_JOBS_MAX ), async id => {
+    if ( !existsSync( ctx.built( id ) ) ) { return { id, ok: false, error: '빌드 결과 없음' }; }
+    const r = await runNode( [ path.join( TOOLS, 'check-style.mjs' ), ctx.built( id ), '--id', id, '--quiet' ], { timeoutMs: 5 * 60 * 1000 } );
+    const rep = lastJson( r.stdout );
+    const ok = r.code === 0 && !!rep && rep.ok === true;
+    return { id, ok, exitCode: r.code, ms: r.ms, views: rep && rep.views ? rep.views.length : null, open: rep && rep.openFindings ? rep.openFindings.length : null,
+             excepted: rep && rep.excepted ? rep.excepted.length : null, error: ok ? null : styleReason( rep ) || firstLine( r.stderr ) || `exit ${r.code}` };
+  } );
+  return makeResult( 'V11', { passed: res.filter( r => r.ok ).length, total: done.ids.length, allowEmpty: done.empty, ms: Date.now() - t0, details: res,
+    failures: res.filter( r => !r.ok ).map( r => ( { id: r.id, error: r.error } ) ),
+    notes: done.empty ?
+      [ '완료 목록(data/style-done.json)이 비어 있어 0/0입니다. 확인할 시뮬레이션이 아직 없다는 뜻이라 통과로 셉니다 (목록 파일이 없거나 형식이 틀리면 실패)' ] :
+      [ `완료 목록 ${done.ids.length}개 / ${ctx.allIds.length}개 (최종 단계에서는 ${ctx.allIds.length}개여야 함)`, `예외로 넘긴 지적 ${res.reduce( ( n, r ) => n + ( r.excepted || 0 ), 0 )}건` ] } );
+}
+
+/** V12: every one of the 68 sims has the same node bounds as its frozen baseline (tools/compare-bounds.mjs). */
+async function runV12( o, ctx ) {
+  const t0 = Date.now();
+  const manifest = path.join( o.baselineDir, 'baseline.json' );
+  if ( !existsSync( manifest ) ) {
+    return makeResult( 'V12', { passed: 0, total: ctx.allIds.length, ms: Date.now() - t0,
+      failures: [ { id: 'baseline', reason: `고정본이 없음 (${o.baselineDir}). 디자인을 바꾸기 전에 node tools/compare-bounds.mjs --freeze 로 만드세요` } ] } );
+  }
+  const res = await pool( ctx.allIds, Math.min( o.jobs, STYLE_JOBS_MAX ), async id => {
+    if ( !existsSync( ctx.built( id ) ) ) { return { id, ok: false, error: '빌드 결과 없음' }; }
+    if ( !existsSync( baselineFile( o.baselineDir, id ) ) ) { return { id, ok: false, error: '고정본에 이 시뮬레이션이 없음' }; }
+    const r = await runNode( [ path.join( TOOLS, 'compare-bounds.mjs' ), id, '--sims-dir', o.simsDir, '--baseline-dir', o.baselineDir ], { timeoutMs: 6 * 60 * 1000 } );
+    const rep = lastJson( r.stdout );
+    const ok = r.code === 0 && !!rep && rep.ok === true;
+    const bad = rep && rep.screens ? rep.screens.filter( s => !s.ok ).map( s => `${s.name || s.index}: 다른 노드 ${s.differing}개` ).join( ', ' ) : '';
+    return { id, ok, exitCode: r.code, ms: r.ms, screens: rep && rep.screens ? rep.screens.length : null, nodesCompared: rep ? rep.nodesCompared : null, differing: rep ? rep.differing : null,
+             error: ok ? null : ( rep && rep.fatal ) || [ bad, ...( rep && rep.problems || [] ) ].filter( Boolean ).join( ' | ' ) || firstLine( r.stderr ) || `exit ${r.code}` };
+  } );
+  return makeResult( 'V12', { passed: res.filter( r => r.ok ).length, total: ctx.allIds.length, ms: Date.now() - t0, details: res,
+    failures: res.filter( r => !r.ok ).map( r => ( { id: r.id, error: r.error } ) ),
+    notes: [ `고정본 ${JSON.parse( readFileSync( manifest, 'utf8' ) ).frozenAt}`, `화면 ${res.reduce( ( n, r ) => n + ( r.screens || 0 ), 0 )}개, 노드 ${res.reduce( ( n, r ) => n + ( r.nodesCompared || 0 ), 0 )}개 비교 (위치·크기 허용 오차는 토큰 sim.check.boundsTolerance)` ] } );
+}
+
 // ---------------------------------------------------------------------------------------------------- exclusion (spec 3.6)
 
 /**
@@ -303,8 +383,10 @@ function catalogueCounts( o, ctx ) {
 
 async function checkV10b( ctx ) {
   const t0 = Date.now();
-  const { ALL_RULES } = await import( '../theme/patches/index.mjs' );
+  const { ALL_RULES, simRulesFor } = await import( '../theme/patches/index.mjs' );
   const { loadTermFixes, termFixRules } = await import( '../theme/patches/terms.mjs' );
+  const { loadTokens } = await import( '../theme/index.mjs' );
+  const tokens = loadTokens();
   const fixes = await loadTermFixes();
   const rules = [ ...ALL_RULES ];
   const failures = [];
@@ -313,6 +395,9 @@ async function checkV10b( ctx ) {
     const manifest = ctx.newIds.includes( id ) ? rec : await readManifest( id );
     if ( !manifest ) { failures.push( { id, reason: '매니페스트 없음 (npm run fetch-sources)' } ); continue; }
     rules.push( ...await termFixRules( id, manifest, fixes ) );
+    // The sim's own color-literal and picture rules (theme/sim-styles, theme/art), built the way a build builds them.
+    try { rules.push( ...( await simRulesFor( id, manifest.deps, tokens, { hashOnly: true } ) ).rules ); }
+    catch ( e ) { failures.push( { id, reason: `시뮬레이션별 규칙을 만들 수 없음: ${String( e.message ).split( '\n' )[ 0 ].slice( 0, 200 )}` } ); }
   }
   const records = ctx.allIds.map( id => ctx.records.get( id ) || { id, success: false, patches: [] } );
   const r = checkPatchAllowlist( { rules, records } );
@@ -441,6 +526,10 @@ export async function main( argv ) {
       failures: v2.filter( r => !r.ok ).map( r => ( { id: r.id, width: r.width || 1280, error: r.error } ) ),
       notes: [ `사이트 파일(dist/sims) ${ctx.allIds.length}개 × 데스크톱 1280·휴대폰 390` ] } ) );
   }
+
+  // Phase 2b: the style checks. V11 reads data/style-done.json, V12 compares all of them with the frozen baseline.
+  if ( sel.has( 'V11' ) ) { results.push( await runV11( o, ctx ) ); }
+  if ( sel.has( 'V12' ) ) { results.push( await runV12( o, ctx ) ); }
 
   // Phase 3: the npm test run (V4, V5, V6, V10a) with the site directory set, after the browser pool.
   const testIds = [ 'V4', 'V5', 'V6', 'V10a', 'TEST' ].filter( id => sel.has( id ) );

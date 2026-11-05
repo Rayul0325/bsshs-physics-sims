@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="209" height="36" viewBox="0 0 209 36">
+ <!-- thin pencil: same drawing, flatter -->
+ <rect x="42" y="4" width="125" height="27" fill="{{sim.physics.light}}"/>
+ <path d="M42 4 L1 18 L42 32 Z" fill="{{sim.physics.insulator}}"/>
+ <path d="M167 4 L208 18 L167 32 Z" fill="{{sim.physics.insulator}}"/>
+ <path d="M1 18 L19 13 L19 23 Z" fill="{{color.inverseSurface}}"/>
+ <path d="M208 18 L190 13 L190 23 Z" fill="{{color.inverseSurface}}"/>
+</svg>

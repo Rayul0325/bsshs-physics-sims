@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="195" height="315" viewBox="0 0 195 315">
+ <!-- high-resistance bulb outline, filament, copper base with zigzag -->
+ <path d="M46 197 C20 170 1 140 1 100 C1 44 44 1 97 1 C150 1 193 44 193 100 C193 140 174 170 148 197" fill="none" stroke="{{color.borderStrong}}" stroke-width="3" stroke-linecap="round"/>
+ <path d="M98 198 V158 L56 112 Q50 100 62 94 H138 Q146 94 146 104 V198" fill="none" stroke="{{sim.physics.copper}}" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/>
+ <rect x="41" y="200" width="111" height="62" fill="{{sim.physics.copper}}"/>
+ <path d="M62 231 H82 L92 214 L104 248 L116 214 L128 248 L136 231 H132" fill="none" stroke="{{color.inverseSurface}}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+ <path d="M41 262 H152 L142 298 H51 Z" fill="{{color.inverseSurface}}"/>
+ <path d="M51 298 H142 Q130 314 97 314 Q64 314 51 298 Z" fill="{{sim.physics.conductor}}"/>
+</svg>

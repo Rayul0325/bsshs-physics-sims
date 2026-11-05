@@ -5,12 +5,14 @@
  * The single screen: binds the model to its view. With one screen there is no home screen.
  */
 
+import Property from '../../axon/js/Property.js';
 import Screen from '../../joist/js/Screen.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import bsshsPhotoelectric from './bsshsPhotoelectric.js';
 import BsshsPhotoelectricStrings from './BsshsPhotoelectricStrings.js';
 import BsshsPhotoelectricModel from './model/BsshsPhotoelectricModel.js';
 import BsshsPhotoelectricScreenView from './view/BsshsPhotoelectricScreenView.js';
+import SimTokens from './view/SimTokens.js';
 
 export default class BsshsPhotoelectricScreen extends Screen<BsshsPhotoelectricModel, BsshsPhotoelectricScreenView> {
 
@@ -20,6 +22,7 @@ export default class BsshsPhotoelectricScreen extends Screen<BsshsPhotoelectricM
       model => new BsshsPhotoelectricScreenView( model, tandem.createTandem( 'view' ) ),
       {
         name: BsshsPhotoelectricStrings.screen.mainStringProperty,
+        backgroundColorProperty: new Property<string>( SimTokens.canvas ),
         tandem: tandem
       }
     );

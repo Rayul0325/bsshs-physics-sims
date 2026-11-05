@@ -12,6 +12,7 @@
 | `units.json` | 목록 사이트의 단원 `{ id, name, order, sims }`. 마지막이 「기타」 | 사람 |
 | `titles.json` | PhET 63개의 고친 한국어 제목 | 사람(용어 교정과 함께) |
 | `term-fixes.json` | 용어 교정 `{ global: [...], perSim: { <id>: [...] } }`, 항목 `{ from, to, reason }` | 사람 |
+| `style-done.json` | 시뮬레이션 안쪽 디자인을 끝낸 id 배열(처음엔 `[]`). V11이 이 목록의 시뮬레이션만 검사한다. 68개를 넘지 않고 같은 id를 두 번 쓰지 않는다 | 사람 |
 | `verification-status.json` | 시험 범위별 확인 상태 `{ status, date, memo, approvedHash? }` | `npm run approve`·`set-status`만 |
 | `build-matrix.json` | 원본(학교판 아님) 빌드 기록과 `newSimBase` | 빌드 도구만 |
 | `build-matrix.bsshs-theme.json` | PhET 63개 학교판 빌드 기록 | 빌드 도구만 |

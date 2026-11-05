@@ -33,10 +33,11 @@ import { variantInputs, lockSlot, arrangeSlot, ensureGruntCli, npmInstall, outpu
 import { injectIntoHtml } from '../theme/inject.mjs';
 import { applyPatchRules, describeResult } from '../theme/patches/engine.mjs';
 import { termFixRules } from '../theme/patches/terms.mjs';
+import { generatedSimFiles } from '../theme/sim-tokens-module.mjs';
 import { physicsHash } from '../drawer/hash.mjs';
 
 /** New sims always build as the deployable school edition. */
-export const NEW_SIM_VARIANT = Object.freeze( { brand: 'bsshs', theme: true } );
+export const NEW_SIM_VARIANT = Object.freeze( { brand: 'bsshs', theme: true, newSim: true } );
 /** Slots tried when --slot is not given: from the top, so the 63-sim default slot 0 stays free. */
 const SLOT_ORDER = [ 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 ];
 /** Dot-dir inside a slot where a staged sim's node_modules waits between builds (arrangeSlot skips dot-dirs). */
@@ -154,7 +155,8 @@ export async function buildNewSim( id, opts = {} ) {
       if ( !nb.libs[ lib ] ) { throw new Error( `phet.phetLibs lists ${lib}, which is not in the newSimBase library set` ); }
     }
     const inputs = await variantInputs( NEW_SIM_VARIANT );
-    row.themeHash = inputs.themeHash;
+    const simInputs = await inputs.forSim( id, nb.libs );
+    row.themeHash = simInputs.themeHash;
 
     lock = await acquireSlot( opts.slot ?? null );
     row.slot = lock.slot;
@@ -170,7 +172,7 @@ export async function buildNewSim( id, opts = {} ) {
       await checkoutInSlot( dir === 'babel' ? 'babel' : remoteRepoFor( dir ), path.join( slotRoot, dir ), dir === 'babel' ? nb.babelSha : nb.libs[ dir ] );
     } ).then( rs => { const e = rs.find( r => r instanceof Error ); if ( e ) { throw e; } } );
 
-    const staged = await stageSim( sim.srcDir, simDir, { keepDir } );
+    const staged = await stageSim( sim.srcDir, simDir, { keepDir, generated: generatedSimFiles( inputs.tokens ) } );
     row.stagedSha = staged.sha;
     const mismatches = await slotShaMismatches( slotRoot, { ...nb.libs, babel: nb.babelSha } );
     row.slotShasMatchBase = mismatches.length === 0;
@@ -209,8 +211,8 @@ export async function buildNewSim( id, opts = {} ) {
     const touched = [];
     let r = null;
     try {
-      const rules = [ ...inputs.rules, ...await termFixRules( sim.repo, { deps: nb.libs, babelSha: nb.babelSha }, inputs.termFixes ) ];
-      const results = await applyPatchRules( slotRoot, rules, inputs.ctx, touched );
+      const rules = [ ...simInputs.rules, ...await termFixRules( sim.repo, { deps: nb.libs, babelSha: nb.babelSha }, inputs.termFixes ) ];
+      const results = await applyPatchRules( slotRoot, rules, simInputs.ctx, touched );
       row.patches = results.map( describeResult );
       log.write( `\n# ${variant.name} patches:\n#   ${row.patches.join( '\n#   ' )}\n` );
       say( `[slot ${lock.slot}] ${id}: ${results.filter( x => x.status === 'applied' ).length}/${results.length} ${variant.name} patches applied` );
@@ -340,7 +342,7 @@ export async function buildNewSims( ids, opts = {} ) {
   const skipped = [];
   for ( const id of ids ) {
     const sim = readNewSim( id );
-    const now = { sourceHash: sourceHash( sim.srcDir ), libsHash: base.libsHash, themeHash: inputs.themeHash,
+    const now = { sourceHash: sourceHash( sim.srcDir ), libsHash: base.libsHash, themeHash: ( await inputs.forSim( id, base.libs, { hashOnly: true } ) ).themeHash,
                   outputExists: existsSync( path.join( outRoot, outputRelPath( id ) ) ) };
     if ( !opts.force && isUpToDate( prev.get( id ), now ) ) { skipped.push( id ); console.log( `${id}: already built (${path.join( outRoot, outputRelPath( id ) )}); use --force to rebuild` ); }
     else { todo.push( id ); }

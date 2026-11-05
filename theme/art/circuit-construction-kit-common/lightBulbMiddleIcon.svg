@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="80" viewBox="0 0 195 315" preserveAspectRatio="none">
+ <!-- small bulb icon (the middle bulb scaled to 50x80) -->
+ <path d="M46 197 C20 170 1 140 1 100 C1 44 44 1 97 1 C150 1 193 44 193 100 C193 140 174 170 148 197" fill="none" stroke="{{color.borderStrong}}" stroke-width="3" stroke-linecap="round"/>
+ <path d="M98 198 V158 L56 112 Q50 100 62 94 H138 Q146 94 146 104 V198" fill="none" stroke="{{sim.physics.copper}}" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/>
+ <rect x="41" y="200" width="111" height="62" fill="{{sim.physics.conductor}}"/>
+ <path d="M41 262 H152 L142 298 H51 Z" fill="{{color.inverseSurface}}"/>
+ <path d="M51 298 H142 Q130 314 97 314 Q64 314 51 298 Z" fill="{{sim.physics.conductor}}"/>
+</svg>

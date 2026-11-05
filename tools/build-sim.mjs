@@ -29,7 +29,7 @@ import { isMain } from './lib/cli.mjs';
 import { buildVariant, BRANDS } from './lib/variant.mjs';
 import { loadTokens } from '../theme/index.mjs';
 import { injectIntoHtml } from '../theme/inject.mjs';
-import { rulesFor, patchContext, variantHash } from '../theme/patches/index.mjs';
+import { rulesFor, patchContext, variantHash, simRulesFor } from '../theme/patches/index.mjs';
 import { applyPatchRules, describeResult } from '../theme/patches/engine.mjs';
 import { renderWordmark } from '../brand/bsshs/wordmark.mjs';
 import { loadTermFixes, termFixRules, termFixesHash } from '../theme/patches/terms.mjs';
@@ -140,26 +140,40 @@ export async function npmInstall( dir, { major, env, log } ) {
 }
 
 /**
- * Theme/brand inputs of a variant build (null for the baseline).
- * @param {{ brand?: string, theme?: boolean }} opts
+ * Theme/brand inputs of a variant build (null for the baseline). The result is shared by every sim of a run;
+ * `forSim` adds what depends on the sim: its own rules (color literals, pictures), the rule context and the
+ * per-sim theme hash used by the resume checks.
+ * @param {{ brand?: string, theme?: boolean, newSim?: boolean }} opts
  * @returns {Promise<null|{ tokens: any, rules: import('../theme/patches/engine.mjs').PatchRule[], ctx: object,
  *                         themeHash: string, wordmarkSha256: string[]|null, wordmarkPng: string[]|null,
- *                         termFixes: import('../theme/patches/terms.mjs').TermFixes|null }>}
+ *                         termFixes: import('../theme/patches/terms.mjs').TermFixes|null,
+ *                         forSim: (simId: string, deps: Record<string,string>, forSimOpts?: { hashOnly?: boolean }) =>
+ *                           Promise<{ rules: import('../theme/patches/engine.mjs').PatchRule[], ctx: object, themeHash: string }> }>}
  */
 export async function variantInputs( opts ) {
-  const v = buildVariant( opts );
+  const v = { ...buildVariant( opts ), ...( opts.newSim ? { newSim: true } : {} ) };
   if ( v.name === 'baseline' ) { return null; }
   const tokens = loadTokens();
   const wordmark = v.brand === 'bsshs' ? await renderWordmark( tokens ) : null;
   const termFixes = v.brand === 'bsshs' ? await loadTermFixes() : null; // school edition: Korean term corrections
+  const suffix = termFixes ? `+${termFixesHash( termFixes ).slice( 0, 16 )}` : '';
   return {
     tokens,
     rules: rulesFor( v ),
     ctx: patchContext( tokens, v, wordmark ),
     termFixes,
-    themeHash: termFixes ? `${variantHash( tokens, v )}+${termFixesHash( termFixes ).slice( 0, 16 )}` : variantHash( tokens, v ),
+    // Global part only (no sim): kept for callers that need one value; resume decisions use `forSim`.
+    themeHash: `${variantHash( tokens, v )}${suffix}`,
     wordmarkSha256: wordmark ? wordmark.sha256 : null,
-    wordmarkPng: wordmark ? [ wordmark.onWhite.toString( 'base64' ), wordmark.onBlack.toString( 'base64' ) ] : null
+    wordmarkPng: wordmark ? [ wordmark.onWhite.toString( 'base64' ), wordmark.onBlack.toString( 'base64' ) ] : null,
+    async forSim( simId, deps, forSimOpts = {} ) {
+      const sr = v.theme ? await simRulesFor( simId, deps, tokens, forSimOpts ) : { rules: [], hashInput: null };
+      return {
+        rules: rulesFor( v, simId, sr.rules ),
+        ctx: patchContext( tokens, v, wordmark, simId ),
+        themeHash: `${variantHash( tokens, v, simId, sr.hashInput )}${suffix}`
+      };
+    }
   };
 }
 
@@ -184,6 +198,7 @@ export async function buildSim( sim, opts = {} ) {
 
   let manifest = null;
   let inputs = null;
+  let simInputs = null; // inputs.forSim(...): this sim's rules, context and theme hash
   /** @type {string[]} */
   let patchSummary = [];
   const base = {
@@ -192,7 +207,7 @@ export async function buildSim( sim, opts = {} ) {
   // Variant records say what was injected; baseline records keep exactly the original fields.
   const variantFields = () => ( isVariant ? {
     variant: variant.name, brandId: variant.brand, theme: variant.theme,
-    themeHash: inputs ? inputs.themeHash : null, patches: patchSummary
+    themeHash: simInputs ? simInputs.themeHash : null, patches: patchSummary
   } : {} );
   /** @param {Partial<import('./lib/matrix.mjs').MatrixRecord>} f */
   const finish = f => {
@@ -216,6 +231,7 @@ export async function buildSim( sim, opts = {} ) {
   try {
     manifest = await resolveSim( sim );
     inputs = await variantInputs( opts );
+    simInputs = inputs ? await inputs.forSim( sim.id, manifest.deps ) : null;
     release = await lockSlot( slotRoot );
     const gen = chipperGeneration( manifest.chipperVersion );
     const dirs = [ ...Object.keys( manifest.deps ), 'babel' ];
@@ -260,10 +276,10 @@ export async function buildSim( sim, opts = {} ) {
       /** @type {{dir: string, file: string}[]} files edited in the throwaway checkout, reverted below */
       const touched = [];
       try {
-        const rules = inputs ? [ ...inputs.rules, ...( inputs.termFixes ? await termFixRules( sim.id, manifest, inputs.termFixes ) : [] ) ] : [];
+        const rules = inputs ? [ ...simInputs.rules, ...( inputs.termFixes ? await termFixRules( sim.id, manifest, inputs.termFixes ) : [] ) ] : [];
         if ( rules.length ) {
-          // Variant build: allow-listed theme/brand/telemetry/terms patches (theme/patches), reverted below.
-          const results = await applyPatchRules( slotRoot, rules, inputs.ctx, touched );
+          // Variant build: allow-listed theme/brand/telemetry/terms/sim-color/art patches (theme/patches), reverted below.
+          const results = await applyPatchRules( slotRoot, rules, simInputs.ctx, touched );
           patchSummary = results.map( describeResult );
           log.write( `\n# ${variant.name} patches:\n#   ${patchSummary.join( '\n#   ' )}\n` );
           say( `[slot ${slot}] ${sim.id}: ${results.filter( x => x.status === 'applied' ).length}/${results.length} ${variant.name} patches applied` );
@@ -416,8 +432,9 @@ export async function main( argv ) {
     const prev = m.sims.find( r => r.id === sim.id );
     const manifest = await resolveSim( sim );
     const inputs = await variantInputs( opts );
+    const expectedThemeHash = inputs ? ( await inputs.forSim( sim.id, manifest.deps, { hashOnly: true } ) ).themeHash : undefined;
     if ( shouldSkip( prev, { expectedDepsHash: manifest.depsHash, outputExists: existsSync( path.join( variant.outRoot, outputRelPath( sim.id ) ) ),
-                             ...( inputs ? { expectedThemeHash: inputs.themeHash } : {} ) } ) ) {
+                             ...( inputs ? { expectedThemeHash } : {} ) } ) ) {
       console.log( `${sim.id}: already built (${prev.outputPath}); use --force to rebuild` );
       return 0;
     }

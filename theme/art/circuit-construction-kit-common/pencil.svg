@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="209" height="49" viewBox="0 0 209 49">
+ <!-- pencil: flat yellow body, wood cones, dark tips -->
+ <rect x="42" y="6" width="125" height="37" fill="{{sim.physics.light}}"/>
+ <path d="M42 6 L1 24 L42 43 Z" fill="{{sim.physics.insulator}}"/>
+ <path d="M167 6 L208 24 L167 43 Z" fill="{{sim.physics.insulator}}"/>
+ <path d="M1 24 L19 18 L19 31 Z" fill="{{color.inverseSurface}}"/>
+ <path d="M208 24 L190 18 L190 31 Z" fill="{{color.inverseSurface}}"/>
+</svg>

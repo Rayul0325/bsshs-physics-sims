@@ -1,0 +1,229 @@
+{
+  "colors": [
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/FaradaysLawScreen.js",
+      "find": ": new Property\\( ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.canvas"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/BulbNode.js",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "color.borderStrong"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/BulbNode.js",
+      "find": "\\.addColorStop\\( 0, ('[^']*')",
+      "occurrence": 1,
+      "to": "color.surface"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/BulbNode.js",
+      "find": "\\.addColorStop\\( 1, ('[^']*')",
+      "occurrence": 1,
+      "to": "color.surfaceAlt"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/BulbNode.js",
+      "find": ", \\{ stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "color.borderStrong"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/BulbNode.js",
+      "find": "\\( filamentShape, \\{ stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "color.textMuted"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/BulbNode.js",
+      "find": "fill: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.physics.light"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/BulbNode.js",
+      "find": "fill: ('[^']*')",
+      "occurrence": 2,
+      "to": "sim.physics.light"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/BulbNode.js",
+      "find": "fill: ('[^']*')",
+      "occurrence": 3,
+      "to": "sim.physics.light"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/CoilsWiresNode.js",
+      "find": "const WIRE_COLOR = ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.physics.copper"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/ControlPanelNode.js",
+      "find": "baseColor: ('[^']*')",
+      "occurrence": 1,
+      "to": "color.accentSoft"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/FlipMagnetButton.js",
+      "find": "baseColor: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.control"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/FlipMagnetButton.js",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/FlipMagnetButton.js",
+      "find": "fill: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/JumpMagnitudeArrowNode.js",
+      "find": "fill: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.surface"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/JumpMagnitudeArrowNode.js",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/MagnetFieldLines.js",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "color.accentBright"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/MagnetMovementArrowsNode.js",
+      "find": "const ARROW_FILL = (new Color\\([^()]*\\))",
+      "occurrence": 1,
+      "to": "color.accentSoft"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/MagnetMovementArrowsNode.js",
+      "find": "const ARROW_STROKE = (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "color.accent"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/MagnetNode.js",
+      "find": "fontColor: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.surface"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/MagnetNode.js",
+      "find": "\\.height, northPoleLabel, (new Color\\([^()]*\\))",
+      "occurrence": 1,
+      "to": "sim.physics.magnetN"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/MagnetNode.js",
+      "find": "\\.height, southPoleLabel, (new Color\\([^()]*\\))",
+      "occurrence": 1,
+      "to": "sim.physics.magnetS"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/VoltmeterGauge.js",
+      "find": "const needleColor = ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.controlActive"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/VoltmeterGauge.js",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/VoltmeterNode.js",
+      "find": "const TERMINAL_COLOR = ('[^']*')",
+      "occurrence": 1,
+      "to": "color.borderStrong"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/VoltmeterNode.js",
+      "find": "const TERMINAL_STROKE = ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/VoltmeterNode.js",
+      "find": "baseColor: (new Color\\([^()]*\\))",
+      "occurrence": 1,
+      "to": "color.inverseSurface"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/VoltmeterNode.js",
+      "find": "fill: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.surface"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/VoltmeterNode.js",
+      "find": "fill: ('[^']*')",
+      "occurrence": 2,
+      "to": "sim.textOnDark"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/VoltmeterWiresNode.js",
+      "find": "const wireColor = ('[^']*')",
+      "occurrence": 1,
+      "to": "color.textMuted"
+    },
+    {
+      "repo": "faradays-law",
+      "file": "js/faradays-law/view/VoltmeterWiresNode.js",
+      "find": "const baseColor = (new Color\\([^()]*\\))",
+      "occurrence": 1,
+      "to": "color.borderStrong"
+    }
+  ],
+  "exceptions": [
+    {
+      "kind": "gradient",
+      "node": "Path",
+      "reason": "전구 유리의 방사형 그라데이션. 그림 층의 색 규칙은 색 글자만 바꿀 수 있어 구조(그라데이션)는 못 바꾼다. 두 색 끝을 카드색 두 가지로 바꿔 거의 평면으로 보이게 했다.",
+      "approvedBy": ""
+    }
+  ]
+}

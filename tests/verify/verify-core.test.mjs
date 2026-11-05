@@ -11,7 +11,7 @@ import { ALL_RULES } from '../../theme/patches/index.mjs';
 test( '--only selects ids in report order; V10 expands; unknown ids are refused', () => {
   assert.deepEqual( parseOnly( 'v9,V2' ), [ 'V2', 'V9' ] );
   assert.deepEqual( parseOnly( 'V10' ), [ 'V10a', 'V10b', 'V10c' ] );
-  assert.equal( parseOnly( null ).length, 11 );
+  assert.equal( parseOnly( null ).length, 13, 'V1-V6, V9, V10a-c, V11, V12 and the npm test run' );
   assert.throws( () => parseOnly( 'V7' ), /unknown check V7/ );
 } );
 
@@ -68,7 +68,8 @@ test( 'parsePatchLine lists only files the engine actually wrote', () => {
   assert.equal( isAllowed( 'terms', 'babel', 'joist/joist-strings_ko.json' ), true );
   assert.equal( isAllowed( 'terms', 'babel', 'joist/joist-strings_en.json' ), false );
   assert.equal( isAllowed( 'theme', 'sun', 'js/Panel.js' ), true );
-  assert.equal( isAllowed( 'theme', 'sun', 'js/buttons/RoundButton.js' ), false );
+  assert.equal( isAllowed( 'theme', 'sun', 'js/buttons/RoundButton.js' ), true, 'the flat round-button rule' );
+  assert.equal( isAllowed( 'theme', 'sun', 'js/buttons/BooleanRoundToggleButton.js' ), false );
 } );
 
 test( 'name scan: finds UTF-8 (NFC and NFD), \\u escapes and HTML entities; the result never contains a name', () => {

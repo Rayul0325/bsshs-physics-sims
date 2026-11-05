@@ -106,15 +106,17 @@ export async function buildPinnedSims( argv ) {
   const prev = new Map( matrix.sims.map( r => [ r.id, r ] ) );
   const todo = [];
   let skipped = 0;
-  sims.forEach( ( sim, i ) => {
+  for ( const [ i, sim ] of sims.entries() ) {
     const m = resolved[ i ];
     const outputExists = existsSync( path.join( variant.outRoot, outputRelPath( sim.id ) ) );
+    // The theme hash is per sim (its own color file and pictures), so one edited style re-builds one sim.
+    const expectedThemeHash = inputs && !( m instanceof Error ) ? ( await inputs.forSim( sim.id, m.deps, { hashOnly: true } ) ).themeHash : undefined;
     if ( !( m instanceof Error ) && shouldSkip( prev.get( sim.id ), { expectedDepsHash: m.depsHash, outputExists, force: opts.force,
-                                                                    ...( inputs ? { expectedThemeHash: inputs.themeHash } : {} ) } ) ) {
+                                                                    ...( inputs ? { expectedThemeHash } : {} ) } ) ) {
       skipped++;
     }
     else { todo.push( sim ); }
-  } );
+  }
   console.log( `building ${todo.length} sims in ${jobs} slots (${skipped} already built, skipped)${variant.name === 'baseline' ? '' : ` [variant ${variant.name} -> ${variant.outRoot}]`}` );
 
   await runInSlots( todo, jobs, async ( sim, slot ) => {

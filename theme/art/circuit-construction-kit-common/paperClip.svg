@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="193" height="58" viewBox="0 0 193 58">
+ <!-- paper clip: one flat wire loop -->
+ <path d="M168 32 H52 A16 16 0 0 1 52 8 H168 A22 22 0 0 1 168 50 H30 A24 24 0 0 1 30 4 H118" fill="none" stroke="{{sim.physics.conductor}}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

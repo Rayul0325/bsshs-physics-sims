@@ -21,7 +21,8 @@ import path from 'node:path';
 /**
  * @typedef {object} PatchRule
  * @property {string} id
- * @property {'theme'|'brand'|'telemetry'|'terms'} kind - the only allowed patch purposes (invariant 9; terms = Korean string fixes)
+ * @property {'theme'|'brand'|'telemetry'|'terms'|'sim-color'|'art'} kind - the only allowed patch purposes (invariant 9; terms = Korean
+ *   string fixes; sim-color = one sim's color literals -> tokens, art = one sim's pictures, both never in model paths)
  * @property {string} repo - sibling directory in the slot
  * @property {string[]} files - candidate repo-relative files
  * @property {'first'|'all'} [match] - patch the first existing candidate (default) or all existing ones

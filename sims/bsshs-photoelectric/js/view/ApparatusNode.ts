@@ -21,7 +21,6 @@ import Node from '../../../scenery/js/nodes/Node.js';
 import Path from '../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../scenery/js/nodes/Text.js';
-import Color from '../../../scenery/js/util/Color.js';
 import BooleanRectangularToggleButton from '../../../sun/js/buttons/BooleanRectangularToggleButton.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import bsshsPhotoelectric from '../bsshsPhotoelectric.js';
@@ -114,17 +113,17 @@ export default class ApparatusNode extends Node {
       fill: C.LAMP_FILL
     } );
     const lampWindow = new Rectangle( G.LAMP_LENGTH / 2 - 6, -G.LAMP_APERTURE, 6, 2 * G.LAMP_APERTURE, {
-      fill: Color.WHITE
+      fill: C.CARD_FILL
     } );
     Multilink.multilink( [ model.lightOnProperty, model.wavelengthProperty ], ( on, wavelength ) => {
-      lampWindow.fill = on ? C.lightColor( wavelength ) : Color.LIGHT_GRAY;
+      lampWindow.fill = on ? C.lightColor( wavelength ) : C.LAMP_WINDOW_OFF;
     } );
     const lamp = new Node( {
       children: [ lampBody, lampWindow ],
       rotation: G.LAMP_ANGLE,
       translation: G.LAMP_CENTER
     } );
-    const lampLabel = new Text( BsshsPhotoelectricStrings.lightSourceStringProperty, { font: C.LABEL_FONT, fill: Color.WHITE, maxWidth: 60 } );
+    const lampLabel = new Text( BsshsPhotoelectricStrings.lightSourceStringProperty, { font: C.LABEL_FONT, fill: C.LAMP_TEXT, maxWidth: 60 } );
     lampLabel.boundsProperty.link( () => { lampLabel.center = G.LAMP_CENTER; } );
 
     const toggleFont = C.LABEL_FONT;
@@ -183,7 +182,7 @@ export default class ApparatusNode extends Node {
   private static createInstrument( bounds: Bounds2, label: TReadOnlyProperty<string>, display: NumberDisplay ): Node {
     const box = new Rectangle( bounds.minX, bounds.minY, bounds.width, bounds.height, {
       cornerRadius: 6,
-      fill: Color.WHITE,
+      fill: C.CARD_FILL,
       stroke: C.GLASS_STROKE,
       lineWidth: 1.5
     } );

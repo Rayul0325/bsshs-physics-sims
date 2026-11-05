@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="194" height="315" viewBox="0 0 194 315">
+ <!-- bulb glass: faint tinted globe and a pale base silhouette behind the base -->
+ <path d="M46 197 C20 170 1 140 1 100 C1 44 44 1 97 1 C150 1 193 44 193 100 C193 140 174 170 148 197 Z" fill="{{sim.physics.glass}}" opacity="0.18"/>
+ <path d="M41 198 H152 V262 L143 298 Q130 314 97 314 Q64 314 51 298 L41 262 Z" fill="{{color.surfaceAlt}}"/>
+</svg>

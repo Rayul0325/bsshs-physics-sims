@@ -66,7 +66,7 @@ npm run build-sim -- <id>                              # 원본(학교판 아님
 
 ```sh
 npm test                           # 단위·브라우저 테스트 (빌드·사이트가 없으면 일부 건너뜀)
-npm run verify                     # V1~V6, V9, V10a~c, npm test 전체. 종료 코드 0이어야 「완료」
+npm run verify                     # V1~V6, V9, V10a~c, V11, V12, npm test 전체. 종료 코드 0이어야 「완료」
 npm run verify -- --only V2,V9     # 일부만 (완료 판단에는 쓰지 않음)
 ```
 
@@ -80,6 +80,11 @@ npm run verify -- --only V2,V9     # 일부만 (완료 판단에는 쓰지 않�
 node tools/check-sim.mjs dist/sims/<id>.html [--width 390]
 node tools/run-cases.mjs build/verify/injected/<id>.html <id>
 node tools/compare-layout.mjs build/verify/injected/<id>.html build/bsshs-theme/<id>/<id>_ko.html --width 1280 --exclude-button --all-screens --pause-clock --seed-random
+node tools/compare-bounds.mjs --freeze                          # 안쪽 디자인을 바꾸기 전에 한 번: 68개를 고정본으로 복사 (V12 기준)
+node tools/compare-bounds.mjs <id>                              # 고정본과 지금 빌드의 요소 위치·크기 비교 (V12)
+node tools/check-style.mjs build/bsshs-theme/<id>/<id>_ko.html  # 안쪽이 토큰 팔레트만 쓰는지 (V11)
+node theme/patches/color-inventory.mjs <id>                     # 고쳐야 할 색 글자 목록
+node tools/style-review.mjs --sims <id>,<id>                    # 전후 대조표 build/style-review/index.html
 ```
 
 ## 5. 선생님 확인 기록

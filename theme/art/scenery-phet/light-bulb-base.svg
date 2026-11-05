@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="89" height="71" viewBox="0 0 89 71">
+ <!-- screw base of a light bulb seen from the side: flat metal collar, dark cone, small contact tip -->
+ <rect x="0" y="0" width="48" height="71" rx="5" fill="{{sim.physics.conductor}}"/>
+ <path d="M46 4 L81 16 L81 55 L46 67 Z" fill="{{color.inverseSurface}}"/>
+ <rect x="79" y="23" width="10" height="25" rx="5" fill="{{sim.physics.conductor}}"/>
+</svg>

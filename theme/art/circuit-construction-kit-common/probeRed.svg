@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="67" height="507" viewBox="0 0 67 507">
+ <!-- red probe: thin tip, red flat handle -->
+ <rect x="30.5" y="0" width="3" height="60" fill="{{sim.physics.conductor}}"/>
+ <path d="M28 40 L22 72 H43 L38 40 Z" fill="{{sim.physics.conductor}}"/>
+ <path d="M22 70 H43 L52 118 H13 Z" fill="{{sim.physics.positive}}"/>
+ <path d="M13 116 H52 L54 480 Q54 505 44 505 H22 Q12 505 11 480 Z" fill="{{sim.physics.positive}}"/>
+</svg>

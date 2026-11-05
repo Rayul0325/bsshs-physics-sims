@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="74" viewBox="0 0 200 74">
+ <!-- high-resistance resistor: copper capsule with a zigzag symbol -->
+ <rect x="2" y="1" width="196" height="72" rx="30" fill="{{sim.physics.copper}}"/>
+ <path d="M52 37 H70 L80 20 L92 54 L104 20 L116 54 L126 37 H148" fill="none" stroke="{{color.inverseSurface}}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+</svg>

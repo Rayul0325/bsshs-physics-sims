@@ -169,12 +169,18 @@ const keptModules = ( keepDir, dest ) => path.join( keepDir, path.basename( dest
  * node_modules (ignored) is kept. Refuses an existing directory it did not create.
  * @param {string} srcDir
  * @param {string} destDir
- * @param {{ keepDir: string }} opts - where node_modules is parked between builds
+ * @param {{ keepDir: string, generated?: Record<string, string> }} opts - keepDir: where node_modules is parked between
+ *   builds; generated: extra files (path relative to the sim folder -> text) written into the staged copy and committed
+ *   with it, e.g. the token module (theme/sim-tokens-module.mjs). They are never written under sims/.
  * @returns {Promise<{ sha: string, files: string[] }>}
  */
-export async function stageSim( srcDir, destDir, { keepDir } ) {
+export async function stageSim( srcDir, destDir, { keepDir, generated = {} } ) {
   if ( existsSync( destDir ) && !isStaged( destDir ) ) {
     throw new Error( `${destDir} exists and is not a staged new sim (no .git/${STAGE_MARKER}); refusing to replace it` );
+  }
+  const files = listSourceFiles( srcDir );
+  for ( const f of Object.keys( generated ) ) {
+    if ( files.includes( f ) ) { throw new Error( `generated file ${f} would overwrite a source file of ${srcDir}` ); }
   }
   // Keep node_modules from this dir (previous stage) or from the parking spot (previous unstage).
   const parked = keptModules( keepDir, destDir );
@@ -185,10 +191,14 @@ export async function stageSim( srcDir, destDir, { keepDir } ) {
   }
   await rm( destDir, { recursive: true, force: true } );
   await mkdir( destDir, { recursive: true } );
-  const files = listSourceFiles( srcDir );
   for ( const f of files ) {
     await mkdir( path.dirname( path.join( destDir, f ) ), { recursive: true } );
     await copyFile( path.join( srcDir, f ), path.join( destDir, f ) );
+  }
+  for ( const [ f, text ] of Object.entries( generated ) ) {
+    await mkdir( path.dirname( path.join( destDir, f ) ), { recursive: true } );
+    await writeFile( path.join( destDir, f ), text );
+    files.push( f );
   }
   await stageGit( destDir, [ 'init', '--quiet', '--template=', '--initial-branch=main' ] );
   await writeFile( path.join( destDir, '.git', STAGE_MARKER ), `staged from ${srcDir}\n` );

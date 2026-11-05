@@ -1,0 +1,828 @@
+{
+  "colors": [
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/CCKCConstants.ts",
+      "find": "CHART_SERIES_COLOR = ('[^']*')",
+      "occurrence": 1,
+      "to": "color.textMuted"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/ACVoltageNode.ts",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/ACVoltageNode.ts",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 2,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/ACVoltageNode.ts",
+      "find": "fill: schematic \\? null : ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.surface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/AmmeterNode.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/AmmeterNode.ts",
+      "find": "color: ('[^']*')",
+      "occurrence": 1,
+      "to": "color.inverseSurface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/AmmeterNode.ts",
+      "find": "fill: ('[^']*')",
+      "occurrence": 1,
+      "to": "color.surfaceAlt"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/BatteryNode.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/BatteryReverseButton.ts",
+      "find": "614z', \\{ scale: 0\\.45, fill: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/BatteryReverseButton.ts",
+      "find": "fill: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 2,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/BatteryReverseButton.ts",
+      "find": "fill: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 3,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCChartNode.ts",
+      "find": "const AXIS_LABEL_FILL = ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.surface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCChartNode.ts",
+      "find": "fill: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.surface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCChartNode.ts",
+      "find": "fill: ('[^']*')",
+      "occurrence": 2,
+      "to": "sim.surface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCChartNode.ts",
+      "find": "fill: ('[^']*')",
+      "occurrence": 3,
+      "to": "sim.surface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCChartNode.ts",
+      "find": "baseColor: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.surface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCChartNode.ts",
+      "find": "fill: ('[^']*')",
+      "occurrence": 4,
+      "to": "color.textSubtle"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCChartNode.ts",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 2,
+      "to": "color.textSubtle"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCChartNode.ts",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 3,
+      "to": "color.textSubtle"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCChartNode.ts",
+      "find": "fill: ('[^']*')",
+      "occurrence": 5,
+      "to": "sim.physics.positive"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCChartNode.ts",
+      "find": "color: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.surface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCChartNode.ts",
+      "find": "baseColor: ('[^']*')",
+      "occurrence": 2,
+      "to": "sim.controlActive"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCColors.ts",
+      "find": "default: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.canvas"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCColors.ts",
+      "find": "default: ('[^']*')",
+      "occurrence": 2,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCColors.ts",
+      "find": "default: ('[^']*')",
+      "occurrence": 3,
+      "to": "color.surface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCColors.ts",
+      "find": "default: ('[^']*')",
+      "occurrence": 4,
+      "to": "sim.line"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCColors.ts",
+      "find": "default: ('[^']*')",
+      "occurrence": 5,
+      "to": "sim.controlActive"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCColors.ts",
+      "find": "default: ('[^']*')",
+      "occurrence": 6,
+      "to": "color.surface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCColors.ts",
+      "find": "default: ('[^']*')",
+      "occurrence": 7,
+      "to": "sim.physics.positive"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCColors.ts",
+      "find": "default: ('[^']*')",
+      "occurrence": 8,
+      "to": "sim.surface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCDisconnectButton.ts",
+      "find": "fill: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCLightBulbNode.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCProbeNode.ts",
+      "find": "\\.crosshairs\\( \\{ stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.surface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCScreenView.ts",
+      "find": "baseColor: ('[^']*')",
+      "occurrence": 1,
+      "to": "color.accent"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CCKCTrashButton.ts",
+      "find": "fill: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CapacitorCircuitElementNode.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/ChargeNode.ts",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.surface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CircuitElementToolFactory.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CircuitElementToolbox.ts",
+      "find": "pageFill: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.surface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CircuitElementToolbox.ts",
+      "find": "pageStroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.line"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CircuitNode.ts",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.physics.positive"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/ClearDynamicsButton.ts",
+      "find": "fill: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CutButton.ts",
+      "find": "fill: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/CutButton.ts",
+      "find": "baseColor: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.physics.light"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/FuseNode.ts",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/FuseNode.ts",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 2,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/FuseNode.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/FuseNode.ts",
+      "find": "\\.fill = isTripped \\? ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/FuseRepairButton.ts",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/FuseRepairButton.ts",
+      "find": "\\), new Circle\\( 2\\.2, \\{ fill: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/FuseTripAnimation.ts",
+      "find": "new Path\\( shape, \\{ stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.physics.light"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/InductorNode.ts",
+      "find": "lifelikeBodyShape, \\{ fill: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.surface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/InductorNode.ts",
+      "find": ", \\{ fill: 'white', stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/InductorNode.ts",
+      "find": "fill: ('[^']*')",
+      "occurrence": 2,
+      "to": "color.borderStrong"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/InductorNode.ts",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 2,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/InductorNode.ts",
+      "find": ", ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/InductorNode.ts",
+      "find": "LIFELIKE_PATH_FILL_STYLES, ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.physics.copper"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/InductorNode.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/ProbeTextNode.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/ProbeTextNode.ts",
+      "find": "fill: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.surface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/ResistorNode.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SensorToolbox.ts",
+      "find": "\\.bounds, \\{ fill: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.controlActive"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SeriesAmmeterNode.ts",
+      "find": "const ORANGE = ('[^']*')",
+      "occurrence": 1,
+      "to": "color.surfaceAlt"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SeriesAmmeterNode.ts",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "color.inverseSurface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SeriesAmmeterNode.ts",
+      "find": "fill: ('[^']*')",
+      "occurrence": 1,
+      "to": "color.borderStrong"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SolderNode.ts",
+      "find": "const SOLDER_COLOR = ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.physics.conductor"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SwitchNode.ts",
+      "find": "\\.addColorStop\\( 0, ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.physics.copper"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SwitchNode.ts",
+      "find": "\\.addColorStop\\( 0\\.3, ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.physics.copper"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SwitchNode.ts",
+      "find": "\\.addColorStop\\( 1, ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.physics.copper"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SwitchNode.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "color.borderStrong"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SwitchNode.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 2,
+      "to": "color.borderStrong"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SwitchNode.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 3,
+      "to": "color.borderStrong"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SwitchNode.ts",
+      "find": "fill: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.physics.conductor"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SwitchNode.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 4,
+      "to": "color.borderStrong"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SwitchNode.ts",
+      "find": "fill: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "color.borderStrong"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SwitchNode.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 5,
+      "to": "color.borderStrong"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SwitchNode.ts",
+      "find": "\\.SCHEMATIC, (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "color.borderStrong"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SwitchNode.ts",
+      "find": "\\.SCHEMATIC, (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 2,
+      "to": "color.borderStrong"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SwitchToggleButton.ts",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SwitchToggleButton.ts",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 2,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SwitchToggleButton.ts",
+      "find": "\\( CIRCLE_RADIUS, \\{ fill: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SwitchToggleButton.ts",
+      "find": "\\( CIRCLE_RADIUS, \\{ fill: ('[^']*')",
+      "occurrence": 2,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/SwitchToggleButton.ts",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 3,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/ValueNode.ts",
+      "find": "fill: (new Color\\([^()]*\\))",
+      "occurrence": 1,
+      "to": "color.surface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/VertexNode.ts",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.physics.positive"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/VertexNode.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "color.textMuted"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/VertexNode.ts",
+      "find": "fill: (new Color\\([^()]*\\))",
+      "occurrence": 1,
+      "to": "color.surface"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/VoltageChartNode.ts",
+      "find": "const SERIES_1_COLOR = ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.physics.positive"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/VoltageChartNode.ts",
+      "find": "fill: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/VoltmeterNode.ts",
+      "find": "= createProbeNode\\( (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/VoltmeterNode.ts",
+      "find": "= createProbeNode\\( (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 2,
+      "to": "sim.physics.positive"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/VoltmeterNode.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/VoltmeterNode.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 2,
+      "to": "sim.physics.positive"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/VoltmeterNode.ts",
+      "find": "fill: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/WireNode.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/WireNode.ts",
+      "find": "stroke: (Color\\.[A-Z][A-Z0-9_]*)",
+      "occurrence": 2,
+      "to": "sim.controlActive"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/WireNode.ts",
+      "find": "\\{ point: 0\\.0, color: (new Color\\([^()]*\\))",
+      "occurrence": 1,
+      "to": "sim.physics.copper"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/WireNode.ts",
+      "find": "\\{ point: 0\\.2, color: (new Color\\([^()]*\\))",
+      "occurrence": 1,
+      "to": "sim.physics.copper"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/WireNode.ts",
+      "find": "\\{ point: 0\\.3, color: (new Color\\([^()]*\\))",
+      "occurrence": 1,
+      "to": "sim.physics.copper"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "file": "js/view/WireNode.ts",
+      "find": "\\{ point: 1\\.0, color: (new Color\\([^()]*\\))",
+      "occurrence": 1,
+      "to": "sim.physics.copper"
+    },
+    {
+      "repo": "scenery-phet",
+      "file": "js/ArrowNode.ts",
+      "find": "fill: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "scenery-phet",
+      "file": "js/ArrowNode.ts",
+      "find": "stroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    },
+    {
+      "repo": "scenery-phet",
+      "file": "js/ElectronChargeNode.ts",
+      "find": "\\.addColorStop\\( 0, ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.physics.electron"
+    },
+    {
+      "repo": "scenery-phet",
+      "file": "js/ElectronChargeNode.ts",
+      "find": "\\.addColorStop\\( 0\\.5, ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.physics.electron"
+    },
+    {
+      "repo": "scenery-phet",
+      "file": "js/ElectronChargeNode.ts",
+      "find": "\\.addColorStop\\( 1, ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.physics.electron"
+    },
+    {
+      "repo": "scenery-phet",
+      "file": "js/ElectronChargeNode.ts",
+      "find": "fill: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.surface"
+    },
+    {
+      "repo": "scenery-phet",
+      "file": "js/MagnifyingGlassNode.ts",
+      "find": "glassFill: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.surface"
+    },
+    {
+      "repo": "scenery-phet",
+      "file": "js/MagnifyingGlassNode.ts",
+      "find": "glassStroke: ('[^']*')",
+      "occurrence": 1,
+      "to": "sim.text"
+    }
+  ],
+  "exceptions": [
+    {
+      "kind": "gradient",
+      "node": "Path",
+      "reason": "도선·스위치·전지·전구 등의 입체 그라데이션 칠. 색 글자 규칙으로 구조를 바꿀 수 없어, 그라데이션의 모든 끝 색을 같은 토큰 색으로 바꿔 평면으로 보이게 했다.",
+      "approvedBy": ""
+    },
+    {
+      "kind": "gradient",
+      "node": "Rectangle",
+      "reason": "도선·스위치·전지·전구 등의 입체 그라데이션 칠. 색 글자 규칙으로 구조를 바꿀 수 없어, 그라데이션의 모든 끝 색을 같은 토큰 색으로 바꿔 평면으로 보이게 했다.",
+      "approvedBy": ""
+    },
+    {
+      "kind": "gradient",
+      "node": "Circle",
+      "reason": "도선·스위치·전지·전구 등의 입체 그라데이션 칠. 색 글자 규칙으로 구조를 바꿀 수 없어, 그라데이션의 모든 끝 색을 같은 토큰 색으로 바꿔 평면으로 보이게 했다.",
+      "approvedBy": ""
+    },
+    {
+      "kind": "fill",
+      "node": "Rectangle",
+      "color": "150,75,0",
+      "screen": 0,
+      "reason": "저항기 색 띠(갈색). 저항값을 읽는 표준 색 부호라 값이 물리다.",
+      "approvedBy": ""
+    },
+    {
+      "kind": "fill",
+      "node": "Rectangle",
+      "color": "230,182,0",
+      "screen": 0,
+      "reason": "저항기 색 띠(금색, 오차). 표준 색 부호.",
+      "approvedBy": ""
+    },
+    {
+      "kind": "fill",
+      "node": "Rectangle",
+      "color": "0,0,0",
+      "screen": 0,
+      "reason": "저항기 색 띠(검정). 표준 색 부호이고 코드가 검정과 같은지 비교한다(ResistorNode).",
+      "approvedBy": ""
+    },
+    {
+      "kind": "fill",
+      "node": "Rectangle",
+      "color": "150,75,0",
+      "screen": 1,
+      "reason": "저항기 색 띠(갈색). 저항값을 읽는 표준 색 부호라 값이 물리다.",
+      "approvedBy": ""
+    },
+    {
+      "kind": "fill",
+      "node": "Rectangle",
+      "color": "230,182,0",
+      "screen": 1,
+      "reason": "저항기 색 띠(금색, 오차). 표준 색 부호.",
+      "approvedBy": ""
+    },
+    {
+      "kind": "fill",
+      "node": "Rectangle",
+      "color": "0,0,0",
+      "screen": 1,
+      "reason": "저항기 색 띠(검정). 표준 색 부호이고 코드가 검정과 같은지 비교한다(ResistorNode).",
+      "approvedBy": ""
+    }
+  ]
+}

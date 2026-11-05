@@ -61,6 +61,12 @@
 | `helpers` | | `sim()`, `screen()`, `model()`, `isHomeScreen()`, `screenName()`, `cleanName(s)` | joist 세 세대를 모두 처리 |
 | `mounted` / `adapterRegistered` | | boolean | 서랍은 시뮬레이션 준비와 시작 화면이 끝난 뒤 `mounted`가 된다 |
 
+## 데이터 파일
+
+- `data/style-done.json`: 안쪽 디자인을 끝낸 시뮬레이션 id의 배열(처음엔 `[]`). V11이 읽는다. 68개 id 안에서 중복 없이만 쓴다. 손으로 고친다.
+- `theme/sim-styles/<id>.json`, `theme/art/map.json`: 형식은 `docs/theme.md`의 「시뮬레이션 안쪽 디자인」.
+- 빌드 기록의 `themeHash`는 시뮬레이션마다 다르다(`docs/theme.md` 「빌드 해시는 시뮬레이션마다」).
+
 ## 관리 명령 (npm 스크립트)
 
 | 명령 | 입력 | 출력 | 실패 |
@@ -70,7 +76,7 @@
 | `npm run build-all -- [--jobs N] [--brand bsshs --theme] [--include-new \| --new-only]` | 위와 같음 | 여러 개 | 하나라도 실패면 0이 아님 |
 | `npm run build-everything [-- --force] [--exclude id,…]` | | 빌드 68개, 정리된 빌드 기록, `dist/`. 마지막 줄에 「이 dist/는 아직 물리 검사(V3)를 거치지 않았다」는 주의 | 1(빌드나 사이트 실패, 시험 범위 파일 누락 포함), 2(예외) |
 | `npm run build-site [-- --out dist] [--thumbs] [--exclude id,…] [--no-drawer id,…] [--allow-missing]` | `build/bsshs-theme/`. `--exclude` = 그 시뮬레이션을 사이트에서 뺌, `--no-drawer` = 시험 범위 시뮬레이션을 서랍 없는 학교판으로 공개 | `dist/` 전체(먼저 지움), JSON 한 줄 `{ out, sims, missing, excluded, noDrawer, thumbs }` | 종료 코드 1: 시험 범위 id의 필수 파일이 빠짐(`exam scope is incomplete … N missing item(s):` 뒤에 `<id>: missing <파일> (<경로>)` 줄을 전부 출력, 아무것도 쓰기 전), 빌드가 없는 시뮬레이션(`missing builds: …`), 서랍 주입 실패 |
-| `npm run verify [-- --only V2,V9] [--jobs N] [--names-file f] [--cases <id>=<파일>]` | `build/`, `dist/`, 실명 목록 | 항목별 한 줄 + `build/verify/report.json` | 종료 코드 1(하나라도 실패), 2(인자 오류) |
+| `npm run verify [-- --only V2,V9] [--jobs N] [--names-file f] [--cases <id>=<파일>] [--style-done f] [--baseline-dir d]` | `build/`, `dist/`, 실명 목록 | 항목별 한 줄 + `build/verify/report.json` | 종료 코드 1(하나라도 실패), 2(인자 오류) |
 | `npm run approve -- <id> [메모]` | 시험 범위 id | `<id>: 확인 완료 (날짜) hash <앞 12자리>…` | 시험 범위 밖 id·틀린 상태 파일 → 1, 인자 없음 → 2 |
 | `npm run set-status -- <id> <확인 중\|수정 중> [메모]` | | `<id>: <상태> (날짜)` | `확인 완료`를 주면 거부(1) |
 | `npm test` | | node:test 결과 | 하나라도 실패면 0이 아님 |
@@ -82,7 +88,13 @@
 | `tools/check-sim.mjs <html \| http(s) 주소> [--width W] [--height H] [--timeout 10000] [--settle 2000] [--shots 폴더] [--no-about] [--quiet]` | JSON 하나(`tool: "check-sim"`, `schemaVersion: 1`, `ok`, `viewport`, `checks.{ready,errors,wordmark,phetLogo,about,network,fonts,phetName}`, `screenshots`). 치명적 오류는 `{ tool, schemaVersion, target, ok: false, fatal }` | 0/1/2 |
 | `tools/run-cases.mjs <서랍 넣은 html> <id> [--cases f \| --adapter-dir d] [--rel-tol 0.01] [--abs-tol 1e-9] [--settle 300] [--settle-timeout 5000]` | 사례마다 `{"type":"case","name","ok","settled","params","screen","results":[{"key","expected","actual","mode","tol","error","ok"}],"error","ms"}` 한 줄, 마지막에 `{"type":"summary","ok","passed","failed",…}` | 0/1/2(다른 시뮬레이션의 서랍이 든 파일도 2) |
 | `tools/compare-layout.mjs <a.html> <b.html> [--width 1280] [--exclude-button] [--all-screens \| --first-screen] [--pause-clock] [--seed-random] [--max-diff-pixels 0] [--tolerance 0] [--diff out.png]` | JSON 하나: `diffPixels`, `totalPixels`(모든 화면 합), `screens[]`(`index`(-1 = 홈), `name`, `diffPixels`, `diffBox`, `excluded`, `ok`, `shotSha1`, `diffImage`) | 0 = 모든 화면이 허용 이하, 1 = 다름, 2 = 오류 |
+| `tools/check-style.mjs <html> [--id id] [--width 1280] [--settle 800] [--no-dialogs] [--styles-dir d] [--quiet]` | 한국어 한 줄(`--quiet`이면 없음) 뒤에 JSON 하나(`tool: "check-style"`, `schemaVersion: 1`, `id`, `ok`, `screens[]`, `views[]`(`screen`(-1 = 홈), `dialog?`, `name`, `stats`), `counts`(종류별 개수), `openFindings[]`, `excepted[]`, `unusedExceptions[]`, `problems[]`, `notes[]`). 지적 하나는 `{ kind: fill\|stroke\|gradient\|image\|pixels\|contrast\|canvas, screen, dialog?, node, color?, count, detail }`. 치명적 오류는 `{ tool, schemaVersion, target, id, ok: false, fatal }` | 0 = 열린 지적과 문제 0건, 1 = 있음, 2 = 오류 |
+| `tools/compare-bounds.mjs <id> [--current f] [--baseline f] [--sims-dir d] [--baseline-dir d] [--width 1280] [--settle 800] [--nondeterministic]` | 한국어 한 줄 뒤에 JSON 하나(`tool: "compare-bounds"`, `schemaVersion: 1`, `id`, `ok`, `tolerance`, `deterministic`, `screens[]`(`index`, `name`, `nodesCompared`, `differing`, `changedCount`/`missingCount`/`addedCount`/`visibilityCount`, 앞 20개씩 `changed`·`missing`·`added`·`visibility`), `nodesCompared`, `differing`, `problems[]`) | 0 = 같음, 1 = 다름, 2 = 오류 |
+| `tools/compare-bounds.mjs --freeze [--force] [--sims-dir d] [--baseline-dir d]` | 고정본 폴더 `<id>/<id>_ko.html` 68개 + `baseline.json`(`frozenAt`, `sourceCommit`, `workingTreeClean`, `count`, `files.<id>.{bytes,sha256}`), JSON 한 줄 `{ tool, schemaVersion, frozen: true, dir, count, manifest }` | 0, 이미 있으면 `--force` 없이 2 |
+| `tools/compare-bounds.mjs --all [--jobs 4]` | 시뮬레이션마다 한 줄, 끝에 `V12 N/68` 한 줄과 JSON `{ passed, total, failed[] }` | 0 = 모두 같음, 1, 2 |
+| `tools/style-review.mjs [--sims id,id \| --all] [--out d]` | `<out>/index.html`과 `<out>/img/<id>/<화면>-<before\|after>.png`, JSON 한 줄 `{ tool, file, sims, errors[] }` | 0, 시뮬레이션 하나라도 오류면 1, 인자 오류 2 |
+| `theme/patches/color-inventory.mjs <id> [--repos a,b] [--all-libs] [--json]` | 표 또는 `--json`: `{ simId, repos, rows[]({ repo, file, line, occurrence, literal, supported, model, mapped, suggest }), totals }` | 0, 2 |
 | `tools/inject-drawer.mjs <built.html> <id> [--out f] [--adapter-dir d] [--lessons f] [--status-file f]` | 대상 파일을 고쳐 쓰고 JSON 한 줄 `{ tool, file, simId, schemaVersion, status, hash }` | 0, 1(필수 파일 네 개 중 빠진 것 전부, 또는 형식 오류 목록 출력), 2(사용법) |
 | `build/verify/report.json` | `{ tool: "verify", schemaVersion: 1, startedAt, ms, selected, ok, failed, exclusions: [{ id, kind: "sim" | "drawer", reason }], checks: [{ id, name, ok, exitCode, passed, total, failures, notes, ms, details }] }` | — |
 
-verify의 항목 판정: 종료 코드 0, 실패 0건, 센 것 1개 이상일 때만 `ok`. 아무것도 확인하지 못한 항목은 실패다. V10c의 `failures`에는 파일 이름과 건수만 있고 이름은 없다. `exclusions`의 `kind`: `sim` = 새 시뮬레이션을 사이트에서 뺌(V1 개수가 줄어듦), `drawer` = 변형 시뮬레이션을 서랍 없이 공개(V1 개수 그대로). `kind`가 없는 옛 기록은 `sim`으로 읽는다. V3 실패 사유에는 사례 실패와 함께 「참고」 설명이 없는 넓힌 허용 오차(`근사 차이 <key> …`)가 나올 수 있다.
+verify의 항목 판정: 종료 코드 0, 실패 0건, 센 것 1개 이상일 때만 `ok`. 아무것도 확인하지 못한 항목은 실패다. 예외는 V11 하나: 완료 목록 `data/style-done.json`이 잘 만든 빈 배열이면 0/0으로 통과한다(파일이 없거나 형식이 틀리면 실패). V10c의 `failures`에는 파일 이름과 건수만 있고 이름은 없다. `exclusions`의 `kind`: `sim` = 새 시뮬레이션을 사이트에서 뺌(V1 개수가 줄어듦), `drawer` = 변형 시뮬레이션을 서랍 없이 공개(V1 개수 그대로). `kind`가 없는 옛 기록은 `sim`으로 읽는다. V3 실패 사유에는 사례 실패와 함께 「참고」 설명이 없는 넓힌 허용 오차(`근사 차이 <key> …`)가 나올 수 있다.

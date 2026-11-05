@@ -1,0 +1,26 @@
+{
+  "canvasNodes": [
+    "ParticlesNode"
+  ],
+  "exceptions": [
+    {
+      "kind": "fill",
+      "node": "SpectrumSliderThumb",
+      "reason": "파장 슬라이더 손잡이 색: 파장에서 정해지는 값이라 스펙트럼 색을 그대로 둔다.",
+      "approvedBy": ""
+    },
+    {
+      "kind": "stroke",
+      "node": "SpectrumSliderThumb",
+      "reason": "파장 슬라이더 손잡이 테두리(공통 부품의 기본값). 스펙트럼 부품이 함께 바뀌는 단계에서 다룬다.",
+      "approvedBy": ""
+    },
+    {
+      "kind": "fill",
+      "node": "Rectangle",
+      "color": "128,128,128",
+      "reason": "파장 막대 양 끝의 자외선·적외선 회색 칸: 보이지 않는 빛을 뜻하는 회색.",
+      "approvedBy": ""
+    }
+  ]
+}

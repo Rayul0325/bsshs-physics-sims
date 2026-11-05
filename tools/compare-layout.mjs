@@ -68,7 +68,7 @@ export function viewportFor( width, height ) {
 }
 
 /** In-page: the sim is built and the splash is gone (as check-sim's ready probe); the drawer, if any, mounted. */
-function pageReady() {
+export function pageReady() {
   const sim = window.phet && window.phet.joist && window.phet.joist.sim;
   if ( !sim ) { return false; }
   const display = sim.display || window.phet.joist.display;
@@ -116,7 +116,7 @@ async function pageDiff( { a, b, rect, tolerance, wantDiff } ) {
  * drawer/runtime.js helpers.screen()).
  * @returns {{ index: number, name: string }[]}
  */
-function listScreens() {
+export function listScreens() {
   const s = window.phet.joist.sim;
   const clean = v => String( v && typeof v === 'object' && 'value' in v ? v.value : v == null ? '' : v ).replace( /[‎‏‪-‮⁦-⁩]/g, '' ).trim();
   const simName = clean( s.simNameProperty !== undefined ? s.simNameProperty : s.name );
@@ -127,7 +127,7 @@ function listScreens() {
 }
 
 /** In-page: selects the home screen (-1) or the i-th non-home screen with joist's own property. @param {number} i */
-function selectScreen( i ) {
+export function selectScreen( i ) {
   const s = window.phet.joist.sim;
   const screens = s.screens.filter( x => x !== s.homeScreen );
   const target = i < 0 ? s.homeScreen : screens[ i ];
@@ -148,7 +148,7 @@ function selectScreen( i ) {
  * In-page: stops joist's clock (sim.activeProperty) so no model advances any more; false when the sim has
  * no activeProperty. While stopped, renderFrozen() draws a newly selected screen without advancing time.
  */
-function pauseClock() {
+export function pauseClock() {
   const s = window.phet.joist.sim;
   if ( !s.activeProperty ) { return false; }
   s.activeProperty.value = false;
@@ -156,14 +156,14 @@ function pauseClock() {
 }
 
 /** In-page: one display update with dt = 0 (the model does not advance). */
-function renderFrozen() {
+export function renderFrozen() {
   const s = window.phet.joist.sim;
   if ( typeof s.stepSimulation === 'function' ) { s.stepSimulation( 0 ); }
   else { const d = s.display || window.phet.joist.display; d.updateDisplay(); }
 }
 
 /** In-page init script: Math.random becomes a fixed-seed generator (mulberry32), the same in both builds. */
-function seededRandom() {
+export function seededRandom() {
   let a = 0x2545f491;
   Math.random = () => {
     a = ( a + 0x6d2b79f5 ) | 0;
@@ -173,7 +173,8 @@ function seededRandom() {
   };
 }
 
-const frames = page => page.evaluate( () => new Promise( r => requestAnimationFrame( () => requestAnimationFrame( r ) ) ) );
+/** Waits two animation frames. */
+export const frames = page => page.evaluate( () => new Promise( r => requestAnimationFrame( () => requestAnimationFrame( r ) ) ) );
 
 /**
  * Loads one page and screenshots the viewport on each screen (or only the first one shown).

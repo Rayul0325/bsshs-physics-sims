@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="217" height="67" viewBox="0 0 217 67">
+ <!-- fuse end caps (the glass tube between them is drawn by the sim) -->
+ <rect x="1" y="1" width="48" height="65" rx="9" fill="{{sim.physics.conductor}}"/>
+ <rect x="167" y="1" width="49" height="65" rx="9" fill="{{sim.physics.conductor}}"/>
+</svg>

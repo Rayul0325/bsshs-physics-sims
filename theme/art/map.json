@@ -1,0 +1,255 @@
+{
+  "entries": [
+    {
+      "repo": "faradays-law",
+      "files": [
+        "mipmaps/four-loop-back.png"
+      ],
+      "svg": "faradays-law/four-loop-back.svg"
+    },
+    {
+      "repo": "faradays-law",
+      "files": [
+        "mipmaps/four-loop-front.png"
+      ],
+      "svg": "faradays-law/four-loop-front.svg"
+    },
+    {
+      "repo": "faradays-law",
+      "files": [
+        "mipmaps/two-loop-back.png"
+      ],
+      "svg": "faradays-law/two-loop-back.svg"
+    },
+    {
+      "repo": "faradays-law",
+      "files": [
+        "mipmaps/two-loop-front.png"
+      ],
+      "svg": "faradays-law/two-loop-front.svg"
+    },
+    {
+      "repo": "scenery-phet",
+      "files": [
+        "images/light-bulb-base.png",
+        "mipmaps/light-bulb-base.png",
+        "mipmaps/lightBulbBase.png"
+      ],
+      "svg": "scenery-phet/light-bulb-base.svg",
+      "size": "89x71"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/ammeterBody.png"
+      ],
+      "svg": "circuit-construction-kit-common/ammeterBody.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/battery.png"
+      ],
+      "svg": "circuit-construction-kit-common/battery.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/batteryHigh.png"
+      ],
+      "svg": "circuit-construction-kit-common/batteryHigh.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/coin.png"
+      ],
+      "svg": "circuit-construction-kit-common/coin.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/dollar.png"
+      ],
+      "svg": "circuit-construction-kit-common/dollar.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/eraser.png"
+      ],
+      "svg": "circuit-construction-kit-common/eraser.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/fire.png"
+      ],
+      "svg": "circuit-construction-kit-common/fire.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/fuse.png"
+      ],
+      "svg": "circuit-construction-kit-common/fuse.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/hand.png"
+      ],
+      "svg": "circuit-construction-kit-common/hand.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/lightBulbBack.png"
+      ],
+      "svg": "circuit-construction-kit-common/lightBulbBack.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/lightBulbFront.png"
+      ],
+      "svg": "circuit-construction-kit-common/lightBulbFront.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/lightBulbFrontHigh.png"
+      ],
+      "svg": "circuit-construction-kit-common/lightBulbFrontHigh.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/lightBulbFrontReal.png"
+      ],
+      "svg": "circuit-construction-kit-common/lightBulbFrontReal.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "mipmaps/lightBulbMiddle.png"
+      ],
+      "svg": "circuit-construction-kit-common/lightBulbMiddle.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "mipmaps/lightBulbMiddleHigh.png"
+      ],
+      "svg": "circuit-construction-kit-common/lightBulbMiddleHigh.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "mipmaps/lightBulbMiddleIcon.png"
+      ],
+      "svg": "circuit-construction-kit-common/lightBulbMiddleIcon.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "mipmaps/lightBulbMiddleReal.png"
+      ],
+      "svg": "circuit-construction-kit-common/lightBulbMiddleReal.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/paperClip.png"
+      ],
+      "svg": "circuit-construction-kit-common/paperClip.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/pencil.png"
+      ],
+      "svg": "circuit-construction-kit-common/pencil.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "mipmaps/probeBlack.png"
+      ],
+      "svg": "circuit-construction-kit-common/probeBlack.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "mipmaps/probeRed.png"
+      ],
+      "svg": "circuit-construction-kit-common/probeRed.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/resistor.png"
+      ],
+      "svg": "circuit-construction-kit-common/resistor.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/resistorHigh.png"
+      ],
+      "svg": "circuit-construction-kit-common/resistorHigh.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/thinPencil.png"
+      ],
+      "svg": "circuit-construction-kit-common/thinPencil.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "mipmaps/voltmeterBody.png"
+      ],
+      "svg": "circuit-construction-kit-common/voltmeterBody.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/wireIcon.png"
+      ],
+      "svg": "circuit-construction-kit-common/wireIcon.svg"
+    },
+    {
+      "repo": "circuit-construction-kit-dc",
+      "files": [
+        "images/labScreenIcon.png"
+      ],
+      "svg": "circuit-construction-kit-dc/labScreenIcon.svg"
+    },
+    {
+      "repo": "balloons-and-static-electricity",
+      "files": [
+        "images/sweater.png"
+      ],
+      "png": "balloons-and-static-electricity/sweater-no-label.png",
+      "note": "removed the lettering on the collar label; the name may appear only in the attribution."
+    },
+    {
+      "repo": "circuit-construction-kit-common",
+      "files": [
+        "images/dollar-bill.png"
+      ],
+      "png": "circuit-construction-kit-common/dollar-bill-no-name.png",
+      "note": "removed the name lettered on two corners of the bill; the name may appear only in the attribution."
+    },
+    {
+      "repo": "balancing-act",
+      "files": [
+        "images/objects/defaultImage.png"
+      ],
+      "png": "balancing-act/default-image-no-name.png",
+      "note": "removed the name lettered on the placeholder; the name may appear only in the attribution."
+    }
+  ]
+}

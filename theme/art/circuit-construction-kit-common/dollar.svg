@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="215" height="106" viewBox="0 0 215 106">
+ <!-- banknote: flat green outline, portrait disc (no text) -->
+ <rect x="1.5" y="1.5" width="212" height="103" rx="7" fill="{{color.surfaceAlt}}" stroke="{{sim.physics.forceA}}" stroke-width="3"/>
+ <circle cx="108" cy="53" r="30" fill="{{sim.physics.forceA}}"/>
+ <circle cx="108" cy="46" r="10" fill="{{color.surfaceAlt}}"/>
+ <path d="M88 76 Q108 54 128 76 Z" fill="{{color.surfaceAlt}}"/>
+ <rect x="14" y="14" width="5" height="18" rx="2" fill="{{sim.physics.forceA}}"/>
+ <rect x="196" y="74" width="5" height="18" rx="2" fill="{{sim.physics.forceA}}"/>
+ <rect x="150" y="14" width="40" height="6" rx="3" fill="{{sim.physics.forceA}}"/>
+ <rect x="26" y="86" width="40" height="6" rx="3" fill="{{sim.physics.forceA}}"/>
+</svg>

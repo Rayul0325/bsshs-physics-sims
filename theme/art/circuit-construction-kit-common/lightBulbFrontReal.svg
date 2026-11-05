@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="195" height="315" viewBox="0 0 195 315">
+ <!-- realistic bulb base: red collar -->
+ <rect x="41" y="200" width="111" height="62" fill="{{sim.physics.positive}}"/>
+ <path d="M41 262 H152 L142 298 H51 Z" fill="{{color.inverseSurface}}"/>
+ <path d="M51 298 H142 Q130 314 97 314 Q64 314 51 298 Z" fill="{{sim.physics.conductor}}"/>
+</svg>

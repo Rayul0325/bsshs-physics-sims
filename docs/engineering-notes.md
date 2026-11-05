@@ -88,6 +88,17 @@
 - **브라우저 검사가 동시에 여러 개 돌다 이상하게 실패.** verify는 V2가 끝난 뒤 `npm test`를 돌린다(테스트도 브라우저를 많이 씀). 다른 에이전트·작업이 같은 컴퓨터에서 Chrome을 많이 띄우고 있으면 기다렸다가 혼자 다시 돌린 뒤 판단한다.
 - 전체 시간(32코어 맥, 2026-11-04): `build-everything` 처음 약 6분 30초, 바뀐 것이 없을 때 약 1분 50초. `verify` 약 7분.
 
+## 안쪽 디자인 검사 (V11·V12)
+
+- **클래스 이름이 `Ta`, `Sh`로 나옴.** 빌드가 이름을 뭉갠다. 노드 이름은 `phet.<이름공간>.<이름>`(`phet.scenery.Path`, `phet.faradaysLaw.MagnetNode`)을 훑어 생성자 → 이름 표를 만들어 찾는다. 이름공간에 등록되지 않은 클래스는 `anonymous`다. `canvasNodes`와 예외의 `node`는 이 이름(`MagnetNode` 또는 `faradaysLaw.MagnetNode`)으로 적는다.
+- **`getSelfShape()`가 아주 느림.** wave-interference 한 화면(노드 2,740개)에서 24초, 3D 노드가 든 buoyancy에서는 탭이 죽었다. 같은 도형 상자는 `getShape()`로 얻는다(비용 거의 없음, 비교한 118개 노드에서 상자가 같음).
+- **시뮬레이션 시계를 멈추면 키보드 도움말 창이 안 열림.** 조이스트는 `activeProperty`가 꺼지면 `display.interactive`도 끈다. 창을 열기 전에 `display.interactive = true`만 다시 켠다(모델은 계속 멈춤). 창은 Escape로 닫히지 않으므로 `sim.modalNodeStack`의 맨 위 노드를 `hide()`한다.
+- **창의 노드는 열려 있을 때만 보임.** 닫힌 창의 노드는 `visible = false`라서 장면 그래프를 보이는 노드만 훑으면 열린 동안에만 잡힌다. 창 보기에는 바탕 화면의 노드도 그대로 있으므로(막 뒤에 가려진 채) 화면 보기에서 이미 본 것을 빼고 새로 생긴 것만 센다.
+- **시간 흐름이 매번 다르면 움직이는 시뮬레이션이 흔들림.** 난수를 고정하고, `performance.now`·`Date.now`를 프레임마다 1/60초 가는 가상 시계로 바꾸고, 시뮬레이션이 다 지어진 뒤 30프레임에서 시계를 멈춘다(`tools/lib/page-control.mjs`). `requestAnimationFrame`을 감싸서 실제 시간과 상관없이 프레임 수로 센다. 첫 측정 전에 이미 멈춰 있다.
+- **전체 규칙 글만 해시에 넣으면 그림을 고쳐도 건너뜀.** 해시는 시뮬레이션마다 계산하고 색 파일(토큰 값으로 푼 것)과 그 시뮬레이션이 쓰는 그림 SVG 글을 넣는다. 예외·`canvasNodes`는 빌드에 영향이 없어 넣지 않는다. 새 시뮬레이션은 소스가 토큰 모듈을 가져다 쓸 수 있으므로 `sim` 묶음 전체를 넣는다.
+- **옛 RequireJS 계열은 모듈이 없다.** charges-and-fields, pendulum-lab, plinko-probability, projectile-motion, under-pressure는 `*_png.js`가 커밋되어 있지 않고 빌드 도구가 PNG를 읽는다. 다섯 시뮬레이션 모두 고정 버전에 PNG는 39~60개, 모듈은 0개임을 확인했다. 그림 규칙은 이 계열에서 PNG와 `license.json`만 바꾼다. 다른 계열은 PNG 옆에 `_png.js`/`_png.ts`가 커밋되어 있으면 PNG와 모듈을 함께 바꾼다(밉맵 모듈은 단계 수를 그대로 두고 데이터만 다시 만든다).
+- **흰 글자 위의 물리 색.** 자석 N/S의 「N」「S」 글자는 흰색이다. 처음 고른 자석 색(`#e04a4f`, `#4a7fdc`)은 흰 글자와 대비가 3.9~4.0:1로 V11의 4.5:1에 걸렸다. 흰 글자가 얹히는 토큰은 흰색과 4.5:1 이상으로 고른다(`sim.physics.magnetN`, `magnetS`, `positive`, `negative`는 그렇게 맞춰 두었다).
+
 ## 배포 (Cloudflare Pages)
 
 - **`wrangler pages project create`가 `Missing entry-point`로 실패.** wrangler 4.157은 `--force` 없이 Workers 쪽으로 넘기려 한다. 프로젝트는 이미 `--force`로 한 번 만들었다. 다시 만들 일이 없고, 배포 명령에는 `--force`를 붙이지 않는다.
@@ -95,4 +106,8 @@
 - **없는 주소인데 200이 나옴.** `dist/`에 `404.html`이 없어 Pages가 모르는 주소마다 `index.html`을 200으로 돌려준다(단일 페이지 앱 처리). 시뮬레이션 파일이 빠진 배포도 `/sims/<id>`가 200으로 보인다. 실제 주소 확인은 상태 코드가 아니라 내용(`dist/` 파일과 바이트 비교, 또는 시뮬레이션 `<title>`)으로 한다.
 - **배포 뒤 「어느 dist가 올라갔나」.** `dist/`는 `build-everything`이나 `build-site`가 통째로 지우고 다시 만든다. 배포 전 `build/verify/report.json`의 시각이 `dist/` 안 파일들의 수정 시각보다 늦은지 보고, 아니면 다시 검증한다.
 - **배포 뒤 루트에 `.wrangler/`가 생김.** wrangler 임시 폴더다. gitignore되어 있으며 커밋하지 않는다.
+
+## 그림 안에 그려진 이름
+
+- **「PhET」 글자가 공개 화면에 나옴.** 스웨터 옷깃(`balloons-and-static-electricity`), 지폐(`circuit-construction-kit-common`), 자리표시 그림(`balancing-act`)에 글자가 그림으로 들어 있었다. check-sim은 시뮬레이션이 직접 쓴 글자만 읽어서 놓친다. 그림을 새로 넣을 때는 `tools/scan-art-text.swift`(맥 전용 Apple Vision 글자 읽기)로 다시 살핀다. 24×12픽셀 미만 그림과 SVG 그림은 읽지 않는다. 글자만 지운 원본은 `theme/art/map.json`의 `png` 항목으로 넣고 원래 라이선스 기록에 수정 사실을 덧붙인다.
 

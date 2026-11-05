@@ -11,7 +11,10 @@ node tools/build-sim.mjs faradays-law --brand bsshs --theme    # 학교판 하�
 node tools/build-all.mjs --brand bsshs --theme --jobs 10       # 학교판 63개
 node tools/check-sim.mjs build/bsshs-theme/faradays-law/faradays-law_ko.html            # 데스크톱 검사
 node tools/check-sim.mjs build/bsshs-theme/faradays-law/faradays-law_ko.html --width 390 # 휴대폰 폭 검사
-node theme/patches/dry-run.mjs                          # 패치 규칙이 63개 고정 버전 모두에 맞는지 (체크아웃 없이)
+node theme/patches/dry-run.mjs                          # 패치 규칙(전체 + 시뮬레이션별 색·그림)이 63개 고정 버전 모두에 맞는지 (체크아웃 없이)
+node theme/patches/color-inventory.mjs faradays-law     # 한 시뮬레이션의 색 글자 목록과 처리 안 된 개수
+node tools/check-style.mjs build/bsshs-theme/faradays-law/faradays-law_ko.html   # 안쪽 팔레트 검사(V11)
+node tools/compare-bounds.mjs faradays-law              # 고정본과 요소 위치·크기 비교(V12)
 ```
 
 ## 빌드 종류(variant)와 플래그
@@ -68,7 +71,13 @@ PhET 원본 값을 **찾는** 패턴은 정규식으로 적어서(예: `/rgb\(\s
 | `radius.*` | 모서리 둥글기. `--radius 0.75rem`과 Tailwind 배수(0.6·0.8·1·1.4·1.8) |
 | `space.*` | 간격(4px 단위) |
 | `shadow.card` / `shadow.glow` | 카드 그림자 / 강조 빛 (`.content-card`, `--accent-glow`) |
-| `phet.*` | PhET 역할 → 토큰 **이름** 연결(값이 아니라 키 이름): `navigationBarText`, `homeScreenBackground`, `pushButtonBase`, `panelFill`, `panelStroke`, `panelCornerRadius`(radius 키), `checkbox`, `sliderThumb`, `sliderThumbHighlight`, `wordmarkOnWhite`, `wordmarkOnBlack`, `splashText` |
+| `phet.*` | PhET 역할 → 토큰 **이름** 연결(값이 아니라 키 이름): `navigationBarText`, `homeScreenBackground`, `pushButtonBase`, `panelFill`, `panelStroke`(`sim.line`), `panelCornerRadius`(radius 키), `checkbox`, `sliderThumb`, `sliderThumbHighlight`, `wordmarkOnWhite`, `wordmarkOnBlack`, `splashText`, 그리고 평면 부품용 `buttonStroke`, `resetAllButton`, `zoomButton`, `componentFill`, `componentStroke`, `componentHighlight`, `componentText`, `componentAccent`, `componentMuted`, `selectedStroke` |
+| `sim.canvas` / `sim.canvasDark` | 시뮬레이션 안쪽 캔버스 바탕: 밝은 것(`color.bg`와 같은 값) / 어두운 것. 우주나 빛의 방출처럼 어두운 바탕이 있어야 보이는 화면이 쓴다. 순수 검정이 아니다 |
+| `sim.surface` / `sim.line` | 시뮬레이션 안쪽 흰 카드·패널 면 / 옅은 회색 선 |
+| `sim.control` / `sim.controlActive` | 평면 버튼 바탕 / 눌린·선택된 버튼 바탕. 파란 강조색 하나(글자색 흰색과 4.5:1 이상이 되도록 `color.accent`보다 한 단계 진함) |
+| `sim.text` / `sim.textOnDark` | 밝은 바탕 위 글자 / 어두운 바탕 위 글자 |
+| `sim.physics.*` | 물리적 뜻이 있는 색을 평면 색 하나로: `positive`(양전하), `negative`(음전하), `electron`, `proton`, `neutron`, `magnetN`, `magnetS`, `copper`, `conductor`, `insulator`, `forceA`·`forceB`(힘 화살표 두 가지), `energy`, `light`, `water`, `glass`. 밝은 캔버스와 어두운 캔버스 둘 위에서 모두 보이는 중간 밝기로 골랐다 |
+| `sim.check.*` | 검사 기준값(색이 아닌 숫자): `paletteTolerance`(팔레트와 같다고 보는 채널당 차이, 0~255), `outsideShareMax`(화면 픽셀 중 팔레트 밖 색의 허용 비율), `minContrast`(글자 대비 최소 비), `boundsTolerance`(요소 위치·크기 허용 오차, px), `maxExceptions`(시뮬레이션당 예외 최대 수) |
 
 색은 PhET의 `Color`가 읽을 수 있는 `#rgb`/`#rrggbb`/`rgb()`/`rgba()`만 씁니다(oklch 불가). `loadTokens()`가 검사합니다.
 
@@ -80,7 +89,11 @@ PhET 원본 값을 **찾는** 패턴은 정규식으로 적어서(예: `/rgb\(\s
 - `fontStack(tokens, 'sans'|'serif'|'mono', { generic })` — `글꼴, 한글 대체…, 일반 글꼴`
 - `toPhetColors(tokens)` / `toPhetTheme(tokens)` — PhET 패치가 쓰는 값
 - `fontFaces(tokens, { simsOnly })` — 글꼴 파일(절대 경로)
-- `flattenTokens`, `tokensHash`
+- `simPalette(tokens)` — 시뮬레이션이 쓸 수 있는 색 목록 `{ path, value, rgba }`. `color.*`와 `sim.*`(`sim.physics.*` 포함)의 색 토큰 전부이고, 검사(V11)의 팔레트가 된다
+- `resolveColorToken(tokens, 'sim.physics.copper')` — 경로로 색 값을 찾는다. 색 토큰이 아닌 경로면 오류
+- `resolveSvgPlaceholders(svg, tokens)` / `svgPlaceholders(svg)` — SVG 글 안의 `{{sim.physics.copper}}` 자리표시자를 토큰 색으로 바꾼다 / 어떤 토큰을 쓰는지 목록. 모르는 자리표시자는 오류라서 오타가 그림에 들어가지 못한다
+- `validateSimTokens(sim)`, `parseTokenColor(value)`, `SIM_PHYSICS_KEYS`, `SIM_CHECK_KEYS`
+- `flattenTokens`, `tokensHash` (`sim` 묶음은 CSS 변수로 내보내지 않는다. 시뮬레이션 안쪽 규칙이 경로로 찾아 쓴다)
 
 ## 글꼴
 
@@ -92,7 +105,8 @@ PhET 원본 값을 **찾는** 패턴은 정규식으로 적어서(예: `/rgb\(\s
 
 ## 무엇이 바뀌고 무엇이 그대로인가
 
-공통 코드만 바꿉니다. 실험 화면 배치, 물리적 의미가 있는 시뮬레이션별 색(전자, 자기력선, 배경 하늘색 등), 물리 동작은 그대로입니다.
+두 층으로 바꿉니다. 공통 부품 층(`theme/patches/theme.mjs`)은 모든 시뮬레이션에 같은 규칙을 적용하고, 시뮬레이션별 층(아래 「시뮬레이션 안쪽 디자인」)은 시뮬레이션 하나의 색 글자와 그림 파일을 바꿉니다.
+바뀌지 않는 것은 실험 화면의 배치(요소의 위치와 크기), 화면의 글자(문구와 크기), 물리 동작, 모델 파일(경로에 `model`이 든 파일)입니다.
 
 | 규칙(`theme/patches/theme.mjs`) | 바뀌는 것 |
 | --- | --- |
@@ -103,6 +117,14 @@ PhET 원본 값을 **찾는** 패턴은 정규식으로 적어서(예: `/rgb\(\s
 | `theme-panel` | `Panel` 기본값(채움·테두리·모서리)만. 시뮬레이션이 직접 준 색은 그대로 |
 | `theme-checkbox` | 체크박스 기본 색 |
 | `theme-slider-thumb` | 슬라이더 손잡이 기본 색(PhET 파랑) → 강조색 |
+| `theme-button-flat-rectangular`, `theme-button-flat-round` | 사각·둥근 버튼의 입체 전략(`ThreeDAppearanceStrategy` 계열)이 만드는 그라데이션 칠을 평평한 한 가지 칠로 바꿉니다(기본 칠·마우스를 올린 칠·누른 칠·투명). 입체감을 내는 겹은 노드 트리에 그대로 남아(노드를 더하거나 빼지 않음) 배치 검사(V12)가 같게 나오고, 색에서 만든 어두운 테두리는 옅은 토큰 선(`phet.buttonStroke`)이 됩니다. `RectangularButton.ts` 34·`RectangularButton.js` 8·`RectangularButtonView.js` 21(소문자 `threeD…` 3개 포함)과 둥근 버튼 같은 계열 모두 |
+| `theme-button-flat-stroke`, `theme-button-flat-stroke-old` | `ButtonNode`의 평면 전략(콤보 상자 버튼 등이 씀)과 옛 계열 `*ButtonView`의 어두운 테두리 → 같은 옅은 선 |
+| `theme-radio-selected-stroke` | 라디오 버튼 묶음의 선택 테두리(검정) → `phet.selectedStroke`, 선택 안 한 쪽 짙은 회색 → 옅은 선 |
+| `theme-phet-color-scheme` | `RESET_ALL_BUTTON_BASE_COLOR`(주황) → `phet.resetAllButton`, `BUTTON_YELLOW` → `phet.zoomButton`(옛 5개는 이 값이 없음). `PhetColorScheme`의 물리 색은 그대로 |
+| `theme-shaded-sphere-flat`, `theme-shaded-rectangle-flat` | `ShadedSphereNode`는 방사형 그라데이션 대신 `mainColor` 한 가지, `ShadedRectangle`은 모든 겹을 `baseColor`로 칠하고 겹은 그대로 둠 |
+| `theme-accordion-box`, `theme-combo-box`, `theme-carousel`, `theme-carousel-button`, `theme-page-control`, `theme-expand-collapse-button`, `theme-arrow-button`, `theme-slider-track`(손잡이 테두리 포함), `theme-spectrum-slider`(막대 테두리와 커서 선만, 파장 색은 그대로), `theme-number-picker`, `theme-number-display`, `theme-probe-node` | 각 부품의 기본 색만(회색 칠·검정 테두리·순수 파랑 등 → 흰 카드·옅은 선·강조색). 모서리 반지름·두께·크기는 건드리지 않습니다 |
+
+공통 층이 읽는 값은 `tokens.json`의 `phet` 역할(`buttonStroke`, `resetAllButton`, `zoomButton`, `componentFill`·`componentStroke`·`componentHighlight`·`componentText`·`componentAccent`·`componentMuted`, `selectedStroke`)입니다. 역할은 `color` 묶음 말고 `sim` 묶음의 키(`line`, `controlActive`, `control`)도 가리킬 수 있습니다(`PHET_ROLE_GROUPS`). 그래서 `sim` 토큰을 읽는 전체 규칙의 값은 시뮬레이션별 해시에 풀린 역할 값(`phetColors`)으로 들어가고, `sim.line`을 고치면 63개가 다시 빌드됩니다. 규칙마다 63개 고정 버전에서 적용 수를 `node theme/patches/dry-run.mjs`로 확인합니다(필수 규칙은 63/63, 옛 계열에 없는 부품만 선택 규칙).
 
 자간(`tracking`)과 글자 크기는 시뮬레이션에 넣지 않습니다(캔버스 글자의 폭 계산이 달라져 배치가 바뀌므로). 시뮬레이션별로 더한 글자 크기는 없습니다.
 
@@ -130,7 +152,7 @@ chipper의 브랜드 목록이 63개 고정 버전마다 코드에 박혀 있어
 
 ## 패치 규칙의 모양 (invariant 9)
 
-모든 패치는 `theme/patches/index.mjs`의 `ALL_RULES` 목록에 있는 규칙뿐이고, 종류는 `theme`·`brand`·`telemetry` 셋입니다(한국어 문자열 고치기는 다른 작업).
+전체에 같은 글로 적용되는 패치는 `theme/patches/index.mjs`의 `ALL_RULES` 목록에 있는 규칙뿐이고, 종류는 `theme`·`brand`·`telemetry` 셋입니다(한국어 문자열 고치기 `terms`는 `theme/patches/terms.mjs`). 시뮬레이션 하나에만 적용되는 `sim-color`·`art` 규칙은 아래 「시뮬레이션 안쪽 디자인」에서 만들어집니다.
 규칙 하나 = 저장소 하나 + 후보 파일 + (정규식 고치기 | 파일 통째 바꾸기) + 필수 여부 + 이유 한 줄.
 63개 고정 버전의 파일이 제각각이라(예: `PhetButton` 29가지) 버전별 diff 대신 "PhET 원래 값을 찾아 토큰 값으로 바꾸는" 규칙으로 썼습니다. `node theme/patches/dry-run.mjs`가 git 미러에서 63개 버전 파일을 직접 읽어 규칙마다 적용 수와 파일 버전 수("SHA 계열")를 보여 줍니다.
 
@@ -208,7 +230,113 @@ T15가 확장합니다. 키를 지우거나 뜻을 바꾸지 말고 더하기만
 - 남겨 둔 것(이 브랜드에서는 화면·낭독기에 나오지 않음, `phetName` 검사로 확인):
   `menuItem.phetWebsite`("PhET 웹사이트", PhET 브랜드 전용 메뉴 항목), `donateToPhet`, `credits.thanks`(About의 제작진 칸은 PhET 브랜드에서만 보임),
   PhET-iO 설명 문자열(`phetioDocumentation` 등, PhET-iO 빌드에서만 쓰임), 소스 코드 주석·제3자 라이선스 목록, HTML 첫 줄 주석 `saved from url=(0026)https://phet.colorado.edu/`(IE용 표시).
-- 확인하지 않은 것: 설정 창·키보드 도움말 창을 실제로 열어 본 화면(검사기는 열지 않음; 위의 문자열 표 점검으로 대신함).
+- `check-sim`은 설정 창·키보드 도움말 창을 열지 않습니다. 이 두 창의 색은 `check-style`(V11)이 열어서 봅니다.
+
+## 시뮬레이션 안쪽 디자인
+
+사양 3.1에 따라 시뮬레이션 안쪽의 색과 그림도 토큰으로 옮깁니다. 값은 `theme/tokens.json`의 `sim` 묶음에만 있고, 시뮬레이션별 파일에는 값이 아니라 **토큰 경로**를 적습니다(`tests/theme/no-literals.test.mjs`가 `theme/` 아래 json·svg도 훑습니다).
+
+### 색 글자 하나를 토큰으로: `theme/sim-styles/<id>.json`
+
+```json
+{
+  "colors": [
+    { "repo": "faradays-law", "file": "js/faradays-law/view/MagnetNode.js",
+      "find": "new Color\\( ('[^']*') \\)", "occurrence": 2, "to": "sim.physics.magnetS" }
+  ],
+  "canvasNodes": [ "WaveCanvasNode" ],
+  "exceptions": [ { "kind": "fill", "node": "SpectrumNode", "reason": "파장에서 정해지는 색", "approvedBy": "대조표 승인" } ]
+}
+```
+
+- `colors`가 빌드를 바꿉니다. `find`는 정규식 **글**이라서 색 값을 파일에 쓰지 않아도 됩니다. 괄호 묶음(1번)이 있으면 그 부분이, 없으면 매치 전체가 바꿀 글자입니다. `occurrence`는 이 `find`의 매치가 파일 안에서 몇 번째인지(1부터)입니다. `to`는 `color.*` 또는 `sim.*` 경로입니다.
+- 규칙은 **색 글자 문법에 맞는 글자만** 바꿉니다: `Color.이름`, 따옴표 안의 `#16진수`·`rgb()`·`rgba()`·`hsl()`, `new Color(숫자들 / 따옴표 글자 / 0x16진수)`, CSS 색 이름 문자열. 그 밖의 글자가 걸리면 빌드가 멈춥니다. `Color.TRANSPARENT`와 `'transparent'`는 바꾸지 않습니다.
+- `Color.이름`은 `new Color( "토큰 색" )`으로 바뀌어서 뒤에 붙은 `.withAlpha( … )`가 그대로 동작합니다. 파일에 값으로 쓸 수 있는 `Color` 가져오기가 없으면 멈춥니다. 투명도가 1보다 작은 글자를 불투명 토큰으로 바꾸면 투명도는 유지됩니다.
+- 각 바꿈은 따로 한 번 더 적용해서 글자 비교(앞뒤 글자가 같은지)로 확인합니다. 해당 글자 밖이 바뀌면 멈춥니다.
+- 경로에 `model/`이 든 파일은 규칙을 만들 때와 패치 허용 목록(V10b) 두 곳에서 거절합니다. 모델 파일 안의 색은 `exceptions`에 적습니다.
+- `canvasNodes`, `exceptions`는 `check-style`(V11)이 읽습니다. 빌드 해시에는 들어가지 않습니다.
+  - `canvasNodes`: 장면 그래프 밖(캔버스·WebGL)에서 그려지는 노드의 클래스 이름. 이름에 들어 있지 않은 캔버스 노드가 화면에 있으면 지적합니다. 이 노드의 색은 화면 픽셀 검사로만 봅니다.
+  - `exceptions`: 항목마다 `kind`(`fill`·`stroke`·`gradient`·`image`·`pixels`·`contrast`·`canvas`), `reason`, `approvedBy`가 있어야 하고, 좁히는 칸 `screen`(홈 화면은 -1)·`dialog`(`keyboardHelp`·`preferences`)·`node`(클래스 이름)·`color`(`r,g,b`)는 선택입니다. `approvedBy`가 비었으면 그 예외는 아무것도 면제하지 않고 검사가 실패합니다. 시뮬레이션당 `sim.check.maxExceptions`건(20)을 넘으면 실패합니다. 스펙트럼·파장 색은 여기서 다룹니다.
+- 지금 `theme/sim-styles/`에는 `faradays-law.json`(색 31개), `circuit-construction-kit-dc.json`(색 108개: `circuit-construction-kit-common`과 `scenery-phet`의 글자, 예외 9건), `bsshs-photoelectric.json`(`canvasNodes`와 파장 색 예외 3건)이 있습니다. 파일이 없는 시뮬레이션은 공통 규칙만 받습니다.
+- 공유 저장소(`circuit-construction-kit-common`)의 색 규칙도 **그 시뮬레이션의 빌드 슬롯에서만** 적용됩니다. 규칙은 시뮬레이션별 파일이 만들고 해시도 시뮬레이션별이라, 같은 저장소를 쓰는 다른 CCK 시뮬레이션(`-ac`, `-virtual-lab`)은 자기 `sim-styles` 파일이 생길 때까지 색이 그대로입니다. 반대로 그림은 `art/map.json`이 저장소와 파일 이름으로 정하므로, 그림이 들어 있는 모든 시뮬레이션이 같은 새 그림을 받습니다.
+- 한계: 색 글자 문법 밖의 칠은 규칙으로 못 바꿉니다. 색을 계산하는 식(`backgroundColor.colorUtilsDarker( … )`)과 그라데이션 구조는 그대로라서 `exceptions`에 올립니다. 이미 토큰과 같은 값인 글자(예: `'#ffffff'` → `sim.surface`)는 앞뒤가 같아서 "바뀐 곳이 없다"는 가드에 걸리므로 항목에 쓰지 않습니다.
+
+### 그림 파일을 평면 그림으로: `theme/art/map.json`
+
+```json
+{ "entries": [ { "repo": "scenery-phet", "files": [ "images/eraser.png" ], "svg": "scenery-phet/eraser.svg", "size": "70x57" } ] }
+```
+
+- 항목 하나 = 그림 한 장. `files`는 고정 버전마다 다른 파일 이름들(예: `light-bulb-base.png`, `lightBulbBase.png`), `svg`는 `theme/art/` 아래 SVG, `size`(선택)는 이 크기의 PNG인 고정 버전에만 적용한다는 뜻입니다.
+- SVG는 `width`·`height`에 픽셀 크기를 적고, 색은 `{{sim.physics.copper}}`처럼 토큰 자리표시자로 씁니다. 토큰을 고치면 그림도 따라옵니다.
+- 빌드는 고정 버전의 저장소에 실제로 있는 파일만 바꿉니다. 같은 파일 이름이 있는데 맞는 항목이 없으면(다른 크기) 조용히 넘기지 않고 멈춥니다.
+- **크기 검사**: 그린 그림의 픽셀 크기가 원본 PNG와 다르면 빌드가 실패합니다(`CoilNode`의 `scale`, `LaserNode`의 `scale`, 도선 끝점처럼 코드가 그림 크기에 기대기 때문). 준비할 때 한 번, 규칙이 실제 파일을 만날 때 한 번 더 확인합니다.
+- 바꾸는 파일: `*.png`, 그 옆에 커밋된 모듈(`*_png.js`, `*_png.ts`, 밉맵 모듈 포함), 같은 폴더의 `license.json`. 밉맵은 원래 모듈과 같은 단계 수를 chipper의 `mipmapDownscale`과 같은 계산(감마 2.2, 투명도 가중)으로 다시 만듭니다. 모든 단계는 PNG로 씁니다. 모듈 모양을 모르면 추측하지 않고 멈춥니다.
+- 옛 RequireJS 계열(5개: charges-and-fields, pendulum-lab, plinko-probability, projectile-motion, under-pressure)은 커밋된 모듈이 없고 빌드의 그림 도구가 PNG를 읽습니다. 그래서 PNG와 `license.json`만 바뀝니다.
+- `license.json`에는 새 그림을 「이 프로젝트 기여자들의 새 저작물, GPL-3.0」으로 적습니다(원본 PhET 기록을 새 그림에 남기지 않음). `license.json`이 없는 폴더의 그림은 바꾸지 않고 멈춥니다. `.jpg`·`.svg` 원본은 바꾸지 않습니다.
+- SVG를 PNG로 바꾸는 일은 설치된 Chrome(Playwright)이 합니다. 결과 픽셀은 `$BSSHS_CACHE/bsshs-art/`에 SVG 글·크기·렌더러 버전의 해시로 저장해 다시 씁니다. PNG 파일은 같은 픽셀에서 항상 같은 바이트가 되도록 직접 인코딩합니다.
+- 지금 `theme/art/map.json`에는 32개 항목이 있습니다: `faradays-law` 코일 4장, `scenery-phet` 전구 밑동 1장(89×71은 63개 고정 버전 모두 같음), `circuit-construction-kit-common` 26장(전지·저항기·전구·도선·전류계·전압계·탐침·퓨즈·생활용품 등), `circuit-construction-kit-dc` 실험 화면 아이콘 1장. SVG는 원본 크기 그대로, 코일은 도선 끝점(`CoilNode`가 고정 좌표로 이음)이 원본과 같은 자리에 오도록 나선 식으로 그렸습니다.
+
+### 빌드 해시는 시뮬레이션마다
+
+이어 하기(`themeHash`)는 시뮬레이션마다 따로 계산합니다(`variantHash(tokens, opts, simId, simInput)`, `simVariantHash`). 들어가는 것:
+
+- 전체 규칙의 글: 규칙 id·후보 파일·찾는 패턴·**바꾸는 코드**(`replace`/`content` 함수 글)와, 그 코드가 읽는 값(`sim` 묶음을 뺀 토큰, 브랜드 필드)
+- 그 시뮬레이션의 `theme/sim-styles/<id>.json` `colors` (`to`를 토큰의 지금 값으로 풀어서)
+- 그 시뮬레이션의 고정 버전 저장소에 실제로 있는 파일에 대응하는 `theme/art` 항목의 SVG 글(자리표시자를 푼 것)
+- 새 시뮬레이션(`sims/`)은 소스가 토큰 모듈을 가져다 쓰도록 만들 수 있으므로 `sim` 묶음 전체
+
+그래서 한 시뮬레이션의 색 파일이나 그림을 고치면 그 시뮬레이션만 다시 빌드되고, `sim.physics.copper`를 고치면 그 토큰을 쓰는 시뮬레이션만 다시 빌드됩니다. 전체 규칙이나 `sim` 밖 토큰을 고치면 68개가 모두 다시 빌드됩니다. 빌드 기록의 `themeHash`가 이 값이고, V1이 같은 계산으로 맞춰 봅니다.
+
+### 규칙 종류와 허용 목록
+
+종류는 `theme`·`brand`·`telemetry`·`terms`에 더해 `sim-color`·`art`입니다. `tools/lib/verify-core.mjs`의 `PATCH_ALLOWLIST`:
+
+- `sim-color`: `babel`·`chipper`·`perennial-alias`·`brand`가 아닌 저장소의 `js/` 아래 `.js`·`.ts`
+- `art`: 같은 저장소 조건에서 `images/`·`mipmaps/` 아래 `*.png`, `*_png.js`, `*_png.ts`, `license.json`
+- 모든 종류에 `PATCH_DENY`가 적용됩니다: 경로에 `model/`이 든 파일은 어떤 규칙도 건드리지 못합니다.
+
+### 조사 도구: `theme/patches/color-inventory.mjs`
+
+```sh
+node theme/patches/color-inventory.mjs <시뮬레이션 id> [--repos a,b] [--all-libs] [--json]
+```
+
+고정 버전의 시뮬레이션 저장소와 그 시뮬레이션 전용 공통 저장소(공유 라이브러리는 뺌)에서 색 글자를 모두 찾아, 파일·줄·`occurrence`(일반 색 문법 `COLOR_SCAN_SOURCE`로 센 번호)·글자·모델 경로 여부·이미 `sim-styles`에 연결됐는지를 줄마다 보여 줍니다. 마지막 줄에 연결 안 된 개수(고칠 수 있는 것, 모델 경로라 예외로만 남길 수 있는 것, 문법이 못 바꾸는 것)를 셉니다. `--json`의 `suggest`에는 줄 앞쪽 글을 붙인 `find`와 그 `find`로 센 `occurrence`가 들어 있어 그대로 `sim-styles`에 옮길 수 있습니다. git 미러에서 읽기만 하며 체크아웃하지 않습니다.
+
+### 검사 도구 `tools/check-style.mjs` (V11)
+
+```sh
+node tools/check-style.mjs <빌드 html> [--id <id>] [--width 1280] [--settle 800] [--no-dialogs] [--styles-dir <폴더>]
+```
+
+시뮬레이션을 반복 가능한 시간 흐름으로 열고(난수 고정, 가상 시계, 건물이 다 지어진 뒤 정해진 프레임 수에서 시뮬레이션 시계 정지), 홈 화면과 모든 화면을 `compare-layout`과 같은 방법으로 돕니다. 내비게이션 줄에 버튼이 있으면 키보드 도움말 창(화면마다)과 설정 창(한 번)도 엽니다. 창의 노드는 열려 있는 동안만 장면 그래프에 보이므로 그때 훑습니다. 시계를 멈춘 동안 조이스트는 입력을 끄므로(`display.interactive`) 창을 열기 전에 입력만 다시 켭니다(모델은 계속 멈춰 있음).
+보는 것은 세 가지입니다.
+
+1. 장면 그래프: 보이는 노드의 칠·선 색이 팔레트 밖(`fill`·`stroke`), 그라데이션·패턴(`gradient`), 원본 그림과 같은 그림(`image`: 바이트 SHA-256 또는 픽셀 해시가 고정 버전 저장소의 PNG와 같음, 밉맵 단계 포함), 선언하지 않은 캔버스 노드(`canvas`). 투명도가 1보다 작은 색은 불투명 토큰으로 인정하지만, 불투명 검정이 투명 검정 토큰(`color.border`)에 가려지지는 않습니다.
+2. 화면 픽셀: 팔레트 밖 색의 비율이 `sim.check.outsideShareMax`를 넘으면 `pixels`. 팔레트 색이거나 팔레트 색 둘을 잇는 선 위의 색(가장자리 흐림, 부드러운 그림자)은 안으로 셉니다. 투명한 팔레트 색은 캔버스·카드 위에 올린 색으로 셉니다.
+3. 글자 대비: 보이는 글자 노드의 칠과 그 글자 상자 안 픽셀 중 글자색이 아닌 가장 흔한 색의 대비가 `sim.check.minContrast` 미만이면 `contrast`. 창 보기에서는 창이 새로 더한 글자만 셉니다.
+
+설정에 맞는 예외는 `excepted`로, 나머지는 `openFindings`로 나오며 끝 코드가 0이려면 `openFindings`와 `problems`가 모두 비어야 합니다. 출력은 한국어 한 줄 뒤에 JSON 한 줄(schemaVersion 1)입니다. 한계: 클래스 이름은 빌드에서 뭉개지므로 이름은 PhET 이름공간(`phet.scenery.Path`, `phet.faradaysLaw.MagnetNode`)에서 거꾸로 찾습니다. 이름공간에 등록되지 않은 클래스는 `anonymous`입니다. 실행 중 상호작용으로만 나타나는 색은 못 봅니다.
+
+### 검사 도구 `tools/compare-bounds.mjs` (V12)
+
+```sh
+node tools/compare-bounds.mjs --freeze [--force]      # 지금 빌드 68개를 고정본으로 복사 (이미 있으면 --force 없이는 거부)
+node tools/compare-bounds.mjs <id> [--current f] [--baseline f]
+node tools/compare-bounds.mjs --all [--jobs 4]
+```
+
+고정본은 `$BSSHS_CACHE/layout-baseline/<id>/<id>_ko.html`과 `baseline.json`(고정한 때, 그때의 커밋, 파일마다 크기·SHA-256)입니다. 임시 폴더에 다 복사한 뒤 한 번에 바꿔 끼우므로 중간에 멈춰도 반쪽 고정본이 남지 않습니다.
+비교는 고정본과 지금 빌드를 같은 반복 가능한 시간 흐름으로 열어(첫 측정 전에 이미 고정) 모든 화면에서 **자기 모양이 있는 노드**(선 두께를 뺀 도형, 글자 상자, 그림 상자)의 전역 상자를 비교합니다. 컨테이너는 비교하지 않습니다(선 두께가 바뀌면 모든 조상이 따라 바뀌기 때문). 노드는 자식 번호 경로와 이름공간 이름으로 짝지으며, 위치·크기가 `sim.check.boundsTolerance`(0.5px)보다 다르면 `changed`, 한쪽에만 있으면 `missing`/`added`, 보임 여부가 다르면 `visibility`로 시뮬레이션별로 나옵니다. 아무 노드도 비교하지 못하면 실패입니다. `--nondeterministic`은 진단용으로 반복 가능한 시간 흐름을 끕니다.
+
+### 검토 대조표 `tools/style-review.mjs`
+
+```sh
+node tools/style-review.mjs [--sims id,id | --all] [--out build/style-review]
+```
+
+`build/style-review/index.html`과 `img/` 폴더를 만듭니다. 시뮬레이션마다 화면별로 이전(고정본)과 이후(지금 빌드) 스크린샷을 나란히 놓고, V11 결과(열린 지적, 예외, 팔레트 밖 픽셀 비율이 가장 큰 화면, 가장 낮은 글자 대비)와 V12 결과(다른 노드 수)를 위에 모읍니다. 그림은 상대 경로 파일이라 `file://`로 바로 열립니다. 기본 대상은 `data/style-done.json`의 시뮬레이션이고 목록이 비어 있으면 `--sims`나 `--all`로 고릅니다.
 
 ## 서랍 키 (drawer keys)
 

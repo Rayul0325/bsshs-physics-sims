@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="199" height="79" viewBox="0 0 199 79">
+ <!-- high-voltage battery: dark body, warning triangle, grey end cap -->
+ <rect x="0" y="0" width="191" height="79" rx="9" fill="{{color.inverseSurface}}"/>
+ <path d="M128 0 H182 A9 9 0 0 1 191 9 V70 A9 9 0 0 1 182 79 H128 Z" fill="{{sim.physics.conductor}}"/>
+ <rect x="190" y="29" width="9" height="21" rx="4" fill="{{sim.physics.conductor}}"/>
+ <path d="M66 14 L96 66 H36 Z" fill="{{sim.physics.light}}" stroke="{{sim.physics.light}}" stroke-width="6" stroke-linejoin="round"/>
+ <path d="M70 28 L58 46 H66 L62 58 L76 40 H68 Z" fill="{{color.inverseSurface}}"/>
+</svg>
